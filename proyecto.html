@@ -484,37 +484,62 @@
       let images = [];
       let currentIdx = 0;
 
-      const fallbackProperty = {
-        id: "fallback-1",
-        title: "Residencial Rodríguez Javier I",
-        location: "Prado Oriental, Santo Domingo Este",
-        description: "Exclusivo proyecto residencial contemporáneo en Prado Oriental. Cuenta con amplias terrazas, cocinas modulares premium, terminaciones de mármol y áreas comunes recreativas con piscina e iluminación led integrada en cornisas.",
-        price: 145000,
-        m2: 145,
-        bedrooms: 3,
-        bathrooms: 2.5,
-        parking: 2,
-        status: "en_desarrollo",
-        image_urls: [
-          "assets/images/projects/proyecto-1.webp",
-          "assets/images/projects/proyecto-2.webp",
-          "assets/images/projects/proyecto-3.webp",
-          "assets/images/projects/proyecto-4.webp",
-          "assets/images/projects/proyecto-5.webp"
-        ]
+      const fallbackProperties = {
+        "fallback-1": {
+          id: "fallback-1",
+          title: "Residencial Duran",
+          location: "San Isidro, Santo Domingo Este",
+          description: "Exclusivo proyecto residencial contemporáneo de 3 casas en San Isidro. Unidades diseñadas con óptima distribución, terminaciones modernas, espacios amplios y confort para toda la familia.",
+          price: 175000,
+          m2: 150,
+          bedrooms: 3,
+          bathrooms: 2.5,
+          parking: 2,
+          status: "en_desarrollo",
+          image_urls: [
+            "assets/images/projects/duran-1.webp",
+            "assets/images/projects/duran-2.webp",
+            "assets/images/projects/duran-3.webp",
+            "assets/images/projects/duran-4.webp",
+            "assets/images/projects/duran-5.webp"
+          ]
+        },
+        "fallback-2": {
+          id: "fallback-2",
+          title: "Residencial Rodríguez II",
+          location: "San Isidro, Santo Domingo Este",
+          description: "Hermoso proyecto residencial de 6 exclusivas casas con diseño arquitectónico vanguardista en San Isidro. Cuenta con excelentes facilidades de financiamiento y terminación de primera calidad.",
+          price: 175000,
+          m2: 150,
+          bedrooms: 3,
+          bathrooms: 2.5,
+          parking: 2,
+          status: "en_desarrollo",
+          image_urls: [
+            "assets/images/projects/rodriguez-ii-1.webp",
+            "assets/images/projects/rodriguez-ii-2.webp",
+            "assets/images/projects/rodriguez-ii-3.webp",
+            "assets/images/projects/rodriguez-ii-4.webp",
+            "assets/images/projects/rodriguez-ii-5.webp"
+          ]
+        }
       };
 
       async function loadProjectDetails() {
         let prop = null;
 
-        if (propertyId === "fallback-1") {
+        if (propertyId === "fallback-1" || propertyId === "fallback-2") {
           const currentLang = localStorage.getItem("lorenzo_lang") || "es";
-          prop = { ...fallbackProperty };
+          prop = { ...fallbackProperties[propertyId] };
           
+          const titleKey = propertyId === "fallback-1" ? "re-duran-title" : "re-rod-title";
+          const locKey = propertyId === "fallback-1" ? "re-duran-loc" : "re-rod-loc";
+          const descKey = propertyId === "fallback-1" ? "re-duran-desc" : "re-rod-desc";
+
           if (translations[currentLang]) {
-            prop.title = translations[currentLang]["re-fallback-title"] || prop.title;
-            prop.location = translations[currentLang]["re-fallback-loc"] || prop.location;
-            prop.description = translations[currentLang]["re-fallback-desc"] || prop.description;
+            prop.title = translations[currentLang][titleKey] || prop.title;
+            prop.location = translations[currentLang][locKey] || prop.location;
+            prop.description = translations[currentLang][descKey] || prop.description;
           }
         } else {
           const savedUrl = localStorage.getItem("supabase_url") || "https://rnkktolpevqpcyvessfn.supabase.co";
