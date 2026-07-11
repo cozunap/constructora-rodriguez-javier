@@ -22,16 +22,16 @@
     const darkClass = isHome ? 'nav-dark' : '';
 
     const links = [
-      { href: 'index.html',      key: 'nav-home' },
-      { href: 'properties.html', key: 'nav-properties' },
-      { href: 'services.html',   key: 'nav-services' },
-      { href: 'about.html',      key: 'nav-about' },
-      { href: 'contact.html',    key: 'nav-contact' },
+      { href: 'index.html',      key: 'nav-home',       label: 'Inicio' },
+      { href: 'properties.html', key: 'nav-properties',  label: 'Propiedades' },
+      { href: 'services.html',   key: 'nav-services',    label: 'Servicios' },
+      { href: 'about.html',      key: 'nav-about',       label: 'Nosotros' },
+      { href: 'contact.html',    key: 'nav-contact',     label: 'Contacto' },
     ];
 
     const navLinks = links.map(l => {
       const active = page === l.href ? ' active' : '';
-      return `<a href="${l.href}" class="${active}" data-i18n="${l.key}">${l.key}</a>`;
+      return `<a href="${l.href}" class="${active}" data-i18n="${l.key}">${l.label}</a>`;
     }).join('');
 
     const el = document.createElement('nav');
