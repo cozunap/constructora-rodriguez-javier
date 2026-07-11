@@ -1928,21 +1928,21 @@ footer {
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-accent); /* Elegant orange/gold accent */
   letter-spacing: 1px;
   margin-bottom: 8px;
 }
 
 .property-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-headers);
   font-size: 1.35rem;
   margin: 0 0 8px 0;
-  color: var(--color-white);
+  color: var(--color-primary); /* Navy Blue title */
 }
 
 .property-specs-line {
   font-size: 0.82rem;
-  color: var(--color-gray);
+  color: var(--text-muted);
   letter-spacing: 0.5px;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -1957,10 +1957,69 @@ footer {
 }
 
 .property-price {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.4rem;
+  font-family: var(--font-headers);
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--color-primary);
+}
+
+/* --- BUSCADOR REAL ESTATE AVANZADO --- */
+.search-bar-widget {
+  background: var(--color-white);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.search-bar-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 20px;
+  align-items: end;
+}
+
+@media (max-width: 768px) {
+  .search-bar-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+.search-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-input-group label {
+  font-family: var(--font-headers);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-primary);
+}
+
+.search-input-group input, .search-input-group select {
+  background-color: var(--color-light);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px 16px;
+  border-radius: 4px;
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: var(--transition-fast);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-input-group input:focus, .search-input-group select:focus {
+  border-color: var(--color-primary);
+  background-color: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(42, 59, 104, 0.08);
 }
 
 /* Modal de Propiedades */
