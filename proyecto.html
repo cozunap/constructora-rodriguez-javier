@@ -19,18 +19,18 @@
   <style>
     /* Premium Real Estate Details Layout inspired by Casa de Campo RE */
     .project-detail-body {
-      background-color: var(--color-dark, hsl(220, 25%, 10%));
-      color: var(--color-light, hsl(210, 20%, 98%));
+      background-color: var(--color-light, #f8fafc);
+      color: var(--text-dark, #1e293b);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
     .project-navbar {
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -47,7 +47,7 @@
     }
 
     .project-navbar .btn-back {
-      color: var(--color-gray);
+      color: var(--text-dark);
       text-decoration: none;
       font-weight: 500;
       display: flex;
@@ -75,10 +75,10 @@
       width: 100%;
       height: 540px;
       margin-bottom: 30px;
-      border-radius: 16px;
+      border-radius: 8px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
     }
 
     @media (max-width: 768px) {
@@ -91,7 +91,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      background-color: #0b0f19;
+      background-color: #f1f5f9;
     }
 
     .gallery-hero-slides img {
@@ -116,11 +116,11 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      color: var(--text-dark);
       width: 44px;
       height: 44px;
       border-radius: 50%;
@@ -130,12 +130,13 @@
       align-items: center;
       font-size: 1.25rem;
       z-index: 10;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
 
     .gallery-arrow:hover {
       background: var(--color-primary);
       border-color: var(--color-primary);
+      color: white;
     }
 
     .gallery-arrow.prev { left: 20px; }
@@ -149,15 +150,15 @@
       transform: translateX(-50%);
       display: flex;
       gap: 10px;
-      background: rgba(15, 23, 42, 0.65);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       padding: 8px 12px;
-      border-radius: 12px;
+      border-radius: 8px;
       z-index: 10;
       max-width: 90%;
       overflow-x: auto;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
       scrollbar-width: none; /* Hide scrollbar Firefox */
     }
 
@@ -168,10 +169,10 @@
     .thumb-strip-box {
       width: 76px;
       height: 52px;
-      border-radius: 6px;
+      border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
-      opacity: 0.5;
+      opacity: 0.6;
       border: 2px solid transparent;
       transition: all 0.2s;
       flex-shrink: 0;
@@ -204,7 +205,7 @@
 
     /* Header text styling matching Casa de Campo */
     .listing-header-block {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
       padding-bottom: 25px;
       margin-bottom: 30px;
       display: flex;
@@ -215,16 +216,16 @@
     }
 
     .listing-title-block h1 {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-headers);
       font-size: 2.4rem;
       font-weight: 700;
       margin: 8px 0;
-      color: var(--color-white);
+      color: var(--color-primary);
     }
 
     .listing-title-block .location {
       font-size: 0.95rem;
-      color: var(--color-gray);
+      color: var(--text-muted);
       margin: 0;
       display: flex;
       align-items: center;
@@ -245,11 +246,11 @@
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: var(--color-gray);
+      color: var(--text-muted);
     }
 
     .listing-price-block .price-val {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-headers);
       font-size: 2.2rem;
       font-weight: 700;
       color: var(--color-primary);
@@ -259,18 +260,18 @@
 
     /* Collapsible/Expandable Description Panel */
     .description-panel h2 {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-headers);
       font-size: 1.4rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-top: 0;
       margin-bottom: 15px;
-      color: var(--color-white);
+      color: var(--color-primary);
     }
 
     .description-panel p {
       line-height: 1.8;
-      color: rgba(255, 255, 255, 0.85);
+      color: var(--text-dark);
       font-size: 1.05rem;
       white-space: pre-line; /* Preserves line breaks beautifully */
     }
@@ -281,13 +282,13 @@
     }
 
     .specs-section h2 {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-headers);
       font-size: 1.4rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 25px;
-      color: var(--color-white);
-      border-left: 3px solid var(--color-primary);
+      color: var(--color-primary);
+      border-left: 3px solid var(--color-accent);
       padding-left: 10px;
     }
 
@@ -298,7 +299,7 @@
     }
 
     .specs-table tr {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
 
     .specs-table td {
@@ -307,13 +308,13 @@
     }
 
     .specs-table td.label {
-      color: var(--color-gray);
+      color: var(--text-muted);
       font-weight: 500;
       width: 40%;
     }
 
     .specs-table td.value {
-      color: var(--color-white);
+      color: var(--text-dark);
       font-weight: 600;
       text-align: right;
     }
@@ -322,26 +323,26 @@
     .sidebar-widget {
       position: sticky;
       top: 100px;
-      background: #151f32; /* Deep solid slate background matching primary colors */
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
+      background: var(--color-white);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
       padding: 30px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
     }
 
     .sidebar-widget h3 {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-headers);
       font-size: 1.3rem;
       margin-top: 0;
       margin-bottom: 12px;
-      color: var(--color-white);
+      color: var(--color-primary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .sidebar-widget p {
       font-size: 0.95rem;
-      color: var(--color-gray);
+      color: var(--text-muted);
       line-height: 1.6;
       margin-bottom: 25px;
     }
@@ -352,7 +353,7 @@
       text-decoration: none;
       font-weight: 600;
       padding: 14px 20px;
-      border-radius: 8px;
+      border-radius: 4px;
       display: block;
       text-align: center;
       transition: background 0.2s, transform 0.1s;
@@ -361,11 +362,11 @@
       cursor: pointer;
       font-size: 1.05rem;
       box-sizing: border-box;
-      box-shadow: 0 5px 15px rgba(240, 98, 30, 0.2);
+      box-shadow: 0 5px 15px rgba(42, 59, 104, 0.15);
     }
 
     .btn-wa-action:hover {
-      background: hsl(24, 95%, 45%);
+      background: var(--color-primary-hover);
       transform: translateY(-2px);
     }
   </style>
