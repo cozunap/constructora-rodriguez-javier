@@ -1,1 +1,344 @@
-document.addEventListener("DOMContentLoaded",()=>{const e=document.getElementById("mobile-menu-toggle"),t=document.getElementById("nav-links"),n=document.querySelectorAll(".nav-links a");e&&t&&(e.addEventListener("click",()=>{const n="true"===e.getAttribute("aria-expanded");e.setAttribute("aria-expanded",!n),e.classList.toggle("active"),t.classList.toggle("active"),document.body.classList.toggle("no-scroll")}),n.forEach(n=>{n.addEventListener("click",()=>{e.setAttribute("aria-expanded","false"),e.classList.remove("active"),t.classList.remove("active"),document.body.classList.remove("no-scroll")})}));const a=document.querySelector("header");window.addEventListener("scroll",()=>{window.scrollY>50?a.classList.add("scrolled"):a.classList.remove("scrolled")});const s=document.querySelectorAll(".stat-number"),o=document.querySelector(".about-stats");let r=!1;if(o&&s.length>0){const e=new IntersectionObserver(t=>{t.forEach(t=>{t.isIntersecting&&!r&&(s.forEach(e=>{const t=+e.getAttribute("data-target");Math.abs(Math.floor(2e3/t));let n=0;const a=setInterval(()=>{n+=Math.ceil(t/40),n>=t?(e.textContent=t+(e.getAttribute("data-suffix")||""),clearInterval(a)):e.textContent=n+(e.getAttribute("data-suffix")||"")},30)}),r=!0,e.unobserve(t.target))})},{threshold:.5});e.observe(o)}const i=document.querySelectorAll(".filter-btn"),c=document.querySelectorAll(".portfolio-item");i.length>0&&c.length>0&&i.forEach(e=>{e.addEventListener("click",()=>{if(e.getAttribute("data-filter")){i.forEach(e=>e.classList.remove("active")),e.classList.add("active");const t=e.getAttribute("data-filter");c.forEach(e=>{e.classList.add("fade-out"),setTimeout(()=>{"all"===t||e.getAttribute("data-category")===t?(e.style.display="block",setTimeout(()=>e.classList.remove("fade-out"),50)):e.style.display="none"},300)})}})});const l=document.getElementById("service-detail-modal"),d=document.getElementById("modal-title"),u=document.getElementById("modal-body"),m=document.getElementById("modal-close-btn"),p=document.querySelectorAll(".srv-detail-btn");l&&m&&(p.forEach(e=>{e.addEventListener("click",()=>{const t=e.getAttribute("data-title-key"),n=e.getAttribute("data-desc-key");d.setAttribute("data-i18n",t),u.setAttribute("data-i18n",n);const a=localStorage.getItem("lorenzo_lang")||"es";window.switchLanguage(a),l.showModal(),document.body.classList.add("modal-open")})}),m.addEventListener("click",()=>{l.close(),document.body.classList.remove("modal-open")}),l.addEventListener("click",e=>{const t=l.getBoundingClientRect();t.top<=e.clientY&&e.clientY<=t.top+t.height&&t.left<=e.clientX&&e.clientX<=t.left+t.width||(l.close(),document.body.classList.remove("modal-open"))}));const g=document.getElementById("wa-widget-toggle"),y=document.getElementById("wa-widget-box"),b=document.getElementById("wa-widget-close"),v=document.getElementById("wa-start-chat-btn");g&&y&&(setTimeout(()=>{y.classList.add("visible")},5e3),g.addEventListener("click",()=>{y.classList.toggle("visible")}),b&&b.addEventListener("click",e=>{e.stopPropagation(),y.classList.remove("visible")}),v&&v.addEventListener("click",()=>{const e=encodeURIComponent("Hola Lorenzo Construcciones, me gustaría solicitar una cotización para una remodelación.");window.open(`https://wa.me/18299595350?text=${e}`,"_blank")}));const f=document.getElementById("contact-project-form"),h=document.getElementById("form-status-message");f&&h&&f.addEventListener("submit",e=>{e.preventDefault();const t=f.querySelector("button[type='submit']"),n=localStorage.getItem("lorenzo_lang")||"es";t.disabled=!0,t.innerHTML=`<span data-i18n="form-sending">${"es"===n?"Enviando...":"Sending..."}</span>`,setTimeout(()=>{f.reset(),t.disabled=!1,t.innerHTML=`<span data-i18n="form-btn">${"es"===n?"Enviar Solicitud":"Submit Request"}</span>`,h.className="form-status success",h.innerHTML=`<p data-i18n="form-success">${"es"===n?"¡Mensaje enviado con éxito! Nos pondremos en contacto contigo en breve.":"Message sent successfully! We will get in touch with you shortly."}</p>`,h.style.display="block",setTimeout(()=>{h.style.display="none"},5e3)},1500)});const L=document.getElementById("scroll-to-top");L&&(window.addEventListener("scroll",()=>{window.scrollY>300?L.classList.add("visible"):L.classList.remove("visible")}),L.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}));const w=document.getElementById("preloader");if(w){const e=()=>{setTimeout(()=>{w.classList.add("fade-out"),setTimeout(()=>{w.style.display="none"},600)},300)};"complete"===document.readyState?e():window.addEventListener("load",e)}document.querySelectorAll(".faq-question").forEach(e=>{e.addEventListener("click",()=>{const t=e.parentElement,n=e.nextElementSibling,a=t.classList.contains("active");document.querySelectorAll(".faq-item").forEach(e=>{e.classList.remove("active"),e.querySelector(".faq-answer").style.maxHeight=null,e.querySelector(".faq-question").setAttribute("aria-expanded","false")}),a||(t.classList.add("active"),n.style.maxHeight=n.scrollHeight+"px",e.setAttribute("aria-expanded","true"))})});const E=document.getElementById("cookie-banner"),k=document.getElementById("cookie-accept-btn");E&&k&&(localStorage.getItem("lorenzo_cookies_accepted")||setTimeout(()=>{E.classList.add("show")},2500),k.addEventListener("click",()=>{localStorage.setItem("lorenzo_cookies_accepted","true"),E.classList.remove("show")}));const x=document.getElementById("properties-grid");let S=[];const I={id:"fallback-1",title:"Residencial Duran",location:"San Isidro, Santo Domingo Este",description:"Hermosa y cómoda residencia ubicada en proyecto cerrado, ideal para familias que buscan seguridad, confort y una excelente ubicación en Santo Domingo Este.",price:175e3,m2:150,bedrooms:3,bathrooms:3.5,parking:2,status:"en_desarrollo",image_urls:["assets/images/projects/duran-2.webp","assets/images/projects/duran-3.webp","assets/images/projects/duran-4.webp","assets/images/projects/duran-5.webp","assets/images/projects/rodriguez-ii-1.webp","assets/images/projects/rodriguez-ii-2.webp"]},A={id:"fallback-2",title:"Residencial Rodríguez II",location:"San Isidro, Santo Domingo Este",description:"Hermoso proyecto residencial de 6 exclusivas casas con diseño arquitectónico vanguardista en San Isidro. Cuenta con excelentes facilidades de financiamiento y terminación de primera calidad.",price:175e3,m2:150,bedrooms:3,bathrooms:2.5,parking:2,status:"en_desarrollo",image_urls:["assets/images/projects/rodriguez-ii-1.webp","assets/images/projects/rodriguez-ii-2.webp","assets/images/projects/duran-4.webp","assets/images/projects/duran-5.webp"]};function q(e){x.innerHTML="";const t=localStorage.getItem("lorenzo_lang")||"es";e.forEach(e=>{const n=document.createElement("div");n.className="property-card",n.setAttribute("data-re-category",e.status);const a=e.image_urls&&e.image_urls.length>0?e.image_urls[0]:"assets/images/projects/duran-2.webp";let s="";s="en_venta"===e.status?translations[t]&&translations[t]["filter-sale"]||"En Venta":translations[t]&&translations[t]["tag-dev"]||"Preventa / En Desarrollo";let o=e.title,r=e.location;"fallback-1"===e.id&&translations[t]?(o=translations[t]["re-duran-title"]||o,r=translations[t]["re-duran-loc"]||r):"fallback-2"===e.id&&translations[t]&&(o=translations[t]["re-rod-title"]||o,r=translations[t]["re-rod-loc"]||r);const i=e.status,c=translations[t]&&translations[t]["btn-details"]||"Ver Detalles",l="es"===t?"HAB":"fr"===t?"CH":"BEDS",d="es"===t?"BAÑOS":"fr"===t?"BAINS":"BATHS",u=`${e.bedrooms} ${l} | ${e.bathrooms} ${d} | ${e.m2} M²`;n.innerHTML=`\n        <div class="property-img-box">\n          <img src="${a}" alt="${o}">\n          <span class="property-tag ${i}">${s}</span>\n        </div>\n        <div class="property-details">\n          <div class="property-location-tag">${r.toUpperCase()}</div>\n          <h3 class="property-title">${o}</h3>\n          <div class="property-specs-line">${u}</div>\n          \n          <div class="property-footer">\n            <span class="property-price">USD ${parseFloat(e.price).toLocaleString()}</span>\n            <a href="proyecto.html?id=${e.id}" class="btn btn-primary re-detail-btn" style="text-decoration: none; text-align: center;">${c}</a>\n          </div>\n        </div>\n      `,x.appendChild(n)})}window.addEventListener("storage",e=>{"lorenzo_lang"===e.key&&q(S)});const B=window.switchLanguage;window.switchLanguage=function(e){"function"==typeof B&&B(e),q(S)},async function(){if(!x)return;const e=localStorage.getItem("supabase_url")||"https://rnkktolpevqpcyvessfn.supabase.co",t=localStorage.getItem("supabase_anon_key");let n=[];if(t&&"undefined"!=typeof supabaseJs)try{const a=supabaseJs.createClient(e,t),{data:s,error:o}=await a.from("properties").select("*").order("created_at",{ascending:!1});!o&&s&&s.length>0&&(n=s)}catch(e){console.warn("Error cargando proyectos desde Supabase:",e)}S=[I,A,...n],q(S),function(){const e=document.querySelectorAll("[data-re-filter]");e.forEach(t=>{t.addEventListener("click",()=>{e.forEach(e=>e.classList.remove("active")),t.classList.add("active");const n=t.getAttribute("data-re-filter");document.querySelectorAll(".property-card").forEach(e=>{const t=e.getAttribute("data-re-category");e.style.display="all"===n||t===n?"flex":"none"})})})}()}();const _=document.createElement("style");_.textContent="\n    body, img {\n      -webkit-user-select: none;\n      -moz-user-select: none;\n      -ms-user-select: none;\n      user-select: none;\n    }\n    img {\n      -webkit-user-drag: none;\n      user-drag: none;\n    }\n    .security-overlay {\n      position: fixed;\n      top: 0;\n      left: 0;\n      width: 100vw;\n      height: 100vh;\n      background: rgba(15, 23, 42, 0.96);\n      backdrop-filter: blur(12px);\n      -webkit-backdrop-filter: blur(12px);\n      z-index: 999999;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      opacity: 0;\n      pointer-events: none;\n      transition: opacity 0.3s ease;\n    }\n    .security-overlay.active {\n      opacity: 1;\n      pointer-events: all;\n    }\n    .security-box {\n      background: rgba(30, 41, 59, 0.7);\n      border: 1px solid rgba(255, 255, 255, 0.1);\n      padding: 30px 40px;\n      border-radius: 12px;\n      box-shadow: 0 20px 40px rgba(0,0,0,0.5);\n      text-align: center;\n      max-width: 90%;\n      width: 400px;\n      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\n    }\n    .security-box p {\n      margin: 0;\n      color: #e2e8f0;\n      font-size: 14px;\n      font-family: 'Inter', sans-serif;\n      line-height: 1.6;\n    }\n    .security-box a {\n      color: var(--color-primary, #ff5a1f);\n      text-decoration: underline;\n      font-weight: 600;\n      transition: color 0.2s ease;\n    }\n    .security-box a:hover {\n      color: #ff7849;\n    }\n    .security-close-hint {\n      display: block;\n      margin-top: 15px;\n      font-size: 11px;\n      color: #94a3b8;\n      cursor: pointer;\n      text-transform: uppercase;\n      letter-spacing: 1px;\n    }\n    @keyframes popIn {\n      from { transform: scale(0.8); opacity: 0; }\n      to { transform: scale(1); opacity: 1; }\n    }\n  ",document.head.appendChild(_);const z=document.createElement("div");z.className="security-overlay",z.innerHTML='\n    <div class="security-box">\n      <p>Diseñado por <a href="https://cozuna.com" target="_blank" rel="noopener noreferrer">cozuna.com</a></p>\n      <span class="security-close-hint">Haz clic en cualquier parte para cerrar</span>\n    </div>\n  ',document.body.appendChild(z),document.addEventListener("contextmenu",e=>{e.preventDefault(),z.classList.add("active")}),document.addEventListener("keydown",e=>{"F12"===e.key&&(e.preventDefault(),z.classList.add("active")),(e.ctrlKey||e.metaKey)&&e.shiftKey&&"i"===e.key.toLowerCase()&&(e.preventDefault(),z.classList.add("active")),(e.ctrlKey||e.metaKey)&&e.shiftKey&&"j"===e.key.toLowerCase()&&(e.preventDefault(),z.classList.add("active")),(e.ctrlKey||e.metaKey)&&"u"===e.key.toLowerCase()&&(e.preventDefault(),z.classList.add("active")),(e.ctrlKey||e.metaKey)&&"s"===e.key.toLowerCase()&&(e.preventDefault(),z.classList.add("active"))}),z.addEventListener("click",e=>{"A"!==e.target.tagName&&z.classList.remove("active")})});
+/* js/app.js — Multi-page real estate site logic */
+(function () {
+  'use strict';
+
+  /* ── Property Data ──────────────────────────────────────────── */
+  const FALLBACK_PROPERTIES = [
+    {
+      id: 'fallback-1',
+      title_key: 're-duran-title',
+      location_key: 're-duran-loc',
+      title: 'Residencial Duran',
+      location: 'Residencial María Mercedes, Aut. San Isidro, SDE',
+      price: 175000,
+      m2: 150,
+      bedrooms: 3,
+      bathrooms: 3.5,
+      parking: 2,
+      status: 'en_desarrollo',
+      image_urls: [
+        'assets/images/projects/duran-2.webp',
+        'assets/images/projects/duran-3.webp',
+        'assets/images/projects/duran-4.webp',
+        'assets/images/projects/duran-5.webp',
+        'assets/images/projects/rodriguez-ii-1.webp',
+        'assets/images/projects/rodriguez-ii-2.webp',
+      ]
+    },
+    {
+      id: 'fallback-2',
+      title_key: 're-rod-title',
+      location_key: 're-rod-loc',
+      title: 'Residencial Rodríguez II',
+      location: 'San Isidro, Santo Domingo Este',
+      price: 175000,
+      m2: 150,
+      bedrooms: 3,
+      bathrooms: 2.5,
+      parking: 2,
+      status: 'en_desarrollo',
+      image_urls: [
+        'assets/images/projects/rodriguez-ii-1.webp',
+        'assets/images/projects/rodriguez-ii-2.webp',
+        'assets/images/projects/duran-4.webp',
+        'assets/images/projects/duran-5.webp',
+      ]
+    },
+    {
+      id: 'fallback-3',
+      title_key: 're-c1-title',
+      location_key: 're-c1-loc',
+      title: 'Villa Marina & Golf',
+      location: 'Casa de Campo, La Romana',
+      price: 0,
+      m2: 800,
+      bedrooms: 6,
+      bathrooms: 7.5,
+      parking: 6,
+      status: 'disponible',
+      image_urls: [
+        'assets/images/projects/duran-3.webp',
+        'assets/images/projects/duran-2.webp',
+      ]
+    },
+    {
+      id: 'fallback-4',
+      title_key: 're-c2-title',
+      location_key: 're-c2-loc',
+      title: 'Cap Cana Oceanfront Villa',
+      location: 'Cap Cana, Punta Cana',
+      price: 0,
+      m2: 650,
+      bedrooms: 5,
+      bathrooms: 6.5,
+      parking: 4,
+      status: 'disponible',
+      image_urls: [
+        'assets/images/projects/rodriguez-ii-2.webp',
+        'assets/images/projects/rodriguez-ii-1.webp',
+      ]
+    },
+    {
+      id: 'fallback-5',
+      title_key: 're-c3-title',
+      location_key: 're-c3-loc',
+      title: 'Las Terrenas Beachside Penthouse',
+      location: 'Playa Las Ballenas, Las Terrenas',
+      price: 0,
+      m2: 200,
+      bedrooms: 3,
+      bathrooms: 3.5,
+      parking: 2,
+      status: 'disponible',
+      image_urls: [
+        'assets/images/projects/duran-5.webp',
+        'assets/images/projects/duran-4.webp',
+      ]
+    }
+  ];
+
+  let allProperties = [...FALLBACK_PROPERTIES];
+
+  /* ── Helpers ─────────────────────────────────────────────────── */
+  function t(key) {
+    const lang = localStorage.getItem('lorenzo_lang') || 'es';
+    return (window.translations && translations[lang] && translations[lang][key]) || key;
+  }
+
+  function formatPrice(price) {
+    if (!price || price === 0) return t('price-consultar') || 'Precio a consultar';
+    return 'USD ' + parseFloat(price).toLocaleString();
+  }
+
+  function statusBadge(status) {
+    if (status === 'en_desarrollo') return `<span class="prop-card-badge gold">${t('tag-dev')}</span>`;
+    return `<span class="prop-card-badge">${t('filter-sale') || 'En Venta'}</span>`;
+  }
+
+  function specIcon(type) {
+    const icons = {
+      beds:  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5"/><path d="M2 11h20"/></svg>',
+      baths: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="2" y1="12" x2="22" y2="12"/></svg>',
+      area:  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>',
+    };
+    return icons[type] || '';
+  }
+
+  /* ── Property Card Builder ───────────────────────────────────── */
+  function buildCard(prop) {
+    const title = t(prop.title_key) !== prop.title_key ? t(prop.title_key) : prop.title;
+    const loc   = t(prop.location_key) !== prop.location_key ? t(prop.location_key) : prop.location;
+    const img   = prop.image_urls && prop.image_urls[0] ? prop.image_urls[0] : 'assets/images/projects/duran-2.webp';
+
+    const card = document.createElement('article');
+    card.className = 'prop-card fade-up';
+    card.setAttribute('data-status', prop.status);
+    card.setAttribute('data-id', prop.id);
+    card.innerHTML = `
+      <a href="proyecto.html?id=${prop.id}" class="prop-detail-link" style="display:block;color:inherit">
+        <div class="prop-card-img">
+          <img src="${img}" alt="${title}" loading="lazy">
+          ${statusBadge(prop.status)}
+        </div>
+        <div class="prop-card-body">
+          <p class="prop-card-location">${loc}</p>
+          <h3 class="prop-card-title">${title}</h3>
+          <p class="prop-card-price">${formatPrice(prop.price)}</p>
+          <div class="prop-card-specs">
+            <span class="prop-card-spec">${specIcon('beds')} ${prop.bedrooms} ${t('spec-beds') || 'Hab.'}</span>
+            <span class="prop-card-spec">${specIcon('baths')} ${prop.bathrooms} ${t('spec-baths') || 'Baños'}</span>
+            <span class="prop-card-spec">${specIcon('area')} ${prop.m2} m²</span>
+          </div>
+        </div>
+      </a>`;
+    return card;
+  }
+
+  /* ── Render Properties Grid ─────────────────────────────────── */
+  function renderGrid(containerEl, properties, filter = 'all') {
+    containerEl.innerHTML = '';
+    const filtered = filter === 'all' ? properties : properties.filter(p => p.status === filter);
+    if (filtered.length === 0) {
+      const nr = document.getElementById('no-results');
+      if (nr) nr.style.display = 'block';
+      return;
+    }
+    const nr = document.getElementById('no-results');
+    if (nr) nr.style.display = 'none';
+
+    filtered.forEach(p => containerEl.appendChild(buildCard(p)));
+
+    // Re-trigger fade-up for newly added cards
+    if (window.IntersectionObserver) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      containerEl.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    }
+  }
+
+  /* ── Filter Buttons ─────────────────────────────────────────── */
+  function initFilters(containerEl, properties) {
+    const btns = document.querySelectorAll('.filter-btn');
+    if (!btns.length) return;
+    let currentFilter = 'all';
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter') || 'all';
+        renderGrid(containerEl, properties, currentFilter);
+      });
+    });
+  }
+
+  /* ── Property Detail Page ───────────────────────────────────── */
+  function initDetailPage() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    if (!id) return;
+
+    const prop = allProperties.find(p => p.id === id);
+    if (!prop) return;
+
+    const title     = t(prop.title_key) !== prop.title_key ? t(prop.title_key) : prop.title;
+    const loc       = t(prop.location_key) !== prop.location_key ? t(prop.location_key) : prop.location;
+    const descKey   = id === 'fallback-1' ? 're-duran-desc' : id === 'fallback-2' ? 're-rod-desc' : id === 'fallback-3' ? 're-c1-desc' : id === 'fallback-4' ? 're-c2-desc' : 're-c3-desc';
+    const desc      = t(descKey);
+
+    // Page title
+    document.title = `${title} | Constructora Rodríguez Javier`;
+
+    // Populate elements if they exist
+    const set = (sel, val, html = false) => {
+      const el = document.querySelector(sel);
+      if (el) { html ? el.innerHTML = val : el.textContent = val; }
+    };
+
+    set('#detail-title', title);
+    set('#detail-location', loc);
+    set('#detail-price', formatPrice(prop.price));
+    set('#detail-m2', prop.m2 + ' m²');
+    set('#detail-beds', prop.bedrooms);
+    set('#detail-baths', prop.bathrooms);
+    set('#detail-park', prop.parking);
+
+    // Description (preserve newlines)
+    const descEl = document.querySelector('#detail-desc');
+    if (descEl) {
+      descEl.innerHTML = desc
+        .split('\n')
+        .map(line => line.trim() ? `<p style="margin-bottom:.5rem">${line}</p>` : '')
+        .join('');
+    }
+
+    // Image carousel
+    const carousel = document.getElementById('detail-carousel');
+    if (carousel && prop.image_urls) {
+      carousel.innerHTML = '';
+      prop.image_urls.forEach((url, i) => {
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = `${title} — imagen ${i + 1}`;
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        img.style.cssText = `width:100%;height:100%;object-fit:cover;display:${i === 0 ? 'block' : 'none'};`;
+        img.setAttribute('data-index', i);
+        carousel.appendChild(img);
+      });
+
+      // Thumbnails
+      const thumbs = document.getElementById('detail-thumbs');
+      if (thumbs) {
+        thumbs.innerHTML = '';
+        prop.image_urls.forEach((url, i) => {
+          const btn = document.createElement('button');
+          btn.style.cssText = `border:2px solid ${i === 0 ? 'var(--gold)' : 'var(--mid)'};border-radius:2px;overflow:hidden;cursor:pointer;padding:0;background:none;`;
+          btn.innerHTML = `<img src="${url}" alt="thumb" style="width:70px;height:52px;object-fit:cover;display:block;">`;
+          btn.addEventListener('click', () => {
+            carousel.querySelectorAll('img').forEach((im, idx) => im.style.display = idx === i ? 'block' : 'none');
+            thumbs.querySelectorAll('button').forEach((b, idx) => b.style.borderColor = idx === i ? 'var(--gold)' : 'var(--mid)');
+          });
+          thumbs.appendChild(btn);
+        });
+      }
+    }
+
+    // Status badge on detail page
+    const badgeEl = document.getElementById('detail-badge');
+    if (badgeEl) badgeEl.innerHTML = statusBadge(prop.status);
+
+    // Back link
+    const backEl = document.querySelector('.detail-back');
+    if (backEl) backEl.href = 'properties.html';
+  }
+
+  /* ── Homepage featured grid ─────────────────────────────────── */
+  function initHomePage() {
+    // Re-render featured cards with translated text
+    const grid = document.getElementById('featured-props');
+    if (!grid) return;
+    grid.innerHTML = '';
+    FALLBACK_PROPERTIES.slice(0, 3).forEach(p => grid.appendChild(buildCard(p)));
+    if (window.IntersectionObserver) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      grid.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    }
+  }
+
+  /* ── Supabase Loader ─────────────────────────────────────────── */
+  async function loadFromSupabase() {
+    const url  = localStorage.getItem('supabase_url') || 'https://rnkktolpevqpcyvessfn.supabase.co';
+    const key  = localStorage.getItem('supabase_anon_key');
+    if (!key || typeof supabase === 'undefined') return;
+    try {
+      const client = supabase.createClient(url, key);
+      const { data, error } = await client.from('properties').select('*').order('created_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        allProperties = [...FALLBACK_PROPERTIES, ...data];
+      }
+    } catch (e) {
+      console.warn('Supabase load error:', e);
+    }
+  }
+
+  /* ── Init ─────────────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadFromSupabase();
+
+    const page = window.location.pathname.replace(/\/$/, '').split('/').pop() || 'index.html';
+
+    if (page === 'index.html' || page === '') {
+      initHomePage();
+    }
+
+    if (page === 'properties.html') {
+      const grid = document.getElementById('props-grid');
+      if (grid) {
+        renderGrid(grid, allProperties, 'all');
+        initFilters(grid, allProperties);
+      }
+    }
+
+    if (page === 'proyecto.html') {
+      initDetailPage();
+    }
+
+    // Re-render on lang switch
+    const origSwitch = window.switchLanguage;
+    window.switchLanguage = function(lang) {
+      if (typeof origSwitch === 'function') origSwitch(lang);
+      if (page === 'index.html' || page === '') initHomePage();
+      if (page === 'properties.html') {
+        const grid = document.getElementById('props-grid');
+        const active = document.querySelector('.filter-btn.active');
+        const filter = active ? (active.getAttribute('data-filter') || 'all') : 'all';
+        if (grid) renderGrid(grid, allProperties, filter);
+      }
+      if (page === 'proyecto.html') initDetailPage();
+    };
+  });
+
+})();

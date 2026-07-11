@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios de Construcción y Remodelación | Constructora Rodríguez Javier</title>
+  <meta name="description" content="Servicios premium de remodelación de cocinas, baños, ebanistería a medida y construcción general en Santo Domingo. Coordinación remota para dominicanos en USA.">
+  <link rel="canonical" href="https://constructora-rodriguez-javier.pages.dev/services.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .process-steps { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:2rem; margin-top:3rem; }
+    .process-step { text-align:center; }
+    .step-num { font-family:var(--font-serif); font-size:3rem; color:var(--mid); font-weight:400; line-height:1; margin-bottom:.75rem; }
+    .process-step h3 { font-size:1rem; font-weight:600; color:var(--navy); margin-bottom:.5rem; }
+    .process-step p { font-size:.875rem; color:var(--muted); }
+    .service-full { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; padding-block:4rem; border-bottom:1px solid var(--mid); }
+    .service-full:last-child { border-bottom:none; }
+    .service-full.reverse .service-full-text { order:2; }
+    .service-full.reverse .service-full-img  { order:1; }
+    .service-full-img img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:2px; }
+    .service-full-text .overline { margin-bottom:.75rem; }
+    .service-full-text h2 { font-family:var(--font-serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:400; color:var(--navy); margin-bottom:1rem; }
+    .service-full-text ul { margin-top:1rem; display:flex; flex-direction:column; gap:.5rem; }
+    .service-full-text ul li { font-size:.9rem; color:var(--muted); padding-left:1.25rem; position:relative; }
+    .service-full-text ul li::before { content:'→'; position:absolute; left:0; color:var(--gold); font-size:.8rem; }
+    @media(max-width:768px){
+      .service-full { grid-template-columns:1fr; gap:2rem; }
+      .service-full.reverse .service-full-text,.service-full.reverse .service-full-img { order:unset; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav injected -->
+
+  <!-- ── Page Hero ─────────────────────────────── -->
+  <div class="page-hero">
+    <div class="container">
+      <p class="overline" data-i18n="services-subtitle">Servicios Especializados</p>
+      <h1 data-i18n="services-title">Soluciones Integrales de Construcción</h1>
+      <p data-i18n="services-desc">Manejamos desde el diseño conceptual en 3D hasta la entrega llave en mano, garantizando un proceso libre de estrés.</p>
+    </div>
+  </div>
+
+  <!-- ── Service Detail Blocks ─────────────────── -->
+  <section class="section" aria-label="Detalle de servicios">
+    <div class="container">
+
+      <!-- Interior Design -->
+      <div class="service-full">
+        <div class="service-full-img fade-up">
+          <img src="assets/images/projects/rodriguez-ii-1.webp" alt="Diseño de Interiores" loading="lazy">
+        </div>
+        <div class="service-full-text fade-up">
+          <p class="overline">01</p>
+          <div class="gold-line"></div>
+          <h2 data-i18n="srv-interior-title">Diseño de Interiores &amp; Remodelaciones</h2>
+          <p class="lead" data-i18n="srv-interior-desc">Transformación total de apartamentos, penthouses y residencias con acabados de primera.</p>
+          <ul>
+            <li data-i18n="modal-srv-interior-desc">Diseño 3D realista antes de iniciar la obra física.</li>
+            <li>Cocinas de cuarzo y granito a medida</li>
+            <li>Baños tipo spa con porcelanato importado</li>
+            <li>Iluminación LED integrada en cornisas</li>
+            <li>Coordinación 100% remota disponible</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
+        </div>
+      </div>
+
+      <!-- Construction -->
+      <div class="service-full reverse">
+        <div class="service-full-text fade-up">
+          <p class="overline">02</p>
+          <div class="gold-line"></div>
+          <h2 data-i18n="srv-civil-title">Construcción &amp; Ampliaciones</h2>
+          <p class="lead" data-i18n="srv-civil-desc">Estructuras residenciales y comerciales sólidas y seguras, cumpliendo con todas las normas vigentes.</p>
+          <ul>
+            <li>Construcciones residenciales desde cero</li>
+            <li>Ampliaciones de niveles y terrazas</li>
+            <li>Locales comerciales y oficinas</li>
+            <li>Supervisión técnica de ingenieros colegiados</li>
+            <li>Garantía estructural por escrito</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
+        </div>
+        <div class="service-full-img fade-up">
+          <img src="assets/images/projects/duran-3.webp" alt="Construcción" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Woodwork -->
+      <div class="service-full">
+        <div class="service-full-img fade-up">
+          <img src="assets/images/projects/duran-4.webp" alt="Ebanistería" loading="lazy">
+        </div>
+        <div class="service-full-text fade-up">
+          <p class="overline">03</p>
+          <div class="gold-line"></div>
+          <h2 data-i18n="srv-wood-title">Ebanistería &amp; Diseños a Medida</h2>
+          <p class="lead" data-i18n="srv-wood-desc">Cocinas modulares, clósets y mobiliario hechos con maderas preciosas y herrajes premium.</p>
+          <ul>
+            <li>Cocinas modulares hidrófugas de alta durabilidad</li>
+            <li>Clósets en roble y maderas selectas</li>
+            <li>Puertas sólidas con acabado lacado</li>
+            <li>Muebles de baño a medida</li>
+            <li>Tiempo de entrega garantizado por contrato</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
+        </div>
+      </div>
+
+      <!-- Project Management -->
+      <div class="service-full reverse">
+        <div class="service-full-text fade-up">
+          <p class="overline">04</p>
+          <div class="gold-line"></div>
+          <h2 data-i18n="srv-project-title">Gestión &amp; Dirección de Obra</h2>
+          <p class="lead" data-i18n="srv-project-desc">Planificación rigurosa, compras, control de presupuesto y supervisión técnica constante.</p>
+          <ul>
+            <li>Informes semanales con fotos y video</li>
+            <li>Compras directas a proveedores líderes</li>
+            <li>Control estricto de cronogramas</li>
+            <li>Gestión de permisos y documentación</li>
+            <li>Ideal para dominicanos residentes en USA</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
+        </div>
+        <div class="service-full-img fade-up">
+          <img src="assets/images/projects/rodriguez-ii-2.webp" alt="Gestión de Obra" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Process ────────────────────────────────── -->
+  <section class="section section--light" aria-label="Nuestro proceso">
+    <div class="container">
+      <div class="text-center fade-up" style="max-width:480px;margin-inline:auto;margin-bottom:1rem">
+        <p class="overline">Nuestro Proceso</p>
+        <div class="gold-line" style="margin-inline:auto"></div>
+        <h2 class="display-sm">Simple. Transparente. Sin estrés.</h2>
+      </div>
+      <div class="process-steps">
+        <div class="process-step fade-up">
+          <div class="step-num">01</div>
+          <h3>Consulta Inicial</h3>
+          <p>Contacto por WhatsApp, Zoom o correo. Sin compromiso.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">02</div>
+          <h3>Diseño en 3D</h3>
+          <p>Visualiza tu proyecto antes de iniciar cualquier obra.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">03</div>
+          <h3>Contrato Claro</h3>
+          <p>Presupuesto fijo, cronograma y garantías por escrito.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">04</div>
+          <h3>Ejecución &amp; Reportes</h3>
+          <p>Supervisión semanal con fotos y video. Tú siempre informado.</p>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">05</div>
+          <h3>Entrega Llave en Mano</h3>
+          <p>Tu espacio listo, impecable y con garantía incluida.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ────────────────────────────────────── -->
+  <div class="cta-banner">
+    <div class="container">
+      <p class="overline" data-i18n="cta-overline">¿Listo para empezar?</p>
+      <h2 data-i18n="cta-title">Hablemos de tu Proyecto</h2>
+      <p data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
+      <div class="cta-banner-actions">
+        <a href="contact.html" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
+        <a href="properties.html" class="btn btn-outline-white" data-i18n="nav-properties">Ver Propiedades</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer injected -->
+  <script src="js/lang.js"></script>
+  <script src="js/components.js"></script>
+</body>
+</html>

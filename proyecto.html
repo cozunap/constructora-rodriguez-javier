@@ -4,669 +4,225 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalles del Proyecto | Constructora Rodríguez Javier</title>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Stylesheet -->
+  <meta name="description" content="Detalles completos del proyecto: precios, especificaciones, imágenes y forma de pago. Constructora Rodríguez Javier SRL — República Dominicana.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
   <link rel="stylesheet" href="css/styles.css">
-  
-  <!-- Supabase CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
   <style>
-    /* Premium Real Estate Details Layout inspired by Casa de Campo RE */
-    .project-detail-body {
-      background-color: var(--color-light, #f8fafc);
-      color: var(--text-dark, #1e293b);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project-navbar {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 15px 0;
-    }
-
-    .project-navbar-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-    }
-
-    .project-navbar .btn-back {
-      color: var(--text-dark);
-      text-decoration: none;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: color 0.2s;
-    }
-
-    .project-navbar .btn-back:hover {
-      color: var(--color-primary);
-    }
-
-    .project-main {
-      flex: 1;
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    /* FULL-WIDTH HERO SLIDESHOW CONTAINER */
-    .gallery-hero-container {
-      position: relative;
-      width: 100%;
-      height: 540px;
-      margin-bottom: 30px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-    }
-
-    @media (max-width: 768px) {
-      .gallery-hero-container {
-        height: 320px;
-      }
-    }
-
-    .gallery-hero-slides {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background-color: #f1f5f9;
-    }
-
-    .gallery-hero-slides img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Full bleed layout */
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-      z-index: 1;
-    }
-
-    .gallery-hero-slides img.active {
-      opacity: 1;
-      z-index: 2;
-    }
-
-    /* Overlay Navigation Arrows */
-    .gallery-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      color: var(--text-dark);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.25rem;
-      z-index: 10;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-    }
-
-    .gallery-arrow:hover {
-      background: var(--color-primary);
-      border-color: var(--color-primary);
-      color: white;
-    }
-
-    .gallery-arrow.prev { left: 20px; }
-    .gallery-arrow.next { right: 20px; }
-
-    /* Horizontal Thumbnail Strip sitting inside the slideshow bottom */
-    .gallery-thumbs-strip {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 8px 12px;
-      border-radius: 8px;
-      z-index: 10;
-      max-width: 90%;
-      overflow-x: auto;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      scrollbar-width: none; /* Hide scrollbar Firefox */
-    }
-
-    .gallery-thumbs-strip::-webkit-scrollbar {
-      display: none; /* Hide scrollbar Chrome/Safari */
-    }
-
-    .thumb-strip-box {
-      width: 76px;
-      height: 52px;
-      border-radius: 4px;
-      overflow: hidden;
-      cursor: pointer;
-      opacity: 0.6;
-      border: 2px solid transparent;
-      transition: all 0.2s;
-      flex-shrink: 0;
-    }
-
-    .thumb-strip-box.active, .thumb-strip-box:hover {
-      opacity: 1;
-      border-color: var(--color-primary);
-    }
-
-    .thumb-strip-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Structured Layout Grid */
-    .detail-layout-grid {
+    /* Detail Page Specific */
+    .detail-layout {
       display: grid;
-      grid-template-columns: 2.2fr 1fr;
-      gap: 40px;
-      margin-top: 30px;
+      grid-template-columns: 1fr 360px;
+      gap: 3rem;
+      align-items: start;
     }
-
-    @media (max-width: 968px) {
-      .detail-layout-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Header text styling matching Casa de Campo */
-    .listing-header-block {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-      padding-bottom: 25px;
-      margin-bottom: 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .listing-title-block h1 {
-      font-family: var(--font-headers);
-      font-size: 2.4rem;
-      font-weight: 700;
-      margin: 8px 0;
-      color: var(--color-primary);
-    }
-
-    .listing-title-block .location {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .listing-price-block {
-      text-align: right;
-    }
-
-    @media (max-width: 768px) {
-      .listing-price-block {
-        text-align: left;
-      }
-    }
-
-    .listing-price-block .price-lbl {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-    }
-
-    .listing-price-block .price-val {
-      font-family: var(--font-headers);
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      margin-top: 2px;
-      display: block;
-    }
-
-    /* Collapsible/Expandable Description Panel */
-    .description-panel h2 {
-      font-family: var(--font-headers);
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 0;
-      margin-bottom: 15px;
-      color: var(--color-primary);
-    }
-
-    .description-panel p {
-      line-height: 1.8;
-      color: var(--text-dark);
-      font-size: 1.05rem;
-      white-space: pre-line; /* Preserves line breaks beautifully */
-    }
-
-    /* Structured Amenities & Specifications Tables */
-    .specs-section {
-      margin-top: 40px;
-    }
-
-    .specs-section h2 {
-      font-family: var(--font-headers);
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 25px;
-      color: var(--color-primary);
-      border-left: 3px solid var(--color-accent);
-      padding-left: 10px;
-    }
-
-    .specs-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 30px;
-    }
-
-    .specs-table tr {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    .specs-table td {
-      padding: 15px 10px;
-      font-size: 0.95rem;
-    }
-
-    .specs-table td.label {
-      color: var(--text-muted);
-      font-weight: 500;
-      width: 40%;
-    }
-
-    .specs-table td.value {
-      color: var(--text-dark);
-      font-weight: 600;
-      text-align: right;
-    }
-
-    /* Contact and Whatsapp Sidebar Box */
-    .sidebar-widget {
+    .detail-main {}
+    .detail-sidebar {
       position: sticky;
-      top: 100px;
-      background: var(--color-white);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+      top: calc(var(--nav-h) + 2rem);
     }
 
-    .sidebar-widget h3 {
-      font-family: var(--font-headers);
-      font-size: 1.3rem;
-      margin-top: 0;
-      margin-bottom: 12px;
-      color: var(--color-primary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    /* Carousel */
+    .carousel-wrap { border-radius: 3px; overflow: hidden; background: var(--light); }
+    .carousel-main { aspect-ratio: 16/10; overflow: hidden; position: relative; }
+    .carousel-main img { width: 100%; height: 100%; object-fit: cover; }
+    .carousel-thumbs {
+      display: flex;
+      gap: .5rem;
+      padding: .75rem;
+      overflow-x: auto;
+      background: var(--off-white);
+      border-top: 1px solid var(--mid);
     }
+    .carousel-thumbs button { flex-shrink: 0; border-radius: 2px; overflow: hidden; cursor: pointer; border: 2px solid transparent; padding: 0; background: none; transition: border-color .2s; }
+    .carousel-thumbs button img { width: 80px; height: 58px; object-fit: cover; display: block; }
+    .carousel-thumbs button.active { border-color: var(--gold); }
 
-    .sidebar-widget p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 25px;
+    /* Specs strip */
+    .specs-strip {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--mid);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 1.75rem 0;
     }
-
-    .btn-wa-action {
-      background: var(--color-primary);
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 14px 20px;
-      border-radius: 4px;
-      display: block;
+    .spec-item {
+      flex: 1;
       text-align: center;
-      transition: background 0.2s, transform 0.1s;
-      border: none;
-      width: 100%;
-      cursor: pointer;
-      font-size: 1.05rem;
-      box-sizing: border-box;
-      box-shadow: 0 5px 15px rgba(42, 59, 104, 0.15);
+      padding: 1.25rem .75rem;
+      border-right: 1px solid var(--mid);
     }
+    .spec-item:last-child { border-right: none; }
+    .spec-item strong { display: block; font-family: var(--font-serif); font-size: 1.4rem; font-weight: 400; color: var(--navy); }
+    .spec-item span { font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 
-    .btn-wa-action:hover {
-      background: var(--color-primary-hover);
-      transform: translateY(-2px);
+    /* Description */
+    .detail-desc { color: var(--dark); font-size: .9375rem; line-height: 1.8; }
+    .detail-desc p { margin-bottom: .5rem; }
+
+    /* Sidebar card */
+    .sidebar-card {
+      background: var(--off-white);
+      border: 1px solid var(--mid);
+      border-radius: 3px;
+      padding: 2rem;
+    }
+    .sidebar-price {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--navy);
+      margin: .5rem 0 1.5rem;
+      font-weight: 400;
+    }
+    .sidebar-card .btn { width: 100%; justify-content: center; margin-bottom: .75rem; }
+    .sidebar-card p { font-size: .875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--mid); margin: 1.25rem 0; }
+
+    /* Back breadcrumb */
+    .detail-breadcrumb { display: flex; align-items: center; gap: .5rem; font-size: .8125rem; color: var(--muted); margin-bottom: 2rem; }
+    .detail-breadcrumb a { color: var(--muted); transition: color .2s; }
+    .detail-breadcrumb a:hover { color: var(--gold); }
+    .detail-breadcrumb span { color: var(--mid); }
+
+    @media (max-width: 900px) {
+      .detail-layout { grid-template-columns: 1fr; }
+      .detail-sidebar { position: static; }
+    }
+    @media (max-width: 480px) {
+      .specs-strip { flex-wrap: wrap; }
+      .spec-item { min-width: 50%; border-bottom: 1px solid var(--mid); }
     }
   </style>
 </head>
-<body class="project-detail-body">
+<body>
 
-  <!-- NAVBAR -->
-  <nav class="project-navbar">
-    <div class="project-navbar-container">
-      <a href="index.html#propiedades" class="btn-back">
-        <span>←</span> <span data-i18n="back-listings">Volver a Propiedades</span>
-      </a>
-      <a href="index.html" class="logo" style="max-width: 150px;">
-        <img src="assets/lorenzo-logo.webp" alt="Constructora Rodríguez Javier SRL" style="width: 100%;">
-      </a>
-      
-      <!-- Selector elegante de idioma -->
-      <div class="lang-switcher">
-        <button class="lang-btn active" data-lang="es" onclick="switchLanguage('es')">ES</button>
-        <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
-      </div>
-    </div>
-  </nav>
+  <!-- Nav injected by components.js -->
 
-  <!-- MAIN -->
-  <main class="project-main">
-    
-    <!-- FULL WIDTH PHOTO SLIDESHOW IN STYLE OF CASA DE CAMPO -->
-    <div class="gallery-hero-container">
-      <div class="gallery-hero-slides" id="gallery-hero-slides">
-        <button class="gallery-arrow prev" id="detail-prev">❮</button>
-        <!-- Dynamic main images -->
-        <button class="gallery-arrow next" id="detail-next">❯</button>
-      </div>
-      
-      <!-- Horizontal thumbnail bar sitting over the slide bottom -->
-      <div class="gallery-thumbs-strip" id="gallery-thumbs-strip">
-        <!-- Dynamic thumbnails -->
-      </div>
-    </div>
+  <main class="body-offset">
+    <section class="section" aria-label="Detalle del proyecto">
+      <div class="container">
 
-    <!-- DETAILS GRID -->
-    <div class="detail-layout-grid">
-      
-      <!-- LEFT COLUMN: TITLES, DESCRIPTION & SPEC TABLES -->
-      <div class="left-pane">
-        
-        <div class="listing-header-block">
-          <div class="listing-title-block">
-            <span class="status-badge" id="project-status">...</span>
-            <h1 id="project-title">Cargando proyecto...</h1>
-            <p class="location">📍 <span id="project-location">...</span></p>
+        <!-- Breadcrumb -->
+        <nav class="detail-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html" data-i18n="nav-home">Inicio</a>
+          <span>/</span>
+          <a href="properties.html" data-i18n="nav-properties">Propiedades</a>
+          <span>/</span>
+          <span id="detail-title">Cargando...</span>
+        </nav>
+
+        <div class="detail-layout">
+
+          <!-- Main column -->
+          <div class="detail-main">
+
+            <!-- Carousel -->
+            <div class="carousel-wrap">
+              <div class="carousel-main" id="detail-carousel">
+                <img src="assets/images/projects/duran-2.webp" alt="Cargando...">
+              </div>
+              <div class="carousel-thumbs" id="detail-thumbs"></div>
+            </div>
+
+            <!-- Title + Badge -->
+            <div style="display:flex;align-items:center;gap:1rem;margin-top:1.75rem;flex-wrap:wrap">
+              <div id="detail-badge"></div>
+            </div>
+            <p class="prop-card-location mt-2" id="detail-location"></p>
+            <h1 style="font-family:var(--font-serif);font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:400;color:var(--navy);margin-top:.4rem;line-height:1.2" id="detail-title-h1">Cargando...</h1>
+
+            <!-- Specs strip -->
+            <div class="specs-strip">
+              <div class="spec-item">
+                <strong id="detail-m2">—</strong>
+                <span data-i18n="spec-area">Área</span>
+              </div>
+              <div class="spec-item">
+                <strong id="detail-beds">—</strong>
+                <span data-i18n="spec-beds">Hab.</span>
+              </div>
+              <div class="spec-item">
+                <strong id="detail-baths">—</strong>
+                <span data-i18n="spec-baths">Baños</span>
+              </div>
+              <div class="spec-item">
+                <strong id="detail-park">—</strong>
+                <span data-i18n="spec-park">Parq.</span>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <h2 style="font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--navy);margin-bottom:1rem" data-i18n="description-title">Descripción del Proyecto</h2>
+            <div class="detail-desc" id="detail-desc">
+              <p>Cargando descripción...</p>
+            </div>
+
           </div>
-          <div class="listing-price-block">
-            <span class="price-lbl" data-i18n="price-label">Precio Desde</span>
-            <span class="price-val" id="project-price">USD --</span>
-          </div>
-        </div>
 
-        <div class="description-panel">
-          <h2 data-i18n="description-title">Descripción del Proyecto</h2>
-          <p id="project-description">Cargando descripción detallada del proyecto...</p>
-        </div>
+          <!-- Sidebar -->
+          <aside class="detail-sidebar">
+            <div class="sidebar-card">
+              <p class="overline" data-i18n="price-label">Precio Desde</p>
+              <p class="sidebar-price" id="detail-price">—</p>
 
-        <!-- AMENITIES & SPECIFICATIONS SECTION -->
-        <div class="specs-section">
-          <h2 data-i18n="side-title">Detalles del Inmueble</h2>
-          
-          <table class="specs-table">
-            <tr>
-              <td class="label" data-i18n="spec-area">Área</td>
-              <td class="value" id="project-m2">0 m²</td>
-            </tr>
-            <tr>
-              <td class="label" data-i18n="spec-beds">Habitaciones</td>
-              <td class="value" id="project-beds">0</td>
-            </tr>
-            <tr>
-              <td class="label" data-i18n="spec-baths">Baños</td>
-              <td class="value" id="project-baths">0</td>
-            </tr>
-            <tr>
-              <td class="label" data-i18n="spec-park">Parqueos</td>
-              <td class="value" id="project-parking">0</td>
-            </tr>
-          </table>
-        </div>
+              <a href="https://wa.me/18299595350?text=Hola%2C%20me%20interesa%20este%20proyecto."
+                 target="_blank"
+                 class="btn btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:.35rem"><path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.76.459 3.473 1.332 4.978L2 22l5.234-1.373a9.927 9.927 0 0 0 4.778 1.217c5.506 0 9.988-4.482 9.988-9.988C22 6.482 17.518 2 12.012 2z"/></svg>
+                <span data-i18n="side-btn">Contactar por WhatsApp</span>
+              </a>
+              <a href="contact.html" class="btn btn-outline" style="margin-top:.75rem" data-i18n="nav-cta">Cotizar Gratis</a>
 
+              <hr class="sidebar-divider">
+
+              <p class="label" style="color:var(--navy);margin-bottom:.5rem" data-i18n="side-title">¿Te interesa este proyecto?</p>
+              <p data-i18n="side-desc">Contáctanos directamente por WhatsApp para recibir planos, brochure y agendar una visita.</p>
+
+              <hr class="sidebar-divider">
+
+              <div style="display:flex;gap:1.5rem;font-size:.8rem;color:var(--muted)">
+                <div>
+                  <strong style="display:block;color:var(--dark);font-size:.9rem">+1 (829) 959-5350</strong>
+                  <span>WhatsApp / Tel.</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="properties.html" class="detail-back btn btn-outline" style="margin-top:1rem;width:100%;justify-content:center" data-i18n="back-listings">
+              ← Volver a Propiedades
+            </a>
+          </aside>
+
+        </div>
       </div>
-
-      <!-- RIGHT COLUMN: STICKY WHATSAPP CONTACT BOX -->
-      <aside>
-        <div class="sidebar-widget">
-          <h3 data-i18n="side-title">¿Te interesa este proyecto?</h3>
-          <p data-i18n="side-desc">Ponte en contacto directo con nuestros ingenieros a través de WhatsApp para recibir planos, brochure y agendar una visita.</p>
-          <button class="btn-wa-action" id="project-whatsapp-btn" data-i18n="side-btn">Contactar por WhatsApp</button>
-        </div>
-      </aside>
-
-    </div>
+    </section>
   </main>
 
+  <!-- Footer injected -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/lang.js"></script>
-  
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      initLanguage();
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const propertyId = urlParams.get('id');
-
-      if (!propertyId) {
-        window.location.href = "index.html";
-        return;
-      }
-
-      let images = [];
-      let currentIdx = 0;
-
-      const fallbackProperties = {
-        "fallback-1": {
-          id: "fallback-1",
-          title: "Residencial Duran",
-          location: "San Isidro, Santo Domingo Este",
-          "description": "Beautiful and comfortable residence located in a gated community, ideal for families seeking security, comfort, and an excellent location in Santo Domingo Este.\n✨ Features:\n• 3 bedrooms, each with its bathroom\n• Half guest bathroom\n• Large living room\n• Dining room\n• Kitchen\n• Laundry area\n• Garage for 2 vehicles\n• Unroofed terrace\n💳 Payment Terms:\n• Reserve with US$5,000\n• Complete 10% in 30 days for contract signing\n• 20% during construction\n• 70% upon delivery via financing\n📅 Estimated Delivery: 10 months\n📍 Located in a strategic area with easy access to supermarkets, schools, shopping plazas, and main roads in Santo Domingo Este.",
-          price: 175000,
-          m2: 150,
-          bedrooms: 3,
-          bathrooms: 3.5,
-          parking: 2,
-          status: "en_desarrollo",
-          image_urls: [
-            "assets/images/projects/duran-2.webp",
-            "assets/images/projects/duran-3.webp",
-            "assets/images/projects/duran-4.webp",
-            "assets/images/projects/duran-5.webp",
-            "assets/images/projects/rodriguez-ii-1.webp",
-            "assets/images/projects/rodriguez-ii-2.webp"
-          ]
-        },
-        "fallback-2": {
-          id: "fallback-2",
-          title: "Residencial Rodríguez II",
-          location: "San Isidro, Santo Domingo Este",
-          description: "Hermoso proyecto residencial de 6 exclusivas casas con diseño arquitectónico vanguardista en San Isidro. Cuenta con excelentes facilidades de financiamiento y terminación de primera calidad.",
-          price: 175000,
-          m2: 150,
-          bedrooms: 3,
-          bathrooms: 2.5,
-          parking: 2,
-          status: "en_desarrollo",
-          image_urls: [
-            "assets/images/projects/rodriguez-ii-1.webp",
-            "assets/images/projects/rodriguez-ii-2.webp",
-            "assets/images/projects/duran-4.webp",
-            "assets/images/projects/duran-5.webp"
-          ]
-        }
-      };
-
-      async function loadProjectDetails() {
-        let prop = null;
-
-        if (propertyId === "fallback-1" || propertyId === "fallback-2") {
-          const currentLang = localStorage.getItem("lorenzo_lang") || "es";
-          prop = { ...fallbackProperties[propertyId] };
-          
-          const titleKey = propertyId === "fallback-1" ? "re-duran-title" : "re-rod-title";
-          const locKey = propertyId === "fallback-1" ? "re-duran-loc" : "re-rod-loc";
-          const descKey = propertyId === "fallback-1" ? "re-duran-desc" : "re-rod-desc";
-
-          if (translations[currentLang]) {
-            prop.title = translations[currentLang][titleKey] || prop.title;
-            prop.location = translations[currentLang][locKey] || prop.location;
-            prop.description = translations[currentLang][descKey] || prop.description;
-          }
-        } else {
-          const savedUrl = localStorage.getItem("supabase_url") || "https://rnkktolpevqpcyvessfn.supabase.co";
-          const savedKey = localStorage.getItem("supabase_anon_key");
-
-          if (savedKey && typeof supabaseJs !== 'undefined') {
-            try {
-              const client = supabaseJs.createClient(savedUrl, savedKey);
-              const { data, error } = await client
-                .from('properties')
-                .select('*')
-                .eq('id', propertyId)
-                .single();
-
-              if (!error && data) {
-                prop = data;
-              }
-            } catch (err) {
-              console.error("Supabase error:", err);
-            }
-          }
-        }
-
-        if (!prop) {
-          window.location.href = "index.html#propiedades";
-          return;
-        }
-
-        renderDetails(prop);
-      }
-
-      function renderDetails(prop) {
-        document.title = `${prop.title} | Constructora Rodríguez Javier`;
-        document.getElementById("project-title").textContent = prop.title;
-        document.getElementById("project-location").textContent = prop.location;
-        document.getElementById("project-description").textContent = prop.description;
-        document.getElementById("project-m2").textContent = `${prop.m2} m²`;
-        document.getElementById("project-beds").textContent = prop.bedrooms;
-        document.getElementById("project-baths").textContent = prop.bathrooms;
-        document.getElementById("project-parking").textContent = prop.parking || 1;
-        document.getElementById("project-price").textContent = `USD ${parseFloat(prop.price).toLocaleString()}`;
-
-        const currentLang = localStorage.getItem("lorenzo_lang") || "es";
-        const statusBadge = document.getElementById("project-status");
-        statusBadge.className = `status-badge ${prop.status}`;
-        
-        if (prop.status === 'en_venta') {
-          statusBadge.textContent = translations[currentLang]["filter-sale"] || "En Venta";
-        } else {
-          statusBadge.textContent = translations[currentLang]["tag-dev"] || "En Desarrollo";
-        }
-
-        // Setup Slide gallery
-        const slidesContainer = document.getElementById("gallery-hero-slides");
-        const thumbsContainer = document.getElementById("gallery-thumbs-strip");
-        
-        images = prop.image_urls || [];
-        
-        // Cleanup old dynamic images
-        slidesContainer.querySelectorAll("img").forEach(img => img.remove());
-        thumbsContainer.innerHTML = '';
-
-        images.forEach((url, index) => {
-          // Main Slides
-          const img = document.createElement("img");
-          img.src = url;
-          img.alt = `${prop.title} - Render ${index + 1}`;
-          if (index === 0) img.classList.add("active");
-          slidesContainer.appendChild(img);
-
-          // Horizontal strip thumbnails
-          const thumb = document.createElement("div");
-          thumb.className = `thumb-strip-box ${index === 0 ? 'active' : ''}`;
-          thumb.innerHTML = `<img src="${url}" alt="Thumbnail ${index + 1}">`;
-          thumb.addEventListener("click", () => setActiveImage(index));
-          thumbsContainer.appendChild(thumb);
-        });
-
-        // Setup WhatsApp link
-        const whatsappBtn = document.getElementById("project-whatsapp-btn");
-        whatsappBtn.addEventListener("click", () => {
-          const text = `Hola Constructora Rodríguez Javier, estoy interesado en el proyecto "${prop.title}" (${statusBadge.textContent}) ubicado en ${prop.location}. Quisiera recibir más información.`;
-          window.open(`https://wa.me/18299595350?text=${encodeURIComponent(text)}`, "_blank");
-        });
-      }
-
-      function setActiveImage(index) {
-        const mainImgs = document.querySelectorAll("#gallery-hero-slides img");
-        const thumbs = document.querySelectorAll("#gallery-thumbs-strip .thumb-strip-box");
-
-        if (mainImgs[currentIdx]) mainImgs[currentIdx].classList.remove("active");
-        if (thumbs[currentIdx]) thumbs[currentIdx].classList.remove("active");
-
-        currentIdx = index;
-
-        if (mainImgs[currentIdx]) mainImgs[currentIdx].classList.add("active");
-        if (thumbs[currentIdx]) thumbs[currentIdx].classList.add("active");
-      }
-
-      // Arrows Navigation
-      document.getElementById("detail-prev").addEventListener("click", () => {
-        if (images.length <= 1) return;
-        let newIdx = (currentIdx - 1 + images.length) % images.length;
-        setActiveImage(newIdx);
-      });
-
-      document.getElementById("detail-next").addEventListener("click", () => {
-        if (images.length <= 1) return;
-        let newIdx = (currentIdx + 1) % images.length;
-        setActiveImage(newIdx);
-      });
-
-      loadProjectDetails();
-
-      window.addEventListener("storage", (e) => {
-        if (e.key === "lorenzo_lang") {
-          loadProjectDetails();
+    // Sync title with h1
+    document.addEventListener('DOMContentLoaded', () => {
+      const h1 = document.getElementById('detail-title-h1');
+      const breadTitle = document.getElementById('detail-title');
+      const obs = new MutationObserver(() => {
+        if (breadTitle && h1 && breadTitle.textContent !== 'Cargando...') {
+          h1.textContent = breadTitle.textContent;
         }
       });
+      if (breadTitle) obs.observe(breadTitle, { childList: true, characterData: true, subtree: true });
 
-      const originalSwitchLanguage = window.switchLanguage;
-      window.switchLanguage = function(lang) {
-        originalSwitchLanguage(lang);
-        loadProjectDetails();
-      };
+      // Carousel thumbnails active state
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('#detail-thumbs button');
+        if (!btn) return;
+        document.querySelectorAll('#detail-thumbs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
     });
   </script>
 </body>

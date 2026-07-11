@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propiedades de Lujo | Constructora Rodríguez Javier — República Dominicana</title>
+  <meta name="description" content="Explora propiedades exclusivas en República Dominicana: villas, apartamentos y residencias de lujo. Financiamiento disponible. Coordinación remota para dominicanos en USA.">
+  <link rel="canonical" href="https://constructora-rodriguez-javier.pages.dev/properties.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .no-results { text-align:center; padding: 4rem 0; color: var(--muted); }
+    .prop-detail-link { display:block; color:inherit; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav injected by components.js -->
+
+  <!-- ── Page Hero ─────────────────────────────── -->
+  <div class="page-hero">
+    <div class="container">
+      <p class="overline" data-i18n="re-subtitle">Luxury Real Estate</p>
+      <h1 data-i18n="re-title">Propiedades &amp; Proyectos</h1>
+      <p data-i18n="re-desc">Descubre villas exclusivas, apartamentos de playa y proyectos residenciales premium en las mejores zonas de República Dominicana.</p>
+    </div>
+  </div>
+
+  <!-- ── Listings ───────────────────────────────── -->
+  <section class="section" aria-label="Listado de propiedades">
+    <div class="container">
+
+      <!-- Filter bar -->
+      <div class="filter-bar" role="group" aria-label="Filtros">
+        <button class="filter-btn active" data-filter="all" data-i18n="filter-all">Todas</button>
+        <button class="filter-btn" data-filter="en_desarrollo" data-i18n="filter-dev">En Desarrollo</button>
+        <button class="filter-btn" data-filter="disponible" data-i18n="filter-sale">En Venta</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="prop-grid" id="props-grid">
+        <!-- Populated by app.js -->
+      </div>
+      <div class="no-results" id="no-results" style="display:none">
+        <p data-i18n="no-results">No se encontraron propiedades con ese filtro.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CTA ────────────────────────────────────── -->
+  <div class="cta-banner">
+    <div class="container">
+      <p class="overline" data-i18n="cta-overline">¿Listo para empezar?</p>
+      <h2 data-i18n="cta-title">Hablemos de tu Proyecto</h2>
+      <p data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
+      <div class="cta-banner-actions">
+        <a href="contact.html" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer injected by components.js -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/lang.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
