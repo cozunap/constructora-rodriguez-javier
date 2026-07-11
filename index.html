@@ -158,6 +158,7 @@
         <a href="#servicios" data-i18n="nav-services">Servicios</a>
         <a href="#antes-despues" data-i18n="nav-before-after">Antes / Después</a>
         <a href="#proyectos" data-i18n="nav-projects">Proyectos</a>
+        <a href="#propiedades" data-i18n="nav-realestate">Bienes Raíces</a>
         <a href="#nosotros" data-i18n="nav-about">Nosotros</a>
         <a href="#contacto" class="btn btn-primary" data-i18n="nav-cta">Cotizar Gratis</a>
 
@@ -506,6 +507,60 @@
       </div>
     </section>
 
+    <!-- BIENES RAÍCES / PROPIEDADES -->
+    <section class="properties-section" id="propiedades">
+      <span class="section-subtitle" data-i18n="re-subtitle">Bienes Raíces</span>
+      <h2 class="section-title" data-i18n="re-title">Proyectos Exclusivos en Venta y Preventa</h2>
+      <p class="section-desc" data-i18n="re-desc" style="text-align: center; max-width: 600px; margin: -10px auto 40px auto; color: var(--color-gray);">
+        Explora nuestros desarrollos inmobiliarios con terminaciones de lujo y diseños modernos en Prado Oriental, Santo Domingo Este.
+      </p>
+
+      <div class="properties-filters">
+        <button class="filter-btn active" data-re-filter="all" data-i18n="filter-all">Todos</button>
+        <button class="filter-btn" data-re-filter="en_desarrollo" data-i18n="filter-dev">En Desarrollo</button>
+        <button class="filter-btn" data-re-filter="en_venta" data-i18n="filter-sale">En Venta</button>
+      </div>
+
+      <div class="properties-grid" id="properties-grid">
+        <!-- Fallback static property card (Residencial Prado Oriental Premium using renders) -->
+        <div class="property-card" data-re-category="en_desarrollo">
+          <div class="property-img-box">
+            <img src="assets/images/projects/proyecto-1.png" alt="Residencial Prado Oriental Premium">
+            <span class="property-tag en_desarrollo" data-i18n="tag-dev">Preventa / En Desarrollo</span>
+          </div>
+          <div class="property-details">
+            <h3 class="property-title">Residencial Rodríguez Javier I</h3>
+            <p class="property-location">Prado Oriental, Santo Domingo Este</p>
+            <p class="property-description">Exclusivo proyecto de apartamentos con diseño contemporáneo, cocinas modulares en roble hidrófugo, terminaciones en porcelanato y amplias áreas sociales con piscina.</p>
+            
+            <div class="property-specs">
+              <div class="spec-item">
+                <span class="spec-icon">📏</span>
+                <span class="spec-text">145 m²</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🛏️</span>
+                <span class="spec-text">3 Hab</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🚿</span>
+                <span class="spec-text">2.5 Baños</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🚗</span>
+                <span class="spec-text">2 Parq</span>
+              </div>
+            </div>
+            
+            <div class="property-footer">
+              <span class="property-price">USD 145,000</span>
+              <button class="btn btn-primary re-detail-btn" data-id="fallback-1">Ver Detalles</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- TESTIMONIOS -->
     <section class="testimonials-section">
       <div class="section-header">
@@ -697,6 +752,45 @@
     </div>
   </dialog>
 
+  <!-- DIALOG MODAL NATIVO (DETALLE DE PROPIEDADES / REAL ESTATE) -->
+  <dialog id="properties-detail-modal" class="property-modal">
+    <div class="modal-header">
+      <h3 id="re-modal-title">Proyecto</h3>
+      <span class="status-badge" id="re-modal-status">Preventa</span>
+    </div>
+    <div class="modal-content-body">
+      <!-- Carousel de Imágenes -->
+      <div class="modal-carousel">
+        <button class="carousel-btn prev" id="carousel-prev">❮</button>
+        <div class="carousel-slides" id="carousel-slides">
+          <!-- Populated by JS -->
+        </div>
+        <button class="carousel-btn next" id="carousel-next">❯</button>
+      </div>
+
+      <div class="modal-meta-grid">
+        <div class="meta-item"><span class="meta-icon">📏</span> <strong id="re-modal-m2">0</strong> m²</div>
+        <div class="meta-item"><span class="meta-icon">🛏️</span> <strong id="re-modal-beds">0</strong> Hab</div>
+        <div class="meta-item"><span class="meta-icon">🚿</span> <strong id="re-modal-baths">0</strong> Baños</div>
+        <div class="meta-item"><span class="meta-icon">🚗</span> <strong id="re-modal-parking">0</strong> Parq</div>
+        <div class="meta-item"><span class="meta-icon">📍</span> <span id="re-modal-location">Ubicación</span></div>
+      </div>
+
+      <p id="re-modal-description">Descripción del proyecto...</p>
+      
+      <div class="modal-footer-price">
+        <div class="price-box">
+          <span>Precio Desde</span>
+          <h4 id="re-modal-price">USD 0</h4>
+        </div>
+        <div style="display: flex; gap: 10px; width: 100%; margin-top: 15px;">
+          <button class="btn btn-primary" id="re-modal-wa-btn" style="flex: 1;">WhatsApp</button>
+          <button class="btn btn-outline-dark" id="re-modal-close-btn" data-i18n="modal-close" style="flex: 1;">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <!-- WIDGET FLOTANTE WHATSAPP -->
   <div class="wa-widget">
     <div class="wa-widget-toggle" id="wa-widget-toggle">
@@ -777,6 +871,7 @@
   </button>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/lang.js"></script>
   <script src="js/slider.js"></script>
   <script src="js/app.js"></script>
