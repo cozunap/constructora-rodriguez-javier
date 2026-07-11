@@ -20,10 +20,7 @@ function switchLanguage(lang) {
     }
   });
 
-  // Update lang buttons active state
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-  });
+  // Buttons removed
 
   // Update html lang attribute
   document.documentElement.lang = lang;
@@ -31,6 +28,10 @@ function switchLanguage(lang) {
 
 // Auto-init on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('lorenzo_lang') || 'es';
+  let saved = localStorage.getItem('lorenzo_lang');
+  if (!saved) {
+    const browserLang = (navigator.language || navigator.userLanguage || 'es').toLowerCase().substring(0, 2);
+    saved = translations[browserLang] ? browserLang : 'es';
+  }
   switchLanguage(saved);
 });

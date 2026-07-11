@@ -15,12 +15,6 @@ const darkClass = isHome ? 'nav-dark' : '';
       <a href="/services" class={pathname.includes('/services') ? 'active' : ''} data-i18n="nav-services">Servicios</a>
       <a href="/about" class={pathname.includes('/about') ? 'active' : ''} data-i18n="nav-about">Nosotros</a>
       <a href="/contact" class={pathname.includes('/contact') ? 'active' : ''} data-i18n="nav-contact">Contacto</a>
-      
-      <div class="lang-switcher">
-        <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">ES</button>
-        <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
-        <button class="lang-btn" data-lang="ht" onclick="switchLanguage('ht')">HT</button>
-      </div>
       <a href="/contact" class="btn btn-primary nav-cta" data-i18n="nav-cta">Cotizar</a>
     </div>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
