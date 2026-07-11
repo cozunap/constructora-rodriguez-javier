@@ -1911,52 +1911,29 @@ footer {
   flex: 1;
 }
 
+.property-location-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
 .property-title {
   font-family: 'Outfit', sans-serif;
   font-size: 1.35rem;
-  margin: 0 0 6px 0;
+  margin: 0 0 8px 0;
   color: var(--color-white);
 }
 
-.property-location {
-  font-size: 0.85rem;
+.property-specs-line {
+  font-size: 0.82rem;
   color: var(--color-gray);
-  margin: 0 0 15px 0;
-}
-
-.property-description {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 20px 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.property-specs {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 15px 0;
+  letter-spacing: 0.5px;
   margin-bottom: 20px;
-}
-
-.spec-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--color-gray);
-}
-
-.spec-icon {
-  font-size: 1.2rem;
-  margin-bottom: 4px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .property-footer {
