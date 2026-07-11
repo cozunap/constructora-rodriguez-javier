@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles del Proyecto | Constructora Rodríguez Javier</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <style>
+    /* Custom CSS for the dedicated project details page */
+    .project-detail-body {
+      background-color: var(--color-dark, hsl(220, 25%, 10%));
+      color: var(--color-light, hsl(210, 20%, 98%));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-navbar {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 0;
+    }
+
+    .project-navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .project-navbar .btn-back {
+      color: var(--color-gray);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+
+    .project-navbar .btn-back:hover {
+      color: var(--color-primary);
+    }
+
+    .project-main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .project-header-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .project-header-left h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      margin: 0 0 10px 0;
+      color: var(--color-white);
+    }
+
+    .project-header-left .location {
+      font-size: 1rem;
+      color: var(--color-gray);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .project-header-right {
+      text-align: right;
+    }
+
+    @media (max-width: 768px) {
+      .project-header-right {
+        text-align: left;
+      }
+    }
+
+    .project-header-right .price-label {
+      font-size: 0.85rem;
+      color: var(--color-gray);
+      display: block;
+    }
+
+    .project-header-right .price-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* Premium Gallery Grid */
+    .gallery-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      height: 480px;
+      margin-bottom: 40px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .gallery-container {
+        grid-template-columns: 1fr;
+        height: 300px;
+      }
+    }
+
+    .gallery-main {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .gallery-main img.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    .gallery-thumbs {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      gap: 10px;
+      height: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-thumbs {
+        display: none;
+      }
+    }
+
+    .thumb-box {
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.6;
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+
+    .thumb-box:hover, .thumb-box.active {
+      opacity: 1;
+      border-color: var(--color-primary);
+    }
+
+    .thumb-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Content Layout */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 968px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .detail-info-pane h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: var(--color-white);
+    }
+
+    .detail-info-pane p {
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.05rem;
+    }
+
+    .detail-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin: 35px 0;
+      background: rgba(30, 41, 59, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .detail-specs-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .detail-spec-card {
+      text-align: center;
+    }
+
+    .detail-spec-card .icon {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .detail-spec-card span {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--color-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .detail-spec-card strong {
+      display: block;
+      font-size: 1.2rem;
+      color: var(--color-white);
+      margin-top: 4px;
+    }
+
+    /* Sticky Contact Sidebar */
+    .contact-sidebar {
+      position: sticky;
+      top: 100px;
+      background: rgba(30, 41, 59, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-sidebar h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: var(--color-white);
+    }
+
+    .contact-sidebar p {
+      font-size: 0.95rem;
+      color: var(--color-gray);
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .btn-contact-action {
+      background: var(--color-primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 14px 20px;
+      border-radius: 8px;
+      display: block;
+      text-align: center;
+      transition: background 0.2s, transform 0.1s;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .btn-contact-action:hover {
+      background: hsl(24, 95%, 45%);
+      transform: translateY(-2px);
+    }
+
+    .btn-contact-action:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="project-detail-body">
+
+  <!-- NAVBAR -->
+  <nav class="project-navbar">
+    <div class="project-navbar-container">
+      <a href="index.html#propiedades" class="btn-back">
+        <span>←</span> <span data-i18n="back-listings">Volver a Propiedades</span>
+      </a>
+      <a href="index.html" class="logo" style="max-width: 150px;">
+        <img src="assets/lorenzo-logo.webp" alt="Constructora Rodríguez Javier SRL" style="width: 100%;">
+      </a>
+      
+      <!-- Selector elegante de idioma -->
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="es" onclick="switchLanguage('es')">ES</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="project-main">
+    <div class="project-header-info">
+      <div class="project-header-left">
+        <span class="status-badge" id="project-status">...</span>
+        <h1 id="project-title">Cargando proyecto...</h1>
+        <p class="location">📍 <span id="project-location">...</span></p>
+      </div>
+      <div class="project-header-right">
+        <span class="price-label" data-i18n="price-label">Precio Desde</span>
+        <span class="price-value" id="project-price">USD --</span>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="gallery-container">
+      <div class="gallery-main" id="gallery-main">
+        <button class="carousel-btn prev" id="detail-prev">❮</button>
+        <!-- Dynamic main images -->
+        <button class="carousel-btn next" id="detail-next">❯</button>
+      </div>
+      <div class="gallery-thumbs" id="gallery-thumbs">
+        <!-- Dynamic thumbnails -->
+      </div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="detail-grid">
+      <div class="detail-info-pane">
+        <h2 data-i18n="description-title">Descripción del Proyecto</h2>
+        <p id="project-description">Cargando descripción detallada del proyecto...</p>
+
+        <!-- SPECIFICATIONS GRID -->
+        <div class="detail-specs-grid">
+          <div class="detail-spec-card">
+            <span class="icon">📏</span>
+            <span data-i18n="spec-area">Área</span>
+            <strong id="project-m2">0 m²</strong>
+          </div>
+          <div class="detail-spec-card">
+            <span class="icon">🛏️</span>
+            <span data-i18n="spec-beds">Hab.</span>
+            <strong id="project-beds">0</strong>
+          </div>
+          <div class="detail-spec-card">
+            <span class="icon">🚿</span>
+            <span data-i18n="spec-baths">Baños</span>
+            <strong id="project-baths">0</strong>
+          </div>
+          <div class="detail-spec-card">
+            <span class="icon">🚗</span>
+            <span data-i18n="spec-park">Parq.</span>
+            <strong id="project-parking">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="contact-sidebar">
+          <h3 data-i18n="side-title">¿Te interesa este proyecto?</h3>
+          <p data-i18n="side-desc">Ponte en contacto directo con nuestros ingenieros a través de WhatsApp para recibir planos, brochure y agendar una visita.</p>
+          <button class="btn-contact-action" id="project-whatsapp-btn" data-i18n="side-btn">Contactar por WhatsApp</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="js/lang.js"></script>
+  
+  <script>
+    // Local script to load property details dynamically
+    document.addEventListener("DOMContentLoaded", () => {
+      // Setup language initial state
+      initLanguage();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const propertyId = urlParams.get('id');
+
+      if (!propertyId) {
+        window.location.href = "index.html";
+        return;
+      }
+
+      // Dynamic variables
+      let images = [];
+      let currentIdx = 0;
+
+      // Fallback local project
+      const fallbackProperty = {
+        id: "fallback-1",
+        title: "Residencial Rodríguez Javier I",
+        location: "Prado Oriental, Santo Domingo Este",
+        description: "Exclusivo proyecto residencial contemporáneo en Prado Oriental. Cuenta con amplias terrazas, cocinas modulares premium, terminaciones de mármol y áreas comunes recreativas con piscina e iluminación led integrada en cornisas.",
+        price: 145000,
+        m2: 145,
+        bedrooms: 3,
+        bathrooms: 2.5,
+        parking: 2,
+        status: "en_desarrollo",
+        image_urls: [
+          "assets/images/projects/proyecto-1.png",
+          "assets/images/projects/proyecto-2.png",
+          "assets/images/projects/proyecto-3.png",
+          "assets/images/projects/proyecto-4.png",
+          "assets/images/projects/proyecto-5.png"
+        ]
+      };
+
+      async function loadProjectDetails() {
+        let prop = null;
+
+        if (propertyId === "fallback-1") {
+          // Translate dynamic terms of the fallback property using lang dictionary
+          const currentLang = localStorage.getItem("lorenzo_lang") || "es";
+          prop = { ...fallbackProperty };
+          
+          if (translations[currentLang]) {
+            prop.title = translations[currentLang]["re-fallback-title"] || prop.title;
+            prop.location = translations[currentLang]["re-fallback-loc"] || prop.location;
+            prop.description = translations[currentLang]["re-fallback-desc"] || prop.description;
+          }
+        } else {
+          // Attempt to load from Supabase
+          const savedUrl = localStorage.getItem("supabase_url") || "https://rnkktolpevqpcyvessfn.supabase.co";
+          const savedKey = localStorage.getItem("supabase_anon_key");
+
+          if (savedKey && typeof supabaseJs !== 'undefined') {
+            try {
+              const client = supabaseJs.createClient(savedUrl, savedKey);
+              const { data, error } = await client
+                .from('properties')
+                .select('*')
+                .eq('id', propertyId)
+                .single();
+
+              if (!error && data) {
+                prop = data;
+              }
+            } catch (err) {
+              console.error("Supabase load error:", err);
+            }
+          }
+        }
+
+        if (!prop) {
+          // Redirect to home if property not found
+          window.location.href = "index.html#propiedades";
+          return;
+        }
+
+        renderDetails(prop);
+      }
+
+      function renderDetails(prop) {
+        document.title = `${prop.title} | Constructora Rodríguez Javier`;
+        document.getElementById("project-title").textContent = prop.title;
+        document.getElementById("project-location").textContent = prop.location;
+        document.getElementById("project-description").textContent = prop.description;
+        document.getElementById("project-m2").textContent = `${prop.m2} m²`;
+        document.getElementById("project-beds").textContent = prop.bedrooms;
+        document.getElementById("project-baths").textContent = prop.bathrooms;
+        document.getElementById("project-parking").textContent = prop.parking || 1;
+        document.getElementById("project-price").textContent = `USD ${parseFloat(prop.price).toLocaleString()}`;
+
+        // Status badge translation
+        const currentLang = localStorage.getItem("lorenzo_lang") || "es";
+        const statusBadge = document.getElementById("project-status");
+        statusBadge.className = `status-badge ${prop.status}`;
+        
+        if (prop.status === 'en_venta') {
+          statusBadge.textContent = translations[currentLang]["filter-sale"] || "En Venta";
+        } else {
+          statusBadge.textContent = translations[currentLang]["tag-dev"] || "En Desarrollo";
+        }
+
+        // Setup Gallery
+        const mainGallery = document.getElementById("gallery-main");
+        const thumbsGallery = document.getElementById("gallery-thumbs");
+        
+        images = prop.image_urls || [];
+        
+        // Remove previous dynamic images
+        mainGallery.querySelectorAll("img").forEach(img => img.remove());
+        thumbsGallery.innerHTML = '';
+
+        images.forEach((url, index) => {
+          // Main Image
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = `${prop.title} - Foto ${index + 1}`;
+          if (index === 0) img.classList.add("active");
+          mainGallery.appendChild(img);
+
+          // Thumbnail (max 4 for layout symmetry)
+          if (index < 4) {
+            const thumb = document.createElement("div");
+            thumb.className = `thumb-box ${index === 0 ? 'active' : ''}`;
+            thumb.innerHTML = `<img src="${url}" alt="Thumbnail ${index + 1}">`;
+            thumb.addEventListener("click", () => setActiveImage(index));
+            thumbsGallery.appendChild(thumb);
+          }
+        });
+
+        // Setup WhatsApp link
+        const whatsappBtn = document.getElementById("project-whatsapp-btn");
+        whatsappBtn.addEventListener("click", () => {
+          const text = `Hola Constructora Rodríguez Javier, estoy interesado en el proyecto "${prop.title}" (${statusBadge.textContent}) ubicado en ${prop.location}. Quisiera recibir más información.`;
+          window.open(`https://wa.me/18299595350?text=${encodeURIComponent(text)}`, "_blank");
+        });
+      }
+
+      function setActiveImage(index) {
+        const mainImgs = document.querySelectorAll("#gallery-main img");
+        const thumbs = document.querySelectorAll("#gallery-thumbs .thumb-box");
+
+        if (mainImgs[currentIdx]) mainImgs[currentIdx].classList.remove("active");
+        if (thumbs[currentIdx]) thumbs[currentIdx].classList.remove("active");
+
+        currentIdx = index;
+
+        if (mainImgs[currentIdx]) mainImgs[currentIdx].classList.add("active");
+        if (thumbs[currentIdx]) thumbs[currentIdx].classList.add("active");
+      }
+
+      // Carousel Controls
+      document.getElementById("detail-prev").addEventListener("click", () => {
+        if (images.length <= 1) return;
+        let newIdx = (currentIdx - 1 + images.length) % images.length;
+        setActiveImage(newIdx);
+      });
+
+      document.getElementById("detail-next").addEventListener("click", () => {
+        if (images.length <= 1) return;
+        let newIdx = (currentIdx + 1) % images.length;
+        setActiveImage(newIdx);
+      });
+
+      loadProjectDetails();
+
+      // Listen for language changes to update translation-dependent fields
+      window.addEventListener("storage", (e) => {
+        if (e.key === "lorenzo_lang") {
+          loadProjectDetails();
+        }
+      });
+
+      // Override the global switchLanguage to also reload details
+      const originalSwitchLanguage = window.switchLanguage;
+      window.switchLanguage = function(lang) {
+        originalSwitchLanguage(lang);
+        loadProjectDetails();
+      };
+    });
+  </script>
+</body>
+</html>

@@ -1847,21 +1847,20 @@ footer {
 }
 
 .property-card {
-  background: rgba(30, 41, 59, 0.3);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: hsl(220, 25%, 12%); /* Solid premium slate-charcoal */
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.3s, box-shadow 0.4s;
   display: flex;
   flex-direction: column;
 }
 
 .property-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(240, 98, 30, 0.3);
+  transform: translateY(-10px);
+  border-color: var(--color-primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
 }
 
 .property-img-box {
