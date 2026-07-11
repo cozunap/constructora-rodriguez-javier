@@ -3,429 +3,609 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Administrativo | Constructora Rodríguez Javier</title>
+  <title>Decap CMS Style Editor | Constructora Rodríguez Javier</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- CSS Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css">
-  
   <!-- Supabase JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <style>
     :root {
-      --color-primary: hsl(24, 95%, 50%);
-      --color-secondary: hsl(218, 23%, 15%);
-      --color-dark: hsl(220, 25%, 10%);
-      --color-light: hsl(210, 20%, 98%);
-      --color-white: #ffffff;
-      --color-gray: #94a3b8;
+      --bg-cms: #f3f4f6;
+      --bg-editor: #ffffff;
+      --border-color: #e5e7eb;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --primary: #f0621e;
+      --primary-hover: #d94f12;
+      --success: #10b981;
+      --sidebar-width: 320px;
     }
     
     body {
-      background-color: var(--color-dark);
-      color: var(--color-light);
+      background-color: var(--bg-cms);
+      color: var(--text-main);
       font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
-      min-height: 100vh;
-    }
-
-    .admin-container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-
-    .admin-header {
+      height: 100vh;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top Navigation Bar */
+    .cms-topbar {
+      height: 56px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
       align-items: center;
-      margin-bottom: 40px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 20px;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+      flex-shrink: 0;
     }
 
-    .admin-header h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 2.5rem;
+    .cms-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cms-brand h1 {
+      font-size: 0.95rem;
+      font-weight: 700;
       margin: 0;
-      color: var(--color-white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-main);
     }
 
-    .admin-header h1 span {
-      color: var(--color-primary);
+    .cms-brand span {
+      background: #eef2f6;
+      color: #3b82f6;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
     }
 
-    .admin-grid {
+    .cms-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-cms {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      background: #ffffff;
+      color: var(--text-main);
+      transition: all 0.15s;
+    }
+
+    .btn-cms:hover {
+      background: #f9fafb;
+    }
+
+    .btn-cms.publish {
+      background: var(--success);
+      color: white;
+      border-color: var(--success);
+    }
+
+    .btn-cms.publish:hover {
+      background: #059669;
+    }
+
+    /* Main Workspace Split Layout */
+    .cms-workspace {
+      flex: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      overflow: hidden;
     }
 
-    @media (max-width: 968px) {
-      .admin-grid {
+    @media (max-width: 1024px) {
+      .cms-workspace {
         grid-template-columns: 1fr;
+      }
+      .cms-preview-pane {
+        display: none; /* Hide preview on smaller viewports like Netlify CMS does */
       }
     }
 
-    .glass-card {
-      background: rgba(30, 41, 59, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    /* Left pane - Editor fields */
+    .cms-editor-pane {
+      background: var(--bg-editor);
+      border-right: 1px solid var(--border-color);
+      overflow-y: auto;
+      padding: 40px;
+      box-sizing: border-box;
     }
 
-    .glass-card h2 {
+    .editor-section-title {
       font-family: 'Outfit', sans-serif;
-      margin-top: 0;
-      margin-bottom: 25px;
       font-size: 1.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      padding-bottom: 10px;
+      margin-top: 0;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 12px;
+      color: var(--text-main);
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--color-gray);
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
     }
 
     .form-control {
       width: 100%;
-      padding: 12px 16px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: var(--color-white);
-      font-size: 1rem;
+      padding: 10px 14px;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      color: var(--text-main);
+      font-size: 0.95rem;
       box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
     .form-control:focus {
       outline: none;
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(240, 98, 30, 0.25);
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     }
 
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
+      gap: 20px;
     }
 
-    .btn-admin {
-      background: var(--color-primary);
-      color: var(--color-white);
-      border: none;
-      padding: 14px 28px;
-      font-size: 1rem;
-      font-weight: 600;
+    /* File uploader Decap style */
+    .media-uploader {
+      border: 2px dashed #d1d5db;
       border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+      background: #f9fafb;
       cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .media-uploader:hover {
+      background: #f3f4f6;
+    }
+
+    .image-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .preview-thumbnail {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .preview-thumbnail img {
       width: 100%;
-      transition: background 0.2s, transform 0.1s;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .btn-admin:hover {
-      background: hsl(24, 95%, 45%);
-      transform: translateY(-2px);
+    .preview-thumbnail .btn-delete-img {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: rgba(220, 38, 38, 0.9);
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      font-size: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .btn-admin:active {
-      transform: translateY(0);
+    /* Right pane - Real time layout preview */
+    .cms-preview-pane {
+      background: #0d131f; /* Deep dark site background */
+      overflow-y: auto;
+      padding: 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .btn-admin:disabled {
-      background: var(--color-gray);
-      cursor: not-allowed;
-      transform: none;
+    .preview-badge {
+      align-self: flex-start;
+      background: rgba(255,255,255,0.08);
+      color: #94a3b8;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
     }
 
-    /* Auth modal overlay */
+    /* Replicated Property Card for Preview */
+    .preview-card-container {
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 40px;
+    }
+
+    .preview-title-hint {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* Auth overlay */
     #auth-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--color-dark);
-      z-index: 999999;
+      background: #111827;
+      z-index: 99999;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .auth-box {
-      width: 100%;
-      max-width: 400px;
+    .auth-card {
+      background: #ffffff;
+      border-radius: 12px;
       padding: 40px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
 
-    .auth-box h2 {
-      font-family: 'Outfit', sans-serif;
-      margin-bottom: 10px;
-      font-size: 2rem;
+    .auth-card h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #111827;
     }
 
-    .auth-box p {
-      color: var(--color-gray);
-      margin-bottom: 30px;
+    .auth-card p {
+      color: #6b7280;
+      font-size: 0.85rem;
+      margin-bottom: 25px;
     }
 
-    .image-preview-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .preview-box {
-      position: relative;
-      aspect-ratio: 1;
-      border-radius: 8px;
+    /* Replicated properties styles from site to preview */
+    .property-card {
+      background: #151f32;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      color: #f3f4f6;
     }
 
-    .preview-box img {
+    .property-img-box {
+      position: relative;
+      height: 200px;
+      background-color: #0b0f19;
+      overflow: hidden;
+    }
+
+    .property-img-box img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
-    .preview-box .remove-btn {
+    .property-tag {
       position: absolute;
-      top: 4px;
-      right: 4px;
-      background: rgba(220, 38, 38, 0.85);
-      border: none;
-      color: white;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 10px;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Property Listing in Admin */
-    .property-list-item {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-      padding: 15px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .property-list-item img {
-      width: 80px;
-      height: 60px;
-      border-radius: 6px;
-      object-fit: cover;
-    }
-
-    .property-list-info {
-      flex: 1;
-    }
-
-    .property-list-title {
-      font-weight: 600;
-      font-size: 1rem;
-      margin: 0;
-    }
-
-    .property-list-meta {
-      font-size: 0.85rem;
-      color: var(--color-gray);
-      margin: 4px 0 0 0;
-    }
-
-    .property-list-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-action {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: var(--color-light);
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: background 0.2s;
-    }
-
-    .btn-action.delete {
-      border-color: rgba(220, 38, 38, 0.4);
-      color: #ef4444;
-    }
-
-    .btn-action.delete:hover {
-      background: rgba(220, 38, 38, 0.1);
-    }
-
-    .btn-action:hover {
-      background: rgba(255,255,255,0.08);
-    }
-
-    .status-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 600;
+      top: 12px;
+      left: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
       text-transform: uppercase;
+      color: white;
     }
 
-    .status-badge.en_venta {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
+    .property-tag.en_venta { background: #22c55e; }
+    .property-tag.en_desarrollo { background: #3b82f6; }
+
+    .property-details {
+      padding: 20px;
     }
 
-    .status-badge.en_desarrollo {
-      background: rgba(59, 130, 246, 0.15);
-      color: #60a5fa;
+    .property-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      margin: 0 0 6px 0;
+      color: white;
     }
 
-    .setup-config {
+    .property-location {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin: 0 0 12px 0;
+    }
+
+    .property-description {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0 0 15px 0;
+    }
+
+    .property-specs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 10px 0;
+      margin-bottom: 15px;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    .property-price {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+
+    /* Registered list in sidebar */
+    .cms-sidebar-list {
+      border-top: 1px solid var(--border-color);
       margin-top: 30px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
       padding-top: 20px;
+    }
+
+    .cms-sidebar-list h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .cms-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .cms-item-row:hover {
+      background: #f3f4f6;
+    }
+
+    .cms-item-row.active {
+      background: #eef2f6;
+      border-left: 3px solid #3b82f6;
+    }
+
+    .cms-item-row span {
+      font-size: 0.9rem;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
 
-  <!-- AUTH PORTAL OVERLAY -->
+  <!-- AUTH OVERLAY -->
   <div id="auth-overlay">
-    <div class="auth-box glass-card">
-      <h2>Acceso <span>Administrativo</span></h2>
-      <p>Ingresa la contraseña de Supabase para desbloquear el panel.</p>
+    <div class="auth-card">
+      <div style="font-size: 2.5rem; margin-bottom: 10px;">⚡</div>
+      <h2>Acceso <span>Decap CMS Style</span></h2>
+      <p>Introduce la contraseña de Supabase para ingresar al editor.</p>
       <div class="form-group">
-        <input type="password" id="admin-password" class="form-control" placeholder="Contraseña de Supabase...">
+        <input type="password" id="admin-password" class="form-control" placeholder="Contraseña...">
       </div>
-      <button id="btn-login" class="btn-admin">Acceder al Panel</button>
-      <p id="auth-error" style="color: #ef4444; margin-top: 15px; display: none; font-size: 0.9rem;"></p>
+      <button id="btn-login" class="btn-cms publish" style="width: 100%;">Iniciar Sesión</button>
+      <p id="auth-error" style="color: #ef4444; margin-top: 10px; display: none; font-size: 0.85rem;"></p>
     </div>
   </div>
 
-  <!-- MAIN ADMIN DASHBOARD -->
-  <div class="admin-container">
-    <div class="admin-header">
-      <h1>Panel <span>Bienes Raíces</span></h1>
-      <button onclick="window.location.href='index.html'" class="btn-action">← Volver al Sitio Web</button>
+  <!-- TOP NAVIGATION BAR -->
+  <header class="cms-topbar">
+    <div class="cms-brand">
+      <h1>Decap CMS Style Editor</h1>
+      <span>Bienes Raíces</span>
     </div>
+    <div class="cms-actions">
+      <button id="btn-cancel" class="btn-cms" style="display: none;">Descartar</button>
+      <button id="btn-submit" class="btn-cms publish">Publicar en Web</button>
+      <button onclick="window.location.href='index.html'" class="btn-cms">Cerrar</button>
+    </div>
+  </header>
 
-    <div class="admin-grid">
-      <!-- FORM TO CREATE PROPERTY -->
-      <div class="glass-card">
-        <h2 id="form-heading">Agregar Nuevo Proyecto</h2>
-        <form id="property-form">
-          <input type="hidden" id="property-id">
-          
+  <!-- SPLIT WORKSPACE -->
+  <div class="cms-workspace">
+    
+    <!-- LEFT PANEL: EDITOR FORM -->
+    <section class="cms-editor-pane">
+      <h2 id="form-heading">Nuevo Registro</h2>
+      
+      <form id="property-form">
+        <input type="hidden" id="property-id">
+        
+        <div class="form-group">
+          <label for="title">Título del Proyecto</label>
+          <input type="text" id="title" class="form-control" required placeholder="Ej. Residencial Rodríguez Javier II">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <textarea id="description" class="form-control" rows="5" required placeholder="Detalles de terminación, amenidades, financiamiento..."></textarea>
+        </div>
+
+        <div class="form-row">
           <div class="form-group">
-            <label for="title">Título del Proyecto / Propiedad</label>
-            <input type="text" id="title" class="form-control" required placeholder="Ej. Residencial Rodríguez Javier I">
+            <label for="price">Precio Desde (USD)</label>
+            <input type="number" id="price" class="form-control" required placeholder="145000">
           </div>
-
           <div class="form-group">
-            <label for="description">Descripción del Proyecto</label>
-            <textarea id="description" class="form-control" rows="4" required placeholder="Detalla las características del proyecto, terminaciones, financiamiento..."></textarea>
+            <label for="location">Ubicación</label>
+            <input type="text" id="location" class="form-control" required value="Prado Oriental, Santo Domingo Este">
           </div>
+        </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="price">Precio (USD)</label>
-              <input type="number" id="price" class="form-control" required placeholder="Ej. 135000">
-            </div>
-            <div class="form-group">
-              <label for="location">Ubicación</label>
-              <input type="text" id="location" class="form-control" required value="Prado Oriental, Santo Domingo Este">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="m2">Metros Cuadrados (m²)</label>
-              <input type="number" step="0.01" id="m2" class="form-control" required placeholder="Ej. 145">
-            </div>
-            <div class="form-group">
-              <label for="status">Estado del Proyecto</label>
-              <select id="status" class="form-control" required>
-                <option value="en_desarrollo">En Preventa / Construcción</option>
-                <option value="en_venta">En Venta (Listo)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="bedrooms">Habitaciones</label>
-              <input type="number" id="bedrooms" class="form-control" required placeholder="3">
-            </div>
-            <div class="form-group">
-              <label for="bathrooms">Baños</label>
-              <input type="number" id="bathrooms" class="form-control" required placeholder="2">
-            </div>
-          </div>
-
+        <div class="form-row">
           <div class="form-group">
-            <label for="parking">Parqueos</label>
-            <input type="number" id="parking" class="form-control" required value="2">
+            <label for="m2">Área Metros Cuadrados (m²)</label>
+            <input type="number" step="0.01" id="m2" class="form-control" required placeholder="145">
           </div>
-
           <div class="form-group">
-            <label for="images-upload">Imágenes del Proyecto (WebP/PNG/JPG)</label>
-            <input type="file" id="images-upload" class="form-control" multiple accept="image/*">
-            <div class="image-preview-container" id="preview-container"></div>
+            <label for="status">Estado</label>
+            <select id="status" class="form-control" required>
+              <option value="en_desarrollo">Preventa / En Desarrollo</option>
+              <option value="en_venta">En Venta</option>
+            </select>
           </div>
+        </div>
 
-          <button type="submit" id="btn-submit" class="btn-admin">Publicar Propiedad</button>
-          <button type="button" id="btn-cancel" class="btn-action" style="width: 100%; margin-top: 10px; display: none;">Cancelar Edición</button>
-        </form>
-      </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bedrooms">Habitaciones</label>
+            <input type="number" id="bedrooms" class="form-control" required placeholder="3">
+          </div>
+          <div class="form-group">
+            <label for="bathrooms">Baños</label>
+            <input type="number" step="0.5" id="bathrooms" class="form-control" required placeholder="2.5">
+          </div>
+        </div>
 
-      <!-- LIST OF EXISTING PROPERTIES -->
-      <div class="glass-card">
-        <h2>Proyectos Registrados</h2>
+        <div class="form-group">
+          <label for="parking">Parqueos</label>
+          <input type="number" id="parking" class="form-control" required value="2">
+        </div>
+
+        <div class="form-group">
+          <label>Imágenes del Proyecto (WebP automático)</label>
+          <div class="media-uploader" onclick="document.getElementById('images-upload').click()">
+            <span style="font-size: 1.5rem; display: block; margin-bottom: 5px;">📁</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Haz clic para seleccionar imágenes</span>
+            <input type="file" id="images-upload" style="display: none;" multiple accept="image/*">
+          </div>
+          <div class="image-preview-grid" id="preview-grid"></div>
+        </div>
+      </form>
+
+      <!-- REGISTERED LIST -->
+      <div class="cms-sidebar-list">
+        <h3>Publicaciones Activas</h3>
         <div id="properties-list">
-          <p style="color: var(--color-gray);">Cargando propiedades...</p>
-        </div>
-
-        <!-- SETUP CONFIGURATION SETTINGS FOR SUPABASE -->
-        <div class="setup-config">
-          <h3 style="margin-top: 0; font-family: 'Outfit'; font-size: 1.1rem; color: var(--color-white);">Configuración de Supabase</h3>
-          <div class="form-group">
-            <label for="supabase-url">Supabase URL</label>
-            <input type="text" id="supabase-url" class="form-control" value="https://rnkktolpevqpcyvessfn.supabase.co" placeholder="https://your-project.supabase.co">
-          </div>
-          <div class="form-group">
-            <label for="supabase-anon-key">Supabase Anon/Public Key</label>
-            <input type="password" id="supabase-anon-key" class="form-control" placeholder="Introduce tu anon key pública...">
-          </div>
-          <button id="btn-save-config" class="btn-admin" style="background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary);">Guardar Claves</button>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Cargando propiedades...</p>
         </div>
       </div>
-    </div>
+
+      <!-- KEY CONFIG -->
+      <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted);">
+        <p>Configuración de API Supabase:</p>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+          <input type="text" id="supabase-url" class="form-control" value="https://rnkktolpevqpcyvessfn.supabase.co" style="font-size: 0.75rem;">
+          <input type="password" id="supabase-anon-key" class="form-control" placeholder="Anon Key..." style="font-size: 0.75rem;">
+          <button id="btn-save-config" class="btn-cms" style="padding: 4px 10px;">Conectar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: REAL TIME PREVIEW -->
+    <section class="cms-preview-pane">
+      <div class="preview-badge">Vista Previa en Tiempo Real</div>
+      
+      <div class="preview-card-container">
+        <div class="preview-title-hint">Tarjeta en la Página de Inicio</div>
+        
+        <!-- Replicated card -->
+        <div class="property-card" id="preview-card">
+          <div class="property-img-box">
+            <img id="p-preview-img" src="assets/images/projects/proyecto-1.webp" alt="Preview Image">
+            <span class="property-tag en_desarrollo" id="p-preview-tag">Preventa / En Desarrollo</span>
+          </div>
+          <div class="property-details">
+            <h3 class="property-title" id="p-preview-title">Residencial Rodríguez Javier II</h3>
+            <p class="property-location">📍 <span id="p-preview-location">Prado Oriental, Santo Domingo Este</span></p>
+            <p class="property-description" id="p-preview-desc">Detalles de terminación, amenidades, financiamiento...</p>
+            
+            <div class="property-specs">
+              <div class="spec-item">
+                <span>📏 Área</span>
+                <strong id="p-preview-m2">145 m²</strong>
+              </div>
+              <div class="spec-item">
+                <span>🛏️ Hab</span>
+                <strong id="p-preview-beds">3</strong>
+              </div>
+              <div class="spec-item">
+                <span>🚿 Baños</span>
+                <strong id="p-preview-baths">2.5</strong>
+              </div>
+              <div class="spec-item">
+                <span>🚗 Parq</span>
+                <strong id="p-preview-park">2</strong>
+              </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="property-price" id="p-preview-price">USD 145,000</span>
+              <span style="background: var(--primary); color: white; padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">Ver Detalles</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
   <script src="js/admin.js"></script>
