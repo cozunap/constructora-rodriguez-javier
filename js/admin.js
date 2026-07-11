@@ -1,6 +1,6 @@
 /**
  * Panel de Administración - Bienes Raíces Supabase
- * Maneja autenticación, cargas a Storage y operaciones de Base de Datos
+ * Maneja autenticación, cargas a Storage con compresión WebP automática y operaciones de Base de Datos
  */
 
 let supabase = null;
@@ -105,7 +105,7 @@ async function loadProperties() {
       
       const primaryImg = prop.image_urls && prop.image_urls.length > 0 
         ? prop.image_urls[0] 
-        : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=300&q=80';
+        : 'assets/images/projects/proyecto-1.webp';
 
       item.innerHTML = `
         <img src="${primaryImg}" alt="${prop.title}">
@@ -135,7 +135,7 @@ async function loadProperties() {
 
   } catch (err) {
     console.error("Error al cargar propiedades:", err);
-    propertiesList.innerHTML = `<p style="color: #ef4444;">Error al cargar datos: ${err.message}</p>`;
+    propertiesList.innerHTML = '<p style="color: #ef4444;">Error al cargar datos: ' + err.message + '</p>';
   }
 }
 
@@ -153,10 +153,7 @@ imagesUpload.addEventListener("change", (e) => {
     reader.onload = (event) => {
       const box = document.createElement("div");
       box.className = "preview-box";
-      box.innerHTML = `
-        <img src="${event.target.result}" alt="Preview">
-        <button type="button" class="remove-btn">×</button>
-      `;
+      box.innerHTML = '<img src="' + event.target.result + '" alt="Preview"><button type="button" class="remove-btn">×</button>';
       
       box.querySelector(".remove-btn").addEventListener("click", () => {
         const index = localFiles.indexOf(file);
@@ -170,25 +167,85 @@ imagesUpload.addEventListener("change", (e) => {
   });
 });
 
-// --- SUBIR IMÁGENES A STORAGE ---
+// --- CONVERSOR A WEBP AUTOMÁTICO EN CLIENTE ---
+function convertToWebp(file) {
+  return new Promise((resolve, reject) => {
+    // Si ya es webp, resolver inmediatamente
+    if (file.type === "image/webp") {
+      return resolve(file);
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        
+        // Optimizar tamaño máximo de renders (Max 1920px de ancho/alto)
+        let width = img.width;
+        let height = img.height;
+        const maxDim = 1920;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const nameWithoutExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+            const webpFile = new File([blob], nameWithoutExt + ".webp", { type: "image/webp" });
+            resolve(webpFile);
+          } else {
+            reject(new Error("Blob to WebP failed"));
+          }
+        }, "image/webp", 0.82); // Compresión de 82% para equilibrio óptimo peso/calidad
+      };
+      img.onerror = (err) => reject(err);
+    };
+    reader.onerror = (err) => reject(err);
+  });
+}
+
+// --- SUBIR IMÁGENES A STORAGE (CON CONVERSIÓN WEBP) ---
 async function uploadImagesToStorage() {
-  const urls = [...uploadedImageUrls]; // Mantener las URLs que ya tenía (si es edición)
+  const urls = [...uploadedImageUrls];
   
   for (const file of localFiles) {
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-    const filePath = `${fileName}`;
+    let fileToUpload = file;
+    
+    // Convertir a WebP de forma proactiva antes de subir a Supabase Storage
+    try {
+      fileToUpload = await convertToWebp(file);
+      console.log("Imagen convertida a WebP con éxito: " + fileToUpload.name + " (" + (fileToUpload.size / 1024).toFixed(1) + " KB)");
+    } catch (webpErr) {
+      console.warn("Fallo conversión WebP, subiendo archivo original:", webpErr);
+    }
+
+    const fileExt = fileToUpload.name.split('.').pop();
+    const fileName = Date.now() + "_" + Math.random().toString(36).substring(7) + "." + fileExt;
+    const filePath = fileName;
     
     const { data, error } = await supabase.storage
       .from('property-images')
-      .upload(filePath, file);
+      .upload(filePath, fileToUpload);
       
     if (error) {
       console.error("Error al subir archivo a Storage:", error);
-      throw new Error(`Error al subir imagen: ${error.message}`);
+      throw new Error("Error al subir imagen: " + error.message);
     }
     
-    // Obtener URL pública de la imagen
     const { data: urlData } = supabase.storage
       .from('property-images')
       .getPublicUrl(filePath);
@@ -199,7 +256,7 @@ async function uploadImagesToStorage() {
   return urls;
 }
 
-// --- SUBMIT DEL FORMULARIO (INSERTAR O EDITAR) ---
+// --- SUBMIT DEL FORMULARIO ---
 const propertyForm = document.getElementById("property-form");
 const propertyIdInput = document.getElementById("property-id");
 const btnSubmit = document.getElementById("btn-submit");
@@ -215,10 +272,9 @@ propertyForm.addEventListener("submit", async (e) => {
   }
   
   btnSubmit.disabled = true;
-  btnSubmit.textContent = "Procesando...";
+  btnSubmit.textContent = "Procesando imágenes...";
   
   try {
-    // 1. Subir archivos locales seleccionados al storage
     const allUrls = await uploadImagesToStorage();
     
     if (allUrls.length === 0) {
@@ -227,6 +283,8 @@ propertyForm.addEventListener("submit", async (e) => {
       btnSubmit.textContent = "Publicar Propiedad";
       return;
     }
+
+    btnSubmit.textContent = "Guardando datos...";
 
     const payload = {
       title: document.getElementById("title").value.trim(),
@@ -245,14 +303,12 @@ propertyForm.addEventListener("submit", async (e) => {
     let error = null;
 
     if (propId) {
-      // Editar registro
       const { error: err } = await supabase
         .from('properties')
         .update(payload)
         .eq('id', propId);
       error = err;
     } else {
-      // Insertar nuevo registro
       const { error: err } = await supabase
         .from('properties')
         .insert([payload]);
@@ -267,7 +323,7 @@ propertyForm.addEventListener("submit", async (e) => {
 
   } catch (err) {
     console.error("Error al procesar propiedad:", err);
-    alert(`Error: ${err.message}`);
+    alert("Error: " + err.message);
   } finally {
     btnSubmit.disabled = false;
     btnSubmit.textContent = "Publicar Propiedad";
@@ -287,7 +343,6 @@ async function editProperty(id) {
 
     if (error) throw error;
 
-    // Llenar campos
     propertyIdInput.value = data.id;
     document.getElementById("title").value = data.title;
     document.getElementById("description").value = data.description;
@@ -299,18 +354,14 @@ async function editProperty(id) {
     document.getElementById("bathrooms").value = data.bathrooms;
     document.getElementById("parking").value = data.parking;
 
-    // Mostrar previsualización de las imágenes que ya están subidas
     previewContainer.innerHTML = '';
     uploadedImageUrls = data.image_urls || [];
-    localFiles = []; // Limpiar locales
+    localFiles = [];
 
     uploadedImageUrls.forEach(url => {
       const box = document.createElement("div");
       box.className = "preview-box";
-      box.innerHTML = `
-        <img src="${url}" alt="Saved preview">
-        <button type="button" class="remove-btn">×</button>
-      `;
+      box.innerHTML = '<img src="' + url + '" alt="Saved preview"><button type="button" class="remove-btn">×</button>';
       box.querySelector(".remove-btn").addEventListener("click", () => {
         const index = uploadedImageUrls.indexOf(url);
         if (index > -1) uploadedImageUrls.splice(index, 1);
@@ -319,16 +370,14 @@ async function editProperty(id) {
       previewContainer.appendChild(box);
     });
 
-    // UI Feedback
     formHeading.textContent = "Editar Proyecto";
     btnSubmit.textContent = "Guardar Cambios";
     btnCancel.style.display = "block";
 
-    // Subir scroll al formulario
     document.querySelector(".glass-card").scrollIntoView({ behavior: "smooth" });
 
   } catch (err) {
-    alert(`Error al cargar datos del proyecto: ${err.message}`);
+    alert("Error al cargar datos del proyecto: " + err.message);
   }
 }
 
@@ -347,7 +396,7 @@ async function deleteProperty(id) {
       alert("Proyecto eliminado con éxito.");
       loadProperties();
     } catch (err) {
-      alert(`Error al eliminar: ${err.message}`);
+      alert("Error al eliminar: " + err.message);
     }
   }
 }
@@ -367,7 +416,6 @@ function resetForm() {
   document.getElementById("parking").value = "2";
 }
 
-// Chequear autenticación inicial
 document.addEventListener("DOMContentLoaded", () => {
   const savedUrl = localStorage.getItem("supabase_url");
   if (savedUrl) {
