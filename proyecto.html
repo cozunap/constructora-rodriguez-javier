@@ -122,9 +122,9 @@
     /* Premium Gallery Grid */
     .gallery-container {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-      height: 480px;
+      grid-template-columns: 2.2fr 1fr;
+      gap: 15px;
+      aspect-ratio: 16 / 8.5; /* Premium layout aspect ratio */
       margin-bottom: 40px;
       border-radius: 16px;
       overflow: hidden;
@@ -134,7 +134,8 @@
     @media (max-width: 768px) {
       .gallery-container {
         grid-template-columns: 1fr;
-        height: 300px;
+        height: auto;
+        aspect-ratio: 16 / 10;
       }
     }
 
@@ -148,17 +149,19 @@
       width: 100%;
       height: 100%;
       object-fit: contain; /* Proportional display */
-      background-color: #0d131f; /* Premium dark background */
+      background-color: #0b0f19; /* Premium dark background */
       position: absolute;
       top: 0;
       left: 0;
       opacity: 0;
       transition: opacity 0.5s ease;
+      z-index: 1;
     }
 
     .gallery-main img.active {
       opacity: 1;
-      position: relative;
+      position: absolute; /* Keep absolute to prevent layout shifts! */
+      z-index: 2;
     }
 
     .gallery-thumbs {
@@ -191,8 +194,7 @@
     .thumb-box img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      background-color: #0d131f;
+      object-fit: cover; /* Crop thumbnails to fill nicely */
     }
 
     /* Content Layout */
