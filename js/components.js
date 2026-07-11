@@ -45,8 +45,9 @@
         <div class="nav-links" id="nav-links">
           ${navLinks}
           <div class="lang-switcher">
-            <button class="lang-btn active" data-lang="es" onclick="switchLanguage('es')">ES</button>
+            <button class="lang-btn" data-lang="es" onclick="switchLanguage('es')">ES</button>
             <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
+            <button class="lang-btn" data-lang="ht" onclick="switchLanguage('ht')">HT</button>
           </div>
           <a href="contact.html" class="btn btn-primary nav-cta" data-i18n="nav-cta">Cotizar</a>
         </div>
