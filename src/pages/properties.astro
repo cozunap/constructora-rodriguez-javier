@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Propiedades de Lujo | Constructora Rodríguez Javier — República Dominicana</title>
-  <meta name="description" content="Explora propiedades exclusivas en República Dominicana: villas, apartamentos y residencias de lujo. Financiamiento disponible. Coordinación remota para dominicanos en USA.">
-  <link rel="canonical" href="https://constructora-rodriguez-javier.pages.dev/properties.html">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
-  <link rel="stylesheet" href="css/styles.css">
-  <style>
-    .no-results { text-align:center; padding: 4rem 0; color: var(--muted); }
-    .prop-detail-link { display:block; color:inherit; }
-  </style>
-</head>
-<body>
+---
+import Layout from '../layouts/Layout.astro';
+---
 
-  <!-- Nav injected by components.js -->
+<Layout title="Constructora Rodríguez Javier | Propiedades">
+<!-- Nav injected by components.js -->
 
   <!-- ── Page Hero ─────────────────────────────── -->
   <div class="page-hero">
@@ -55,16 +43,13 @@
       <h2 data-i18n="cta-title">Hablemos de tu Proyecto</h2>
       <p data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
       <div class="cta-banner-actions">
-        <a href="contact.html" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
+        <a href="/contact" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
       </div>
     </div>
   </div>
 
   <!-- Footer injected by components.js -->
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/lang.js"></script>
-  <script src="js/components.js"></script>
-  <script src="js/app.js"></script>
-</body>
-</html>
+  
+  
+</Layout>

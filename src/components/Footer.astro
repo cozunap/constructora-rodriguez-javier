@@ -1,0 +1,103 @@
+---
+// Footer.astro
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo"><img src="/assets/lorenzo-logo.webp" alt="Logo"></a>
+        <p data-i18n="footer-desc">Transformando espacios con calidad, puntualidad y excelencia en Santo Domingo.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-pages">Páginas</h4>
+        <ul>
+          <li><a href="/" data-i18n="nav-home">Inicio</a></li>
+          <li><a href="/properties" data-i18n="nav-properties">Propiedades</a></li>
+          <li><a href="/services" data-i18n="nav-services">Servicios</a></li>
+          <li><a href="/about" data-i18n="nav-about">Nosotros</a></li>
+          <li><a href="/contact" data-i18n="nav-contact">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-services-title">Servicios</h4>
+        <ul>
+          <li><a href="/services" data-i18n="srv-interior-title">Diseño de Interiores</a></li>
+          <li><a href="/services" data-i18n="srv-civil-title">Construcción</a></li>
+          <li><a href="/services" data-i18n="srv-wood-title">Ebanistería</a></li>
+          <li><a href="/services" data-i18n="srv-project-title">Gestión de Obra</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-contact-title">Contacto</h4>
+        <ul>
+          <li><a href="tel:+18299595350">+1 (829) 959-5350</a></li>
+          <li><a href="mailto:info@crjavier.com">info@crjavier.com</a></li>
+          <li><a href="#" data-i18n="footer-location">Santo Domingo, RD</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="footer-year"></span> Constructora Rodríguez Javier SRL. <span data-i18n="footer-rights">Todos los derechos reservados.</span></p>
+      <p>Diseñado por <a href="https://cozuna.com" target="_blank">cozuna.com</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="wa-widget">
+  <div class="wa-box" id="wa-box">
+    <div class="wa-box-header">
+      <div class="wa-avatar">👷</div>
+      <div>
+        <h4 data-i18n="wa-header">Chat de Soporte</h4>
+        <span data-i18n="wa-subheader">Responde en minutos</span>
+      </div>
+    </div>
+    <div class="wa-box-body">
+      <div class="wa-bubble" data-i18n="wa-welcome">¡Hola! 👋 ¿En qué podemos ayudarte?</div>
+      <a href="https://wa.me/18299595350?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20propiedades."
+         target="_blank" class="btn" id="wa-start">
+        <span data-i18n="wa-btn">Iniciar Chat</span>
+      </a>
+    </div>
+  </div>
+  <button class="wa-toggle" id="wa-toggle" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.76.459 3.473 1.332 4.978L2 22l5.234-1.373a9.927 9.927 0 0 0 4.778 1.217c5.506 0 9.988-4.482 9.988-9.988C22 6.482 17.518 2 12.012 2zm4.72 13.916c-.208.583-1.026 1.133-1.636 1.258-.52.106-1.196.187-3.488-.763-2.929-1.217-4.82-4.204-4.965-4.4a5.19 5.19 0 0 1-.989-2.775c0-1.467.77-2.196 1.04-2.467.27-.27.583-.343.78-.343.197 0 .395.002.562.01.176.009.416-.067.65.49.25.593.853 2.08.926 2.227.073.146.125.323.02.52-.104.208-.156.323-.312.5-.156.177-.323.395-.468.531-.166.156-.343.323-.146.666.197.333.884 1.457 1.894 2.352 1.3 1.155 2.394 1.51 2.738 1.676.343.167.541.135.739-.094.197-.229.853-1.009 1.082-1.353.229-.343.458-.291.77-.177.312.115 1.977.968 2.31 1.135.333.166.552.25.635.395.083.146.083.843-.125 1.427z"/></svg>
+  </button>
+</div>
+
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Footer Year
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    // WhatsApp Widget
+    const toggle = document.getElementById('wa-toggle');
+    const box    = document.getElementById('wa-box');
+    if (toggle && box) {
+      toggle.addEventListener('click', () => box.classList.toggle('open'));
+    }
+
+    // Back to top
+    const btn = document.getElementById('back-to-top');
+    if (btn) {
+      window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+      }, { passive: true });
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+
+    // Fade up animations
+    const els = document.querySelectorAll('.fade-up');
+    if (els.length) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(el => obs.observe(el));
+    }
+  });
+</script>

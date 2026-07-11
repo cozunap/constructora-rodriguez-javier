@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contacto | Constructora Rodríguez Javier — Cotiza tu Proyecto</title>
-  <meta name="description" content="Contáctanos para cotizar tu proyecto de construcción o remodelación en Santo Domingo. Coordinación 100% remota para dominicanos en USA. Respuesta en minutos.">
-  <link rel="canonical" href="https://constructora-rodriguez-javier.pages.dev/contact.html">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
-  <link rel="stylesheet" href="css/styles.css">
-  <style>
-    .contact-layout { display:grid; grid-template-columns:1fr 1.6fr; gap:4rem; align-items:start; }
-    .contact-info h2 { font-family:var(--font-serif); font-size:1.5rem; font-weight:400; color:var(--navy); margin-bottom:1.5rem; }
-    .contact-detail { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; }
-    .contact-icon { width:40px; height:40px; border-radius:50%; background:var(--light); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--gold); }
-    .contact-detail-text strong { display:block; font-size:.8125rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); margin-bottom:.2rem; }
-    .contact-detail-text a, .contact-detail-text p { font-size:.9375rem; color:var(--dark); }
-    .contact-detail-text a:hover { color:var(--gold); }
-    .form-card { background:var(--off-white); border:1px solid var(--mid); border-radius:3px; padding:2.5rem; }
-    .form-card h3 { font-family:var(--font-serif); font-size:1.35rem; color:var(--navy); margin-bottom:1.75rem; font-weight:400; }
-    .form-success-msg { background:var(--navy); color:var(--white); padding:1rem 1.5rem; border-radius:2px; font-size:.9rem; display:none; margin-top:1rem; }
-    @media(max-width:900px){ .contact-layout { grid-template-columns:1fr; } }
-  </style>
-</head>
-<body>
+---
+import Layout from '../layouts/Layout.astro';
+---
 
-  <!-- Nav injected -->
+<Layout title="Constructora Rodríguez Javier | Contacto">
+<!-- Nav injected -->
 
   <!-- ── Page Hero ─────────────────────────────── -->
   <div class="page-hero">
@@ -144,22 +123,5 @@
 
   <!-- Footer injected -->
 
-  <script src="js/lang.js"></script>
-  <script src="js/components.js"></script>
-  <script>
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('form-submit');
-      btn.textContent = 'Enviando...';
-      btn.disabled = true;
-      // Simulate send (replace with real API call)
-      setTimeout(() => {
-        document.getElementById('form-success').style.display = 'block';
-        this.reset();
-        btn.textContent = 'Enviar Solicitud';
-        btn.disabled = false;
-      }, 1200);
-    });
-  </script>
-</body>
-</html>
+  
+</Layout>

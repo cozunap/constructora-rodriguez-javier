@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Constructora Rodríguez Javier | Proyecto">
+<!-- Nav injected by components.js -->
+
+  <main class="body-offset">
+    <section class="section" aria-label="Detalle del proyecto">
+      <div class="container">
+
+        <!-- Breadcrumb -->
+        <nav class="detail-breadcrumb" aria-label="Breadcrumb">
+          <a href="/" data-i18n="nav-home">Inicio</a>
+          <span>/</span>
+          <a href="/properties" data-i18n="nav-properties">Propiedades</a>
+          <span>/</span>
+          <span id="detail-title">Cargando...</span>
+        </nav>
+
+        <div class="detail-layout">
+
+          <!-- Main column -->
+          <div class="detail-main">
+
+            <!-- Carousel -->
+            <div class="carousel-wrap">
+              <div class="carousel-main" id="detail-carousel">
+                <img src="assets/images/projects/duran-2.webp" alt="Cargando...">
+              </div>
+              <div class="carousel-thumbs" id="detail-thumbs"></div>
+            </div>
+
+            <!-- Title + Badge -->
+            <div style="display:flex;align-items:center;gap:1rem;margin-top:1.75rem;flex-wrap:wrap">
+              <div id="detail-badge"></div>
+            </div>
+            <p class="prop-card-location mt-2" id="detail-location"></p>
+            <h1 style="font-family:var(--font-serif);font-size:clamp(1.5rem,3.5vw,2.25rem);font-weight:400;color:var(--navy);margin-top:.4rem;line-height:1.2" id="detail-title-h1">Cargando...</h1>
+
+            <!-- Specs strip -->
+            <div class="specs-strip">
+              <div class="spec-item">
+                <strong id="detail-m2">—</strong>
+                <span data-i18n="spec-area">Área</span>
+              </div>
+              <div class="spec-item">
+                <strong id="detail-beds">—</strong>
+                <span data-i18n="spec-beds">Hab.</span>
+              </div>
+              <div class="spec-item">
+                <strong id="detail-baths">—</strong>
+                <span data-i18n="spec-baths">Baños</span>
+              </div>
+              <div class="spec-item">
+                <strong id="detail-park">—</strong>
+                <span data-i18n="spec-park">Parq.</span>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <h2 style="font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--navy);margin-bottom:1rem" data-i18n="description-title">Descripción del Proyecto</h2>
+            <div class="detail-desc" id="detail-desc">
+              <p>Cargando descripción...</p>
+            </div>
+
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="detail-sidebar">
+            <div class="sidebar-card">
+              <p class="overline" data-i18n="price-label">Precio Desde</p>
+              <p class="sidebar-price" id="detail-price">—</p>
+
+              <a href="https://wa.me/18299595350?text=Hola%2C%20me%20interesa%20este%20proyecto."
+                 target="_blank"
+                 class="btn btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:.35rem"><path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.76.459 3.473 1.332 4.978L2 22l5.234-1.373a9.927 9.927 0 0 0 4.778 1.217c5.506 0 9.988-4.482 9.988-9.988C22 6.482 17.518 2 12.012 2z"/></svg>
+                <span data-i18n="side-btn">Contactar por WhatsApp</span>
+              </a>
+              <a href="/contact" class="btn btn-outline" style="margin-top:.75rem" data-i18n="nav-cta">Cotizar Gratis</a>
+
+              <hr class="sidebar-divider">
+
+              <p class="label" style="color:var(--navy);margin-bottom:.5rem" data-i18n="side-title">¿Te interesa este proyecto?</p>
+              <p data-i18n="side-desc">Contáctanos directamente por WhatsApp para recibir planos, brochure y agendar una visita.</p>
+
+              <hr class="sidebar-divider">
+
+              <div style="display:flex;gap:1.5rem;font-size:.8rem;color:var(--muted)">
+                <div>
+                  <strong style="display:block;color:var(--dark);font-size:.9rem">+1 (829) 959-5350</strong>
+                  <span>WhatsApp / Tel.</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="/properties" class="detail-back btn btn-outline" style="margin-top:1rem;width:100%;justify-content:center" data-i18n="back-listings">
+              ← Volver a Propiedades
+            </a>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer injected -->
+
+  
+  
+</Layout>

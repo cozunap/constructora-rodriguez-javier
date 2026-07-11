@@ -1,38 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Servicios de Construcción y Remodelación | Constructora Rodríguez Javier</title>
-  <meta name="description" content="Servicios premium de remodelación de cocinas, baños, ebanistería a medida y construcción general en Santo Domingo. Coordinación remota para dominicanos en USA.">
-  <link rel="canonical" href="https://constructora-rodriguez-javier.pages.dev/services.html">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
-  <link rel="stylesheet" href="css/styles.css">
-  <style>
-    .process-steps { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:2rem; margin-top:3rem; }
-    .process-step { text-align:center; }
-    .step-num { font-family:var(--font-serif); font-size:3rem; color:var(--mid); font-weight:400; line-height:1; margin-bottom:.75rem; }
-    .process-step h3 { font-size:1rem; font-weight:600; color:var(--navy); margin-bottom:.5rem; }
-    .process-step p { font-size:.875rem; color:var(--muted); }
-    .service-full { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; padding-block:4rem; border-bottom:1px solid var(--mid); }
-    .service-full:last-child { border-bottom:none; }
-    .service-full.reverse .service-full-text { order:2; }
-    .service-full.reverse .service-full-img  { order:1; }
-    .service-full-img img { width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:2px; }
-    .service-full-text .overline { margin-bottom:.75rem; }
-    .service-full-text h2 { font-family:var(--font-serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:400; color:var(--navy); margin-bottom:1rem; }
-    .service-full-text ul { margin-top:1rem; display:flex; flex-direction:column; gap:.5rem; }
-    .service-full-text ul li { font-size:.9rem; color:var(--muted); padding-left:1.25rem; position:relative; }
-    .service-full-text ul li::before { content:'→'; position:absolute; left:0; color:var(--gold); font-size:.8rem; }
-    @media(max-width:768px){
-      .service-full { grid-template-columns:1fr; gap:2rem; }
-      .service-full.reverse .service-full-text,.service-full.reverse .service-full-img { order:unset; }
-    }
-  </style>
-</head>
-<body>
+---
+import Layout from '../layouts/Layout.astro';
+---
 
-  <!-- Nav injected -->
+<Layout title="Constructora Rodríguez Javier | Servicios">
+<!-- Nav injected -->
 
   <!-- ── Page Hero ─────────────────────────────── -->
   <div class="page-hero">
@@ -64,7 +35,7 @@
             <li>Iluminación LED integrada en cornisas</li>
             <li>Coordinación 100% remota disponible</li>
           </ul>
-          <a href="contact.html" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
+          <a href="/contact" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
         </div>
       </div>
 
@@ -82,7 +53,7 @@
             <li>Supervisión técnica de ingenieros colegiados</li>
             <li>Garantía estructural por escrito</li>
           </ul>
-          <a href="contact.html" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
+          <a href="/contact" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
         </div>
         <div class="service-full-img fade-up">
           <img src="assets/images/projects/duran-3.webp" alt="Construcción" loading="lazy">
@@ -106,7 +77,7 @@
             <li>Muebles de baño a medida</li>
             <li>Tiempo de entrega garantizado por contrato</li>
           </ul>
-          <a href="contact.html" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
+          <a href="/contact" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
         </div>
       </div>
 
@@ -124,7 +95,7 @@
             <li>Gestión de permisos y documentación</li>
             <li>Ideal para dominicanos residentes en USA</li>
           </ul>
-          <a href="contact.html" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
+          <a href="/contact" class="btn btn-primary mt-4" data-i18n="nav-cta">Cotizar Gratis</a>
         </div>
         <div class="service-full-img fade-up">
           <img src="assets/images/projects/rodriguez-ii-2.webp" alt="Gestión de Obra" loading="lazy">
@@ -179,14 +150,12 @@
       <h2 data-i18n="cta-title">Hablemos de tu Proyecto</h2>
       <p data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
       <div class="cta-banner-actions">
-        <a href="contact.html" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
-        <a href="properties.html" class="btn btn-outline-white" data-i18n="nav-properties">Ver Propiedades</a>
+        <a href="/contact" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
+        <a href="/properties" class="btn btn-outline-white" data-i18n="nav-properties">Ver Propiedades</a>
       </div>
     </div>
   </div>
 
   <!-- Footer injected -->
-  <script src="js/lang.js"></script>
-  <script src="js/components.js"></script>
-</body>
-</html>
+  
+</Layout>

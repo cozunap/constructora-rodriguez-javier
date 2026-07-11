@@ -1,43 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Constructora Rodríguez Javier | Luxury Real Estate & Construction — Dominican Republic</title>
-  <meta name="description" content="Luxury real estate and premium construction in the Dominican Republic. Find exclusive properties, villas, and apartments. Expert remodeling for Dominicans in the USA.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://constructora-rodriguez-javier.pages.dev">
-  <link rel="alternate" hreflang="es" href="https://constructora-rodriguez-javier.pages.dev?lang=es">
-  <link rel="alternate" hreflang="en" href="https://constructora-rodriguez-javier.pages.dev?lang=en">
-  <meta property="og:title" content="Constructora Rodríguez Javier | Luxury Real Estate">
-  <meta property="og:description" content="Premium real estate and construction services in the Dominican Republic.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://constructora-rodriguez-javier.pages.dev">
-  <meta property="og:image" content="https://constructora-rodriguez-javier.pages.dev/assets/images/hero/hero-bg.webp">
+---
+import Layout from '../layouts/Layout.astro';
+---
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
-    "name": "Constructora Rodríguez Javier SRL",
-    "url": "https://constructora-rodriguez-javier.pages.dev",
-    "logo": "https://constructora-rodriguez-javier.pages.dev/assets/lorenzo-logo.webp",
-    "telephone": "+18299595350",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Prado Oriental",
-      "addressLocality": "Santo Domingo Este",
-      "addressCountry": "DO"
-    }
-  }
-  </script>
-
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-
-  <!-- Navigation injected by components.js -->
+<Layout title="Constructora Rodríguez Javier | Inicio">
+<!-- Navigation injected by components.js -->
 
   <!-- ═══════════════════════════════════════════════
        HERO
@@ -50,8 +16,8 @@
         <h1 data-i18n="hero-title">Transformamos Espacios,<br>Construimos Sueños</h1>
         <p data-i18n="hero-desc">Diseños a la medida y remodelaciones de alto nivel en Santo Domingo con estándares europeos de calidad, puntualidad y acabados premium.</p>
         <div class="hero-actions">
-          <a href="properties.html" class="btn btn-gold" data-i18n="hero-cta-projects">Ver Propiedades</a>
-          <a href="contact.html" class="btn btn-outline-white" data-i18n="hero-cta-contact">Cotizar Gratis</a>
+          <a href="/properties" class="btn btn-gold" data-i18n="hero-cta-projects">Ver Propiedades</a>
+          <a href="/contact" class="btn btn-outline-white" data-i18n="hero-cta-contact">Cotizar Gratis</a>
         </div>
       </div>
     </div>
@@ -90,7 +56,7 @@
           <div class="gold-line"></div>
           <h2 class="display-sm" data-i18n="re-title">Propiedades Destacadas</h2>
         </div>
-        <a href="properties.html" class="btn btn-outline fade-up" data-i18n="view-all">Ver Todas</a>
+        <a href="/properties" class="btn btn-outline fade-up" data-i18n="view-all">Ver Todas</a>
       </div>
 
       <div class="prop-grid" id="featured-props">
@@ -195,7 +161,7 @@
           </svg>
           <h3 data-i18n="srv-interior-title">Diseño de Interiores</h3>
           <p data-i18n="srv-interior-desc">Transformación total de apartamentos, penthouses y residencias con acabados de primera.</p>
-          <a href="services.html" class="service-card-link" data-i18n="srv-learn-more">Saber más →</a>
+          <a href="/services" class="service-card-link" data-i18n="srv-learn-more">Saber más →</a>
         </div>
         <!-- Construction -->
         <div class="service-card fade-up">
@@ -204,7 +170,7 @@
           </svg>
           <h3 data-i18n="srv-civil-title">Construcción &amp; Ampliaciones</h3>
           <p data-i18n="srv-civil-desc">Estructuras residenciales y comerciales sólidas, cumpliendo todas las normas vigentes.</p>
-          <a href="services.html" class="service-card-link" data-i18n="srv-learn-more">Saber más →</a>
+          <a href="/services" class="service-card-link" data-i18n="srv-learn-more">Saber más →</a>
         </div>
         <!-- Woodwork -->
         <div class="service-card fade-up">
@@ -213,7 +179,7 @@
           </svg>
           <h3 data-i18n="srv-wood-title">Ebanistería a Medida</h3>
           <p data-i18n="srv-wood-desc">Cocinas modulares, clósets y mobiliario con maderas preciosas y herrajes premium.</p>
-          <a href="services.html" class="service-card-link" data-i18n="srv-learn-more">Saber más →</a>
+          <a href="/services" class="service-card-link" data-i18n="srv-learn-more">Saber más →</a>
         </div>
         <!-- Project Management -->
         <div class="service-card fade-up">
@@ -222,7 +188,7 @@
           </svg>
           <h3 data-i18n="srv-project-title">Gestión de Obra</h3>
           <p data-i18n="srv-project-desc">Planificación rigurosa, compras, control de presupuesto y supervisión técnica constante.</p>
-          <a href="services.html" class="service-card-link" data-i18n="srv-learn-more">Saber más →</a>
+          <a href="/services" class="service-card-link" data-i18n="srv-learn-more">Saber más →</a>
         </div>
       </div>
     </div>
@@ -261,7 +227,7 @@
               <span data-i18n="hero-stat-reach">Cobertura</span>
             </div>
           </div>
-          <a href="about.html" class="btn btn-primary mt-4" data-i18n="about-cta">Conoce el Equipo</a>
+          <a href="/about" class="btn btn-primary mt-4" data-i18n="about-cta">Conoce el Equipo</a>
         </div>
       </div>
     </div>
@@ -309,8 +275,8 @@
       <h2 data-i18n="cta-title">Hablemos de tu Proyecto</h2>
       <p data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
       <div class="cta-banner-actions">
-        <a href="contact.html" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
-        <a href="properties.html" class="btn btn-outline-white" data-i18n="hero-cta-projects">Ver Propiedades</a>
+        <a href="/contact" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
+        <a href="/properties" class="btn btn-outline-white" data-i18n="hero-cta-projects">Ver Propiedades</a>
       </div>
     </div>
   </div>
@@ -318,9 +284,6 @@
   <!-- Footer injected by components.js -->
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/lang.js"></script>
-  <script src="js/components.js"></script>
-  <script src="js/app.js"></script>
-</body>
-</html>
+  
+  
+</Layout>
