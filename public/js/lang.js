@@ -2,7 +2,7 @@ const translations={"es":{"nav-home":"Inicio","nav-services":"Servicios","nav-be
 
 // Auto-detect browser language and apply — runs immediately or on DOMContentLoaded
 function _lorenzInitLang() {
-  const saved = localStorage.getItem('lorenzo_lang');
+  const saved = null;
   const browserLang = (navigator.language || navigator.userLanguage || 'es').toLowerCase().substring(0, 2);
   const langToUse = saved || (window.translations[browserLang] ? browserLang : 'es');
   window.switchLanguage(langToUse);
@@ -10,7 +10,7 @@ function _lorenzInitLang() {
 
 window.switchLanguage = function(lang) {
   if (!window.translations[lang]) lang = 'es';
-  localStorage.setItem('lorenzo_lang', lang);
+  // localStorage.setItem('lorenzo_lang', lang);
   document.documentElement.lang = lang;
   
   document.querySelectorAll('[data-i18n]').forEach(el => {
