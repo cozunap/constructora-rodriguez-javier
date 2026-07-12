@@ -10,7 +10,7 @@ import Layout from '../layouts/Layout.astro';
   ════════════════════════════════════════════════ -->
   <section class="hero" id="inicio" aria-label="Hero">
     <div class="hero-bg"></div>
-    <div class="container">
+    <div class="container hero-grid">
       <div class="hero-content">
         <p class="overline" data-i18n="hero-tag">Expertos en Remodelaciones &amp; Construcción</p>
         <h1 data-i18n="hero-title">Transformamos Espacios,<br>Construimos Sueños</h1>
@@ -20,27 +20,30 @@ import Layout from '../layouts/Layout.astro';
           <a href="/contact" class="btn btn-outline-white" data-i18n="hero-cta-contact">Cotizar Gratis</a>
         </div>
       </div>
+      <div class="hero-visual">
+        <!-- Optional right column content, left empty to force 2 columns layout -->
+      </div>
     </div>
+  </section>
 
-    <!-- Stats Bar -->
-    <div class="hero-stats">
-      <div class="hero-stats-inner">
-        <div class="hero-stat">
-          <strong>120+</strong>
-          <span data-i18n="stat-projects">Proyectos</span>
-        </div>
-        <div class="hero-stat">
-          <strong>15</strong>
-          <span data-i18n="stat-experience">Años de Experiencia</span>
-        </div>
-        <div class="hero-stat">
-          <strong>98%</strong>
-          <span data-i18n="stat-satisfaction">Clientes Satisfechos</span>
-        </div>
-        <div class="hero-stat">
-          <strong>RD &amp; USA</strong>
-          <span data-i18n="hero-stat-reach">Coordinación Remota</span>
-        </div>
+  <!-- Stats Bar (Moved below main hero) -->
+  <section class="hero-stats-section">
+    <div class="hero-stats-inner">
+      <div class="hero-stat">
+        <strong>120+</strong>
+        <span data-i18n="stat-projects">Proyectos</span>
+      </div>
+      <div class="hero-stat">
+        <strong>15</strong>
+        <span data-i18n="stat-experience">Años de Experiencia</span>
+      </div>
+      <div class="hero-stat">
+        <strong>98%</strong>
+        <span data-i18n="stat-satisfaction">Clientes Satisfechos</span>
+      </div>
+      <div class="hero-stat">
+        <strong>RD &amp; USA</strong>
+        <span data-i18n="hero-stat-reach">Coordinación Remota</span>
       </div>
     </div>
   </section>
