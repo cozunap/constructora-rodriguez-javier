@@ -4,4 +4,4 @@ Allow: /
 User-agent: AdsBot-Google
 Allow: /
 
-Sitemap: https://www.tucasard.com/sitemap-index.xml
+Sitemap: https://www.rodriguezjaviers.com/sitemap-index.xml

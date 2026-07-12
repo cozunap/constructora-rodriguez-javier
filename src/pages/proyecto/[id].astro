@@ -20,7 +20,7 @@ export async function getStaticPaths() {
         if (prop.image_urls[0].startsWith('http')) {
           image = prop.image_urls[0];
         } else if (prop.image_urls[0].startsWith('/assets/')) {
-          image = "https://www.tucasard.com" + prop.image_urls[0];
+          image = "https://www.rodriguezjaviers.com" + prop.image_urls[0];
         } else {
           image = SUPA_URL + '/storage/v1/object/public/property-images/' + (prop.image_urls[0].startsWith('/') ? prop.image_urls[0].substring(1) : prop.image_urls[0]);
         }
@@ -36,13 +36,38 @@ export async function getStaticPaths() {
       
       let pageId = prop.slug || prop.id.toString();
       
+
+      let pageUrl = `https://www.rodriguezjaviers.com/proyecto/${pageId}`;
+
+      let customSchema: Record<string, any> = {
+        "@context": "https://schema.org",
+        "@type": "Residence",
+        "name": titleStr,
+        "description": description,
+        "image": image,
+        "url": pageUrl
+      };
+
+      if (prop.price) {
+         customSchema.offers = {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": prop.price,
+            "availability": prop.status?.en === 'Sold' ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+            "url": pageUrl
+         };
+      }
+      if (prop.bedrooms) customSchema.numberOfRooms = prop.bedrooms;
+      if (prop.bathrooms) customSchema.numberOfBathroomsTotal = prop.bathrooms;
+
       return {
         params: { id: pageId },
         props: {
           title: `Constructora Rodríguez Javier | ${titleStr}`,
           description,
           image,
-          url: `https://www.tucasard.com/proyecto/${pageId}`
+          url: pageUrl,
+          customSchema
         }
       };
     });
@@ -52,10 +77,10 @@ export async function getStaticPaths() {
   }
 }
 
-const { title, description, image, url } = Astro.props;
+const { title, description, image, url, customSchema } = Astro.props;
 ---
 
-<Layout title={title} navTheme="light" description={description} image={image} url={url}>
+<Layout title={title} navTheme="light" description={description} image={image} url={url} customSchema={customSchema}>
 
   <main class="pt-24 pb-24 md:pt-32 md:pb-32 bg-off-white min-h-screen">
     <section aria-label="Detalle del proyecto">
