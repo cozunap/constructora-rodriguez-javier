@@ -8,12 +8,6 @@ function _lorenzInitLang() {
   window.switchLanguage(langToUse);
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', _lorenzInitLang);
-} else {
-  _lorenzInitLang();
-}
-
 window.switchLanguage = function(lang) {
   if (!window.translations[lang]) lang = 'es';
   localStorage.setItem('lorenzo_lang', lang);
@@ -30,3 +24,9 @@ window.switchLanguage = function(lang) {
     }
   });
 };
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _lorenzInitLang);
+} else {
+  _lorenzInitLang();
+}
