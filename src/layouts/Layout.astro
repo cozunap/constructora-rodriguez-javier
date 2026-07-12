@@ -24,6 +24,13 @@ const { title, navTheme = 'dark' } = Astro.props;
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script define:vars={{
+      supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL,
+      supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+    }}>
+      window.SUPABASE_URL = supabaseUrl;
+      window.SUPABASE_ANON_KEY = supabaseKey;
+    </script>
 </head>
 <body>
     <Nav theme={navTheme} />

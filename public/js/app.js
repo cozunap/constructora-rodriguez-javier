@@ -8,8 +8,9 @@
       id: 'fallback-1',
       title_key: 're-duran-title',
       location_key: 're-duran-loc',
-      title: 'Residencial Duran',
+      title: 'Proyecto Duran',
       location: 'Residencial María Mercedes, Aut. San Isidro, SDE',
+      status: 'en_desarrollo',
       price: 175000,
       m2: 150,
       bedrooms: 3,
@@ -30,17 +31,18 @@
       location_key: 're-rod-loc',
       title: 'Residencial Rodríguez II',
       location: 'San Isidro, Santo Domingo Este',
-      price: 175000,
-      m2: 150,
+      price: 200000,
+      m2: 172,
       bedrooms: 3,
-      bathrooms: 2.5,
+      bathrooms: 3.5,
       parking: 2,
       status: 'en_desarrollo',
       image_urls: [
+        '/assets/images/projects/rodriguez-ii-0.webp',
         '/assets/images/projects/rodriguez-ii-1.webp',
         '/assets/images/projects/rodriguez-ii-2.webp',
         '/assets/images/projects/duran-4.webp',
-        '/assets/images/projects/duran-5.webp',
+        '/assets/images/projects/duran-5.webp'
       ]
     }
   ];
@@ -50,7 +52,12 @@
   /* ── Helpers ─────────────────────────────────────────────────── */
   function t(key) {
     const lang = localStorage.getItem('lorenzo_lang') || 'es';
-    return (window.translations && translations[lang] && translations[lang][key]) || key;
+    try {
+      if (typeof window.translations !== 'undefined' && window.translations[lang] && window.translations[lang][key]) {
+        return window.translations[lang][key];
+      }
+    } catch(e) {}
+    return key;
   }
 
   function formatPrice(price) {
@@ -58,9 +65,10 @@
     return 'USD ' + parseFloat(price).toLocaleString();
   }
 
-  function statusBadge(status) {
-    if (status === 'en_desarrollo') return `<span class="absolute top-4 right-4 bg-gold text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('tag-dev')}</span>`;
-    return `<span class="absolute top-4 right-4 bg-navy text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('filter-sale') || 'En Venta'}</span>`;
+  function statusBadge(status, isAbsolute = true) {
+    const pos = isAbsolute ? 'absolute top-4 right-4 ' : '';
+    if (status === 'en_desarrollo') return `<span class="${pos}bg-gold text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('tag-dev')}</span>`;
+    return `<span class="${pos}bg-navy text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('filter-sale') || 'En Venta'}</span>`;
   }
 
   function specIcon(type) {
@@ -74,8 +82,8 @@
 
   /* ── Property Card Builder ───────────────────────────────────── */
   function buildCard(prop) {
-    const title = t(prop.title_key) !== prop.title_key ? t(prop.title_key) : prop.title;
-    const loc   = t(prop.location_key) !== prop.location_key ? t(prop.location_key) : prop.location;
+    const title = prop.title || t(prop.title_key);
+    const loc   = prop.location || t(prop.location_key);
     const img   = prop.image_urls && prop.image_urls[0] ? prop.image_urls[0] : '/assets/images/projects/duran-2.webp';
 
     const card = document.createElement('article');
@@ -150,10 +158,18 @@
     const prop = allProperties.find(p => p.id === id);
     if (!prop) return;
 
-    const title     = t(prop.title_key) !== prop.title_key ? t(prop.title_key) : prop.title;
-    const loc       = t(prop.location_key) !== prop.location_key ? t(prop.location_key) : prop.location;
-    const descKey   = id === 'fallback-1' ? 're-duran-desc' : id === 'fallback-2' ? 're-rod-desc' : id === 'fallback-3' ? 're-c1-desc' : id === 'fallback-4' ? 're-c2-desc' : 're-c3-desc';
-    const desc      = t(descKey);
+    const title     = prop.title || t(prop.title_key);
+    const loc       = prop.location || t(prop.location_key);
+    
+    // For new properties, the DB provides the description object
+    const currentLang = localStorage.getItem('lorenzo_lang') || 'es';
+    let desc = '';
+    if (prop.description && typeof prop.description === 'object') {
+      desc = prop.description[currentLang] || prop.description['es'] || '';
+    } else {
+      const descKey   = id === 'fallback-1' ? 're-duran-desc' : id === 'fallback-2' ? 're-rod-desc' : id === 'fallback-3' ? 're-c1-desc' : id === 'fallback-4' ? 're-c2-desc' : 're-c3-desc';
+      desc = t(descKey);
+    }
 
     // Page title
     document.title = `${title} | Constructora Rodríguez Javier`;
@@ -165,6 +181,7 @@
     };
 
     set('#detail-title', title);
+    set('#detail-title-h1', title);
     set('#detail-location', loc);
     set('#detail-price', formatPrice(prop.price));
     set('#detail-m2', prop.m2 + ' m²');
@@ -172,13 +189,41 @@
     set('#detail-baths', prop.bathrooms);
     set('#detail-park', prop.parking);
 
-    // Description (preserve newlines)
+    // Description (preserve newlines and style beautifully)
     const descEl = document.querySelector('#detail-desc');
     if (descEl) {
-      descEl.innerHTML = desc
-        .split('\n')
-        .map(line => line.trim() ? `<p style="margin-bottom:.5rem">${line}</p>` : '')
-        .join('');
+      let html = '';
+      let inList = false;
+      desc.split('\n').forEach(line => {
+        let t = line.trim();
+        if (!t) return;
+        
+        if (t.startsWith('•') || t.startsWith('-')) {
+          if (!inList) { html += '<ul class="mb-8 space-y-3">'; inList = true; }
+          html += `<li class="flex items-start gap-3">
+                     <span class="text-gold mt-1 shrink-0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                     <span class="text-muted leading-relaxed text-[14px]">${t.substring(1).trim()}</span>
+                   </li>`;
+        } else {
+          if (inList) { html += '</ul>'; inList = false; }
+          if (t.match(/^(✨|💳|📅)/)) {
+            html += `<h3 class="text-xl font-serif text-navy mt-10 mb-4 flex items-center gap-3 border-b border-mid/20 pb-3">${t}</h3>`;
+          } else if (t.startsWith('📍')) {
+            html += `<div class="mb-8">
+                       <p class="text-muted leading-relaxed mb-4 text-[14px] font-medium text-navy flex items-start gap-2">
+                         <span>${t}</span>
+                       </p>
+                       <iframe src="https://maps.google.com/maps?q=18.510239,-69.784874&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0; border-radius: 0.5rem;" allowfullscreen="" loading="lazy"></iframe>
+                     </div>`;
+          } else if (t.startsWith('📲')) {
+            html += `<p class="text-navy font-medium leading-relaxed mb-6 text-[14px] bg-navy/5 p-4 rounded-lg border border-navy/10 flex items-start gap-2"><span>${t}</span></p>`;
+          } else {
+            html += `<p class="text-muted leading-relaxed mb-6 text-[14px]">${t}</p>`;
+          }
+        }
+      });
+      if (inList) html += '</ul>';
+      descEl.innerHTML = html;
     }
 
     // Image carousel
@@ -201,11 +246,21 @@
         thumbs.innerHTML = '';
         prop.image_urls.forEach((url, i) => {
           const btn = document.createElement('button');
-          btn.style.cssText = `border:2px solid ${i === 0 ? 'var(--gold)' : 'var(--mid)'};border-radius:2px;overflow:hidden;cursor:pointer;padding:0;background:none;`;
-          btn.innerHTML = `<img src="${url}" alt="thumb" style="width:70px;height:52px;object-fit:cover;display:block;">`;
+          btn.className = `w-20 h-14 md:w-24 md:h-16 rounded-md overflow-hidden border-2 transition-all duration-300 flex-shrink-0 ${i === 0 ? 'border-gold opacity-100 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`;
+          btn.innerHTML = `<img src="${url}" alt="thumb" loading="lazy" class="w-full h-full object-cover">`;
           btn.addEventListener('click', () => {
-            carousel.querySelectorAll('img').forEach((im, idx) => im.style.display = idx === i ? 'block' : 'none');
-            thumbs.querySelectorAll('button').forEach((b, idx) => b.style.borderColor = idx === i ? 'var(--gold)' : 'var(--mid)');
+            carousel.querySelectorAll('img').forEach((im, idx) => {
+              im.style.opacity = '0';
+              setTimeout(() => {
+                im.style.display = idx === i ? 'block' : 'none';
+                if (idx === i) {
+                  requestAnimationFrame(() => { im.style.transition = 'opacity 0.4s ease'; im.style.opacity = '1'; });
+                }
+              }, 150);
+            });
+            thumbs.querySelectorAll('button').forEach((b, idx) => {
+              b.className = `w-20 h-14 md:w-24 md:h-16 rounded-md overflow-hidden border-2 transition-all duration-300 flex-shrink-0 ${idx === i ? 'border-gold opacity-100 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`;
+            });
           });
           thumbs.appendChild(btn);
         });
@@ -214,7 +269,7 @@
 
     // Status badge on detail page
     const badgeEl = document.getElementById('detail-badge');
-    if (badgeEl) badgeEl.innerHTML = statusBadge(prop.status);
+    if (badgeEl) badgeEl.innerHTML = statusBadge(prop.status, false);
 
     // Back link
     const backEl = document.querySelector('.detail-back');
@@ -238,14 +293,39 @@
 
   /* ── Supabase Loader ─────────────────────────────────────────── */
   async function loadFromSupabase() {
-    const url  = localStorage.getItem('supabase_url') || 'https://rnkktolpevqpcyvessfn.supabase.co';
-    const key  = localStorage.getItem('supabase_anon_key');
+    const url  = 'https://kvxcnuckuxoemcfgkhau.supabase.co';
+    const key  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2eGNudWNrdXhvZW1jZmdraGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MTA5NjksImV4cCI6MjA5OTM4Njk2OX0.tFmj4dTF7VaKCbGFtpt6AMMTYVoVDaj8y4emxtgrRhc';
     if (!key || typeof supabase === 'undefined') return;
     try {
       const client = supabase.createClient(url, key);
+      
+      // Load translations
+      const { data: transData, error: transError } = await client.from('translations').select('*');
+      if (!transError && transData) {
+        window.translations = {};
+        transData.forEach(row => {
+          if (!window.translations[row.lang]) window.translations[row.lang] = {};
+          window.translations[row.lang][row.key] = row.value;
+        });
+      }
+
+      // Load properties
       const { data, error } = await client.from('properties').select('*').order('created_at', { ascending: false });
       if (!error && data && data.length > 0) {
-        allProperties = [...FALLBACK_PROPERTIES, ...data];
+        const currentLang = localStorage.getItem('lorenzo_lang') || 'es';
+        allProperties = data.map(p => {
+          // If title/location are objects, extract current lang or fallback to 'es'
+          p.id = p.slug; // maintain id compatibility
+          if (typeof p.title === 'object' && p.title !== null) p.title = p.title[currentLang] || p.title['es'] || '';
+          if (typeof p.location === 'object' && p.location !== null) p.location = p.location[currentLang] || p.location['es'] || '';
+          if (Array.isArray(p.image_urls)) {
+            p.image_urls = p.image_urls.map(img => {
+              if (img.startsWith('http') || img.startsWith('/assets')) return img;
+              return `${url}/storage/v1/object/public/property-images/${img}`;
+            });
+          }
+          return p;
+        });
       }
     } catch (e) {
       console.warn('Supabase load error:', e);
