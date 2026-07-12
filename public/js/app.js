@@ -2,6 +2,37 @@
 (function () {
   'use strict';
 
+  /* ── Front-End Security Shield ──────────────────────────────── */
+  const SECURITY_SHIELD_ENABLED = true; // Set to false if you need to debug/inspect locally
+
+  if (SECURITY_SHIELD_ENABLED) {
+    // 1. Block Right-Click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // 2. Block Keyboard Shortcuts (F12, Ctrl+U, Ctrl+S, Inspect, Console)
+    document.addEventListener('keydown', (e) => {
+      // F12
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Ctrl/Cmd + Shift + I (Inspect) or Ctrl/Cmd + Shift + J (Console) or Ctrl/Cmd + U (Source) or Ctrl/Cmd + S (Save)
+      if (e.ctrlKey || e.metaKey) {
+        if (
+          e.key === 'u' || e.key === 'U' || 
+          e.key === 's' || e.key === 'S' ||
+          (e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'c' || e.key === 'C')) ||
+          (e.altKey && (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'u' || e.key === 'U'))
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      }
+    });
+  }
+  /* ──────────────────────────────────────────────────────────── */
+
   /* ── Supabase config ──────────────────────────────────────────── */
   const SUPA_URL = 'https://kvxcnuckuxoemcfgkhau.supabase.co';
   const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2eGNudWNrdXhvZW1jZmdraGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MTA5NjksImV4cCI6MjA5OTM4Njk2OX0.tFmj4dTF7VaKCbGFtpt6AMMTYVoVDaj8y4emxtgrRhc';

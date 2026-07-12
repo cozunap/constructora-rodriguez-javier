@@ -30,6 +30,26 @@
 @layer base {
   body {
     @apply font-sans text-dark bg-white leading-relaxed antialiased overflow-x-hidden;
+    /* Front-End Security Shield: Block Text Selection */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Allow selection only in form fields */
+  input, textarea {
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+  }
+
+  /* Front-End Security Shield: Block Image Dragging */
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none; /* Prevents right-clicking specifically on the image layer in some browsers */
   }
 }
 
