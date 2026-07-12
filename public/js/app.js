@@ -133,6 +133,30 @@
     }
   }
 
+  /* ── Home Page Featured Properties ──────────────────────────── */
+  function initHomePage() {
+    const featuredGrid = document.getElementById('featured-props');
+    if (!featuredGrid) return;
+
+    // Take the 3 most recent properties
+    const featured = allProperties.slice(0, 3);
+    if (featured.length === 0) return;
+
+    // Clear static placeholders and inject dynamic cards
+    featuredGrid.innerHTML = '';
+    featured.forEach(p => featuredGrid.appendChild(buildCard(p)));
+
+    // Animate cards into view
+    if (window.IntersectionObserver) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      featuredGrid.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    }
+  }
+
   /* ── Filter Buttons ─────────────────────────────────────────── */
   function initFilters(containerEl, properties) {
     const btns = document.querySelectorAll('.filter-btn');
