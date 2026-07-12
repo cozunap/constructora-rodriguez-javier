@@ -197,6 +197,7 @@
       set('#detail-type', prop.property_type);
       show('detail-type');
       set('#sidebar-type', prop.property_type);
+      show('sb-type-row');
     }
 
     // ── Spec cards: show only if value exists
@@ -204,6 +205,7 @@
       set('#detail-m2', prop.m2 + ' m²');
       set('#sidebar-m2', prop.m2 + ' m²');
       show('spec-m2');
+      show('sb-m2-row');
     }
     if (prop.solar_m2) {
       set('#detail-solar', prop.solar_m2 + ' m²');
@@ -220,6 +222,7 @@
       set('#detail-year', prop.year_built);
       set('#sidebar-year', prop.year_built);
       show('spec-year');
+      show('sb-year-row');
     }
 
     if (prop.price_per_m2) {

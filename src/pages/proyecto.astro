@@ -142,27 +142,27 @@ import Layout from '../layouts/Layout.astro';
 
               <hr class="my-6 border-mid/20">
 
-              <!-- Property quick stats -->
+              <!-- Property quick stats — rows start hidden, shown by app.js only when data exists -->
               <div class="space-y-3" id="sidebar-stats">
-                <div class="flex justify-between items-center text-sm">
+                <div class="hidden flex justify-between items-center text-sm" id="sb-type-row">
                   <span class="text-muted">Tipo</span>
-                  <span class="text-navy font-medium" id="sidebar-type">—</span>
+                  <span class="text-navy font-medium" id="sidebar-type"></span>
                 </div>
-                <div class="flex justify-between items-center text-sm" id="sb-year-row">
+                <div class="hidden flex justify-between items-center text-sm" id="sb-year-row">
                   <span class="text-muted">Año construido</span>
-                  <span class="text-navy font-medium" id="sidebar-year">—</span>
+                  <span class="text-navy font-medium" id="sidebar-year"></span>
                 </div>
-                <div class="flex justify-between items-center text-sm" id="sb-m2-row">
+                <div class="hidden flex justify-between items-center text-sm" id="sb-m2-row">
                   <span class="text-muted">Área construida</span>
-                  <span class="text-navy font-medium" id="sidebar-m2">—</span>
+                  <span class="text-navy font-medium" id="sidebar-m2"></span>
                 </div>
-                <div class="flex justify-between items-center text-sm" id="sb-solar-row" class="hidden">
+                <div class="hidden flex justify-between items-center text-sm" id="sb-solar-row">
                   <span class="text-muted">Tamaño solar</span>
-                  <span class="text-navy font-medium" id="sidebar-solar">—</span>
+                  <span class="text-navy font-medium" id="sidebar-solar"></span>
                 </div>
-                <div class="flex justify-between items-center text-sm" id="sb-hoa-row" class="hidden">
+                <div class="hidden flex justify-between items-center text-sm" id="sb-hoa-row">
                   <span class="text-muted">Mantenimiento</span>
-                  <span class="text-navy font-medium" id="sidebar-hoa-val">—</span>
+                  <span class="text-navy font-medium" id="sidebar-hoa-val"></span>
                 </div>
               </div>
 
