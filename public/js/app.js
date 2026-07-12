@@ -90,13 +90,13 @@
     const img   = prop.image_urls && prop.image_urls[0] ? prop.image_urls[0] : '/assets/images/projects/duran-2.webp';
 
     const card = document.createElement('article');
-    card.className = 'fade-up bg-white rounded-xl overflow-hidden shadow-lg shadow-navy/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-mid/30 group';
+    card.className = 'fade-up bg-white rounded-xl overflow-hidden shadow-lg shadow-navy/5 border border-mid/30 group premium-hover';
     card.setAttribute('data-status', prop.status || '');
     card.setAttribute('data-id', prop.id || '');
     card.innerHTML = `
       <a href="/proyecto/${prop.id}" style="display:block;color:inherit;text-decoration:none">
         <div class="relative h-64 overflow-hidden">
-          <img src="${img}" alt="${title}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <img src="${img}" alt="${title}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110">
           ${statusBadge(prop.status)}
         </div>
         <div class="p-8">

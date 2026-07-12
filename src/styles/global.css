@@ -52,9 +52,17 @@
   }
   
   .fade-up {
-    @apply opacity-0;
+    @apply opacity-0 translate-y-8;
   }
   .fade-up.visible {
-    animation: fade-up 0.8s cubic-bezier(.4,0,.2,1) forwards;
+    animation: fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  /* Premium Hover Physics */
+  .premium-hover {
+    @apply transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)];
+  }
+  .premium-hover:hover {
+    @apply -translate-y-2 shadow-2xl shadow-navy/20;
   }
 }
