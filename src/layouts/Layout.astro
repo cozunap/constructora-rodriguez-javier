@@ -25,8 +25,8 @@ const { title, navTheme = 'dark' } = Astro.props;
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script define:vars={{
-      supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL,
-      supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY
+      supabaseUrl: 'https://kvxcnuckuxoemcfgkhau.supabase.co',
+      supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2eGNudWNrdXhvZW1jZmdraGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MTA5NjksImV4cCI6MjA5OTM4Njk2OX0.tFmj4dTF7VaKCbGFtpt6AMMTYVoVDaj8y4emxtgrRhc'
     }}>
       window.SUPABASE_URL = supabaseUrl;
       window.SUPABASE_ANON_KEY = supabaseKey;
