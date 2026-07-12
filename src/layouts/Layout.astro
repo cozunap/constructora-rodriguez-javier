@@ -6,9 +6,18 @@ import '../styles/global.css';
 interface Props {
 	title: string;
     navTheme?: 'dark' | 'light';
+    description?: string;
+    image?: string;
+    url?: string;
 }
 
-const { title, navTheme = 'dark' } = Astro.props;
+const { 
+    title, 
+    navTheme = 'dark',
+    description = "Constructora Rodríguez Javier - Desarrollos Inmobiliarios y Diseño de Interiores en Santo Domingo.",
+    image = "https://e0a90387.constructora-rodriguez-javier.pages.dev/assets/images/hero/hero-bg.webp",
+    url = Astro.url.href
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -17,13 +26,21 @@ const { title, navTheme = 'dark' } = Astro.props;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
-    <meta name="description" content="Constructora Rodríguez Javier - Desarrollos Inmobiliarios y Diseño de Interiores en Santo Domingo.">
+    <meta name="description" content={description}>
+    
+    <!-- OpenGraph Tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={url} />
+    <meta property="og:type" content="website" />
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Language detection runs FIRST (blocking) to avoid flash of wrong language -->
-    <script src="/js/lang.js" is:inline></script>
+    <script src="/js/lang.js?v=5" is:inline></script>
 </head>
 <body>
     <Nav theme={navTheme} />
@@ -35,6 +52,6 @@ const { title, navTheme = 'dark' } = Astro.props;
     <Footer />
 
     <!-- App logic runs after DOM is ready -->
-    <script src="/js/app.js" is:inline></script>
+    <script src="/js/app.js?v=6" is:inline></script>
 </body>
 </html>

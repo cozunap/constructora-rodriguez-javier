@@ -1,8 +1,61 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const SUPA_URL = 'https://kvxcnuckuxoemcfgkhau.supabase.co';
+  const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2eGNudWNrdXhvZW1jZmdraGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MTA5NjksImV4cCI6MjA5OTM4Njk2OX0.tFmj4dTF7VaKCbGFtpt6AMMTYVoVDaj8y4emxtgrRhc';
+  
+  try {
+    const res = await fetch(SUPA_URL + '/rest/v1/properties?select=*', {
+      headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}` }
+    });
+    
+    if (!res.ok) return [];
+    
+    const properties = await res.json();
+    
+    return properties.map((prop: any) => {
+      let image = "https://e0a90387.constructora-rodriguez-javier.pages.dev/assets/images/hero/hero-bg.webp";
+      if (prop.image_urls && prop.image_urls.length > 0) {
+        if (prop.image_urls[0].startsWith('http')) {
+          image = prop.image_urls[0];
+        } else if (prop.image_urls[0].startsWith('/assets/')) {
+          image = "https://www.tucasard.com" + prop.image_urls[0];
+        } else {
+          image = SUPA_URL + '/storage/v1/object/public/property-images/' + (prop.image_urls[0].startsWith('/') ? prop.image_urls[0].substring(1) : prop.image_urls[0]);
+        }
+      }
+      
+      let description = "Descubre esta increíble propiedad de Constructora Rodríguez Javier.";
+      let rawDesc = prop.description?.es || prop.description || "";
+      if (typeof rawDesc === 'string' && rawDesc.trim().length > 0) {
+          description = rawDesc.replace(/<[^>]*>?/gm, '').substring(0, 160) + '...';
+      }
+
+      let titleStr = prop.title?.es || prop.title || 'Detalle de Propiedad';
+      
+      let pageId = prop.slug || prop.id.toString();
+      
+      return {
+        params: { id: pageId },
+        props: {
+          title: `Constructora Rodríguez Javier | ${titleStr}`,
+          description,
+          image,
+          url: `https://www.tucasard.com/proyecto/${pageId}`
+        }
+      };
+    });
+  } catch (error) {
+    console.error("Error in getStaticPaths:", error);
+    return [];
+  }
+}
+
+const { title, description, image, url } = Astro.props;
 ---
 
-<Layout title="Constructora Rodríguez Javier | Detalle de Propiedad" navTheme="light">
+<Layout title={title} navTheme="light" description={description} image={image} url={url}>
 
   <main class="pt-24 pb-24 md:pt-32 md:pb-32 bg-off-white min-h-screen">
     <section aria-label="Detalle del proyecto">
@@ -132,18 +185,18 @@ import Layout from '../layouts/Layout.astro';
               <!-- WhatsApp CTA -->
               <a id="wa-link" href="https://wa.me/16468831869?text=Hola%2C%20me%20interesa%20esta%20propiedad."
                 target="_blank" rel="noopener"
-                class="w-full justify-center mb-3 gap-2 flex items-center bg-[#25D366] hover:bg-[#1DA851] text-white px-6 py-3 rounded text-sm font-bold tracking-wider transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.76.459 3.473 1.332 4.978L2 22l5.234-1.373a9.927 9.927 0 0 0 4.778 1.217c5.506 0 9.988-4.482 9.988-9.988C22 6.482 17.518 2 12.012 2z"/>
+                class="w-full justify-center mb-3 gap-2 flex items-center bg-navy hover:bg-navy/90 text-white px-6 py-3 rounded text-sm font-bold tracking-wider transition-colors">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
                 </svg>
                 <span data-i18n="side-btn">Contactar por WhatsApp</span>
               </a>
-              <a href="/contact" class="btn-outline w-full justify-center flex items-center" data-i18n="nav-cta">Cotizar Gratis</a>
+              <a href="/contact" class="btn-outline w-full justify-center flex items-center mb-6" data-i18n="nav-cta">Cotizar Gratis</a>
 
               <hr class="my-6 border-mid/20">
 
               <!-- Property quick stats — rows start hidden, shown by app.js only when data exists -->
-              <div class="space-y-3" id="sidebar-stats">
+              <div class="space-y-3 mb-6" id="sidebar-stats">
                 <div class="hidden flex justify-between items-center text-sm" id="sb-type-row">
                   <span class="text-muted" data-i18n="sb-type">Tipo</span>
                   <span class="text-navy font-medium" id="sidebar-type"></span>
@@ -169,19 +222,19 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <!-- Google Maps embed placeholder -->
-            <div id="map-block" class="hidden bg-white rounded-2xl shadow-xl overflow-hidden border border-mid/10">
-              <div class="px-5 py-3 border-b border-mid/10">
-                <p class="text-xs font-semibold text-navy uppercase tracking-wider" data-i18n="map-title">📍 Ubicación</p>
+            <div id="map-block" class="hidden bg-white rounded-2xl shadow-xl overflow-hidden border border-mid/10 mb-6 mt-6">
+              <div class="px-5 py-4 border-b border-mid/10 bg-white">
+                <p class="text-sm font-bold text-navy uppercase tracking-wider flex items-center gap-2"><span class="text-red-600">📍</span> <span data-i18n="map-title">Ubicación</span></p>
               </div>
               <a id="map-link" href="#" target="_blank" rel="noopener"
-                class="block h-40 bg-mid/10 relative overflow-hidden flex items-center justify-center group hover:bg-mid/20 transition-colors">
-                <span class="text-navy font-semibold text-sm" data-i18n="map-btn">Ver en Google Maps 📍</span>
+                class="block h-48 bg-[#aeb6c1] relative overflow-hidden flex items-center justify-center group hover:bg-[#9fa8b5] transition-colors">
+                <span class="text-white font-semibold text-lg flex items-center gap-2 drop-shadow-md"><span data-i18n="map-btn">Ver en Google Maps</span> &rarr;</span>
               </a>
             </div>
 
             <!-- Back link -->
             <a href="/properties"
-              class="flex items-center justify-center w-full py-3 px-6 bg-transparent text-navy border border-mid/40 rounded-xl font-medium hover:border-gold hover:text-gold transition-colors text-sm">
+              class="flex items-center justify-center w-full py-4 px-6 bg-[#FAFAFA] text-navy border border-mid/20 rounded-xl font-medium hover:border-gold hover:text-gold transition-colors text-base shadow-sm">
               &larr; <span data-i18n="back-listings">Volver a Propiedades</span>
             </a>
           </aside>

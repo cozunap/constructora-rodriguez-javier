@@ -72,8 +72,21 @@
 
   /* ── Property Card Builder ────────────────────────────────────── */
   function buildCard(prop) {
-    const title = prop.title || t(prop.title_key) || '';
-    const loc   = prop.location || t(prop.location_key) || '';
+    const lang = localStorage.getItem('lorenzo_lang') || 'es';
+    let title = prop.title || '';
+    if (typeof prop.title === 'object' && prop.title !== null) {
+      title = prop.title[lang] || prop.title['es'] || '';
+    } else if (prop.title_key) {
+      title = t(prop.title_key) || prop.title;
+    }
+
+    let loc = prop.location || '';
+    if (typeof prop.location === 'object' && prop.location !== null) {
+      loc = prop.location[lang] || prop.location['es'] || '';
+    } else if (prop.location_key) {
+      loc = t(prop.location_key) || prop.location;
+    }
+
     const img   = prop.image_urls && prop.image_urls[0] ? prop.image_urls[0] : '/assets/images/projects/duran-2.webp';
 
     const card = document.createElement('article');
@@ -81,7 +94,7 @@
     card.setAttribute('data-status', prop.status || '');
     card.setAttribute('data-id', prop.id || '');
     card.innerHTML = `
-      <a href="/proyecto?id=${prop.id}" style="display:block;color:inherit;text-decoration:none">
+      <a href="/proyecto/${prop.id}" style="display:block;color:inherit;text-decoration:none">
         <div class="relative h-64 overflow-hidden">
           <img src="${img}" alt="${title}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           ${statusBadge(prop.status)}
@@ -154,15 +167,30 @@
   /* ── Property Detail Page ─────────────────────────────────────── */
   function initDetailPage() {
     const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
+    let id = params.get('id');
+    if (!id && window.location.pathname.includes('/proyecto/')) {
+      id = window.location.pathname.split('/').filter(Boolean).pop();
+    }
     if (!id) return;
 
     const prop = allProperties.find(p => p.id === id);
     if (!prop) return;
 
     const currentLang = localStorage.getItem('lorenzo_lang') || 'es';
-    const title = prop.title || '';
-    const loc   = prop.location || '';
+    
+    let title = prop.title || '';
+    if (typeof prop.title === 'object' && prop.title !== null) {
+      title = prop.title[currentLang] || prop.title['es'] || '';
+    } else if (prop.title_key) {
+      title = t(prop.title_key) || prop.title;
+    }
+
+    let loc = prop.location || '';
+    if (typeof prop.location === 'object' && prop.location !== null) {
+      loc = prop.location[currentLang] || prop.location['es'] || '';
+    } else if (prop.location_key) {
+      loc = t(prop.location_key) || prop.location;
+    }
 
     // Description (multilang)
     let desc = '';
@@ -170,6 +198,8 @@
       desc = prop.description[currentLang] || prop.description['es'] || '';
     } else if (typeof prop.description === 'string') {
       desc = prop.description;
+    } else if (prop.description_key) {
+      desc = t(prop.description_key) || '';
     }
 
     document.title = title + ' | Constructora Rodríguez Javier';
@@ -194,9 +224,16 @@
 
     // ── Property type
     if (prop.property_type) {
-      set('#detail-type', prop.property_type);
+      const typeDict = {
+        es: { "Casa": "Casa", "Villa": "Villa", "Apartamento": "Apartamento", "Penthouse": "Penthouse", "Proyecto": "Proyecto", "Solar": "Solar", "Edificio": "Edificio", "Local": "Local" },
+        en: { "Casa": "House", "Villa": "Villa", "Apartamento": "Apartment", "Penthouse": "Penthouse", "Proyecto": "Project", "Solar": "Lot", "Edificio": "Building", "Local": "Commercial" },
+        fr: { "Casa": "Maison", "Villa": "Villa", "Apartamento": "Appartement", "Penthouse": "Penthouse", "Proyecto": "Projet", "Solar": "Terrain", "Edificio": "Bâtiment", "Local": "Commercial" },
+        ht: { "Casa": "Kay", "Villa": "Villa", "Apartamento": "Apatman", "Penthouse": "Penthouse", "Proyecto": "Pwojè", "Solar": "Tè", "Edificio": "Bilding", "Local": "Komèsyal" }
+      };
+      const translatedType = typeDict[currentLang]?.[prop.property_type] || prop.property_type;
+      set('#detail-type', translatedType);
       show('detail-type');
-      set('#sidebar-type', prop.property_type);
+      set('#sidebar-type', translatedType);
       show('sb-type-row');
     }
 
@@ -278,7 +315,7 @@
     // ── WhatsApp dynamic link
     const waLink = document.getElementById('wa-link');
     if (waLink) {
-      const waNumber = prop.whatsapp_number ? prop.whatsapp_number.replace(/\D/g, '') : '18299595350';
+      const waNumber = prop.whatsapp_number ? prop.whatsapp_number.replace(/\D/g, '') : '16468831869';
       const waMsg = encodeURIComponent('Hola, me interesa la propiedad: ' + title);
       waLink.href = `https://wa.me/${waNumber}?text=${waMsg}`;
     }
@@ -289,9 +326,14 @@
     }
 
     // ── Google Maps link
-    if (prop.google_maps_url) {
-      const mapLink = document.getElementById('map-link');
-      if (mapLink) { mapLink.href = prop.google_maps_url; show('map-block'); }
+    const mapLink = document.getElementById('map-link');
+    if (mapLink) {
+      if (prop.google_maps_url) {
+        mapLink.href = prop.google_maps_url;
+      } else if (loc) {
+        mapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(loc);
+      }
+      show('map-block');
     }
 
     // ── Status badge
@@ -377,13 +419,10 @@
       const data = await res.json();
 
       if (Array.isArray(data) && data.length > 0) {
-        const lang = localStorage.getItem('lorenzo_lang') || 'es';
         allProperties = data.map(p => {
           p.id = p.slug;
-          if (typeof p.title === 'object' && p.title !== null)
-            p.title = p.title[lang] || p.title['es'] || '';
-          if (typeof p.location === 'object' && p.location !== null)
-            p.location = p.location[lang] || p.location['es'] || '';
+          // Keep title and location as objects if they are multilang, 
+          // we'll resolve them in buildCard and initDetailPage dynamically.
           if (Array.isArray(p.image_urls)) {
             p.image_urls = p.image_urls.map(img =>
               (img.startsWith('http') || img.startsWith('/assets'))
@@ -404,7 +443,9 @@
   document.addEventListener('DOMContentLoaded', async () => {
     await loadFromSupabase();
 
-    const page = window.location.pathname.replace(/\/$/, '').split('/').pop() || '';
+    const path = window.location.pathname.replace(/\/$/, '');
+    const pathParts = path.split('/').filter(Boolean);
+    const page = pathParts[0] || '';
 
     if (page === '' || page === 'index' || page === 'index.html') {
       initHomePage();

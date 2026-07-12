@@ -6,16 +6,16 @@ import Layout from '../layouts/Layout.astro';
   <!-- ═══════════════════════════════════════════════
        HERO
   ════════════════════════════════════════════════ -->
-  <section class="relative min-h-[90vh] md:min-h-screen flex items-center pt-24 pb-16 overflow-hidden bg-navy" id="inicio" aria-label="Hero">
-    <div class="absolute inset-0 z-0 opacity-40 mix-blend-overlay">
-      <img src="/assets/images/projects/duran-1.webp" alt="Hero Background" class="w-full h-full object-cover">
+  <section class="relative min-h-[90vh] lg:min-h-[75vh] lg:py-[5%] flex items-center pt-24 pb-16 overflow-hidden bg-navy" id="inicio" aria-label="Hero">
+    <div class="absolute inset-0 z-0">
+      <img src="/assets/images/hero/hero-bg.webp" alt="Hero Background" class="w-full h-full object-cover">
     </div>
-    <div class="absolute inset-0 z-0 bg-gradient-to-r from-navy via-navy/80 to-transparent"></div>
+    <div class="absolute inset-0 z-0 bg-navy/[0.85]"></div>
     
-    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-12">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-12">
       <div class="lg:col-span-3 flex flex-col items-start justify-center text-left">
         <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="hero-tag">Expertos en Remodelaciones &amp; Construcción</p>
-        <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-normal leading-[1.15] tracking-tight mb-8" data-i18n="hero-title">Transformamos Espacios,<br>Construimos Sueños</h1>
+        <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-normal leading-[1.15] tracking-tight mb-8" data-i18n="hero-title">Transformamos Espacios, Construimos Sueños</h1>
         <p class="text-base md:text-lg text-white/80 leading-relaxed max-w-lg mb-10" data-i18n="hero-desc">Diseños a la medida y remodelaciones de alto nivel en Santo Domingo con estándares europeos de calidad, puntualidad y acabados premium.</p>
         <div class="flex flex-wrap items-center gap-4">
           <a href="/properties" class="btn-gold" data-i18n="hero-cta-projects">Ver Propiedades</a>
@@ -52,7 +52,7 @@ import Layout from '../layouts/Layout.astro';
        FEATURED PROPERTIES
   ════════════════════════════════════════════════ -->
   <section class="py-24 md:py-32" id="propiedades" aria-label="Propiedades destacadas">
-    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
         <div class="fade-up">
           <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4" data-i18n="re-subtitle">Luxury Real Estate</p>
@@ -96,7 +96,7 @@ import Layout from '../layouts/Layout.astro';
        SERVICES TEASER
   ════════════════════════════════════════════════ -->
   <section class="py-24 md:py-32 bg-off-white" id="servicios" aria-label="Servicios">
-    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
       <div class="text-center fade-up max-w-2xl mx-auto mb-20">
         <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4" data-i18n="services-subtitle">Nuestros Servicios</p>
         <div class="w-12 h-0.5 bg-gold mx-auto mb-6"></div>
@@ -156,7 +156,7 @@ import Layout from '../layouts/Layout.astro';
        ABOUT STRIP
   ════════════════════════════════════════════════ -->
   <section class="py-24 md:py-32" id="nosotros" aria-label="Sobre nosotros">
-    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div class="fade-up relative">
           <img src="/assets/images/projects/rodriguez-ii-2.webp" alt="Constructora Rodríguez Javier" class="rounded-xl shadow-2xl" loading="lazy">
@@ -196,7 +196,7 @@ import Layout from '../layouts/Layout.astro';
        TESTIMONIALS
   ════════════════════════════════════════════════ -->
   <section class="py-24 md:py-32 bg-off-white" aria-label="Testimonios">
-    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
       <div class="text-center fade-up max-w-2xl mx-auto mb-20">
         <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4" data-i18n="testi-subtitle">Testimonios</p>
         <div class="w-12 h-0.5 bg-gold mx-auto mb-6"></div>
@@ -237,7 +237,7 @@ import Layout from '../layouts/Layout.astro';
   <div class="relative py-24 md:py-32 bg-navy overflow-hidden" aria-label="Llamada a la acción">
     <div class="absolute inset-0 z-0 opacity-20 bg-[url('/assets/images/projects/duran-1.webp')] bg-cover bg-center"></div>
     <div class="absolute inset-0 bg-navy/90 z-0"></div>
-    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10 text-center">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10 text-center">
       <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="cta-overline">¿Listo para empezar?</p>
       <h2 class="font-serif text-4xl md:text-5xl text-white mb-6" data-i18n="cta-title">Hablemos de tu Proyecto</h2>
       <p class="text-lg text-white/80 max-w-2xl mx-auto mb-10" data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
