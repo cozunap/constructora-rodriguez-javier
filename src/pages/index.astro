@@ -63,82 +63,29 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="featured-props">
-        <!-- Populated by app.js (static placeholders below for SEO/fallback) -->
-        <div class="prop-card fade-up bg-white rounded-xl overflow-hidden shadow-lg shadow-navy/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-mid/30 group">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/assets/images/projects/duran-2.webp" alt="Residencial Duran" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
-            <span class="absolute top-4 right-4 bg-gold text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md" data-i18n="tag-dev">Preventa</span>
-          </div>
-          <div class="p-8">
-            <p class="text-sm text-gold font-medium tracking-wide mb-2">San Isidro, Santo Domingo Este</p>
-            <h3 class="font-serif text-2xl text-navy mb-3" data-i18n="re-duran-title">Residencial Duran</h3>
-            <p class="text-muted mb-6">Desde US$175,000</p>
-            <div class="flex items-center justify-between pt-4 border-t border-mid/40 text-sm text-navy/80">
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5"/><path d="M2 11h20"/></svg>
-                3 Hab.
-              </span>
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" y1="5" x2="8" y2="7"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-                3.5 Baños
-              </span>
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
-                150 m²
-              </span>
-            </div>
+        <!-- Loading skeleton — replaced by app.js with real Supabase data -->
+        <div class="animate-pulse bg-white rounded-xl overflow-hidden shadow-lg border border-mid/30">
+          <div class="h-64 bg-mid/20"></div>
+          <div class="p-8 space-y-3">
+            <div class="h-3 bg-mid/20 rounded w-1/2"></div>
+            <div class="h-5 bg-mid/30 rounded w-3/4"></div>
+            <div class="h-3 bg-mid/20 rounded w-1/3"></div>
           </div>
         </div>
-        <!-- Card 2 -->
-        <div class="prop-card fade-up bg-white rounded-xl overflow-hidden shadow-lg shadow-navy/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-mid/30 group" style="animation-delay: 100ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/assets/images/projects/rodriguez-ii-1.webp" alt="Residencial Rodríguez II" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
-            <span class="absolute top-4 right-4 bg-gold text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md" data-i18n="tag-dev">Preventa</span>
-          </div>
-          <div class="p-8">
-            <p class="text-sm text-gold font-medium tracking-wide mb-2">San Isidro, Santo Domingo Este</p>
-            <h3 class="font-serif text-2xl text-navy mb-3" data-i18n="re-rod-title">Residencial Rodríguez II</h3>
-            <p class="text-muted mb-6">Desde US$175,000</p>
-            <div class="flex items-center justify-between pt-4 border-t border-mid/40 text-sm text-navy/80">
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5"/><path d="M2 11h20"/></svg>
-                3 Hab.
-              </span>
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" y1="5" x2="8" y2="7"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-                2.5 Baños
-              </span>
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
-                150 m²
-              </span>
-            </div>
+        <div class="animate-pulse bg-white rounded-xl overflow-hidden shadow-lg border border-mid/30">
+          <div class="h-64 bg-mid/20"></div>
+          <div class="p-8 space-y-3">
+            <div class="h-3 bg-mid/20 rounded w-1/2"></div>
+            <div class="h-5 bg-mid/30 rounded w-3/4"></div>
+            <div class="h-3 bg-mid/20 rounded w-1/3"></div>
           </div>
         </div>
-        <!-- Card 3 -->
-        <div class="prop-card fade-up bg-white rounded-xl overflow-hidden shadow-lg shadow-navy/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-mid/30 group" style="animation-delay: 200ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/assets/images/projects/duran-3.webp" alt="Villa Marina" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
-            <span class="absolute top-4 right-4 bg-navy text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">En Venta</span>
-          </div>
-          <div class="p-8">
-            <p class="text-sm text-gold font-medium tracking-wide mb-2">Casa de Campo, La Romana</p>
-            <h3 class="font-serif text-2xl text-navy mb-3" data-i18n="re-c1-title">Villa Marina &amp; Golf</h3>
-            <p class="text-muted mb-6">Precio a consultar</p>
-            <div class="flex items-center justify-between pt-4 border-t border-mid/40 text-sm text-navy/80">
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5"/><path d="M2 11h20"/></svg>
-                6 Hab.
-              </span>
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" y1="5" x2="8" y2="7"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-                7.5 Baños
-              </span>
-              <span class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
-                Luxury
-              </span>
-            </div>
+        <div class="animate-pulse bg-white rounded-xl overflow-hidden shadow-lg border border-mid/30">
+          <div class="h-64 bg-mid/20"></div>
+          <div class="p-8 space-y-3">
+            <div class="h-3 bg-mid/20 rounded w-1/2"></div>
+            <div class="h-5 bg-mid/30 rounded w-3/4"></div>
+            <div class="h-3 bg-mid/20 rounded w-1/3"></div>
           </div>
         </div>
       </div>

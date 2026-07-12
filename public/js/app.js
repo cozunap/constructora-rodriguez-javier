@@ -2,12 +2,14 @@
 (function () {
   'use strict';
 
-  /* ── Property Data ──────────────────────────────────────────── */
+  /* ── Supabase config ──────────────────────────────────────────── */
+  const SUPA_URL = 'https://kvxcnuckuxoemcfgkhau.supabase.co';
+  const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2eGNudWNrdXhvZW1jZmdraGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MTA5NjksImV4cCI6MjA5OTM4Njk2OX0.tFmj4dTF7VaKCbGFtpt6AMMTYVoVDaj8y4emxtgrRhc';
+
+  /* ── Fallback properties (shown if Supabase fails) ───────────── */
   const FALLBACK_PROPERTIES = [
     {
       id: 'fallback-1',
-      title_key: 're-duran-title',
-      location_key: 're-duran-loc',
       title: 'Proyecto Duran',
       location: 'Residencial María Mercedes, Aut. San Isidro, SDE',
       status: 'en_desarrollo',
@@ -16,19 +18,10 @@
       bedrooms: 3,
       bathrooms: 3.5,
       parking: 2,
-      image_urls: [
-        '/assets/images/projects/duran-2.webp',
-        '/assets/images/projects/duran-3.webp',
-        '/assets/images/projects/duran-4.webp',
-        '/assets/images/projects/duran-5.webp',
-        '/assets/images/projects/rodriguez-ii-1.webp',
-        '/assets/images/projects/rodriguez-ii-2.webp',
-      ]
+      image_urls: ['/assets/images/projects/duran-2.webp']
     },
     {
       id: 'fallback-2',
-      title_key: 're-rod-title',
-      location_key: 're-rod-loc',
       title: 'Residencial Rodríguez II',
       location: 'San Isidro, Santo Domingo Este',
       price: 200000,
@@ -37,23 +30,18 @@
       bathrooms: 3.5,
       parking: 2,
       status: 'en_desarrollo',
-      image_urls: [
-        '/assets/images/projects/rodriguez-ii-0.webp',
-        '/assets/images/projects/rodriguez-ii-1.webp',
-        '/assets/images/projects/rodriguez-ii-2.webp',
-        '/assets/images/projects/duran-4.webp',
-        '/assets/images/projects/duran-5.webp'
-      ]
+      image_urls: ['/assets/images/projects/rodriguez-ii-0.webp']
     }
   ];
 
+  /* ── State ────────────────────────────────────────────────────── */
   let allProperties = [...FALLBACK_PROPERTIES];
 
-  /* ── Helpers ─────────────────────────────────────────────────── */
+  /* ── Helpers ──────────────────────────────────────────────────── */
   function t(key) {
     const lang = localStorage.getItem('lorenzo_lang') || 'es';
     try {
-      if (typeof window.translations !== 'undefined' && window.translations[lang] && window.translations[lang][key]) {
+      if (window.translations && window.translations[lang] && window.translations[lang][key]) {
         return window.translations[lang][key];
       }
     } catch(e) {}
@@ -67,7 +55,9 @@
 
   function statusBadge(status, isAbsolute = true) {
     const pos = isAbsolute ? 'absolute top-4 right-4 ' : '';
-    if (status === 'en_desarrollo') return `<span class="${pos}bg-gold text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('tag-dev')}</span>`;
+    if (status === 'en_desarrollo') {
+      return `<span class="${pos}bg-gold text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('tag-dev') || 'Preventa'}</span>`;
+    }
     return `<span class="${pos}bg-navy text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('filter-sale') || 'En Venta'}</span>`;
   }
 
@@ -80,16 +70,16 @@
     return icons[type] || '';
   }
 
-  /* ── Property Card Builder ───────────────────────────────────── */
+  /* ── Property Card Builder ────────────────────────────────────── */
   function buildCard(prop) {
-    const title = prop.title || t(prop.title_key);
-    const loc   = prop.location || t(prop.location_key);
+    const title = prop.title || t(prop.title_key) || '';
+    const loc   = prop.location || t(prop.location_key) || '';
     const img   = prop.image_urls && prop.image_urls[0] ? prop.image_urls[0] : '/assets/images/projects/duran-2.webp';
 
     const card = document.createElement('article');
     card.className = 'fade-up bg-white rounded-xl overflow-hidden shadow-lg shadow-navy/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-mid/30 group';
-    card.setAttribute('data-status', prop.status);
-    card.setAttribute('data-id', prop.id);
+    card.setAttribute('data-status', prop.status || '');
+    card.setAttribute('data-id', prop.id || '');
     card.innerHTML = `
       <a href="/proyecto?id=${prop.id}" style="display:block;color:inherit;text-decoration:none">
         <div class="relative h-64 overflow-hidden">
@@ -101,79 +91,67 @@
           <h3 class="font-serif text-2xl text-navy mb-3">${title}</h3>
           <p class="text-muted mb-6">${formatPrice(prop.price)}</p>
           <div class="flex items-center justify-between pt-4 border-t border-mid/40 text-sm text-navy/80">
-            <span class="flex items-center gap-2">${specIcon('beds')} ${prop.bedrooms} <span class="sr-only">${t('spec-beds') || 'Hab.'}</span></span>
-            <span class="flex items-center gap-2">${specIcon('baths')} ${prop.bathrooms} <span class="sr-only">${t('spec-baths') || 'Baños'}</span></span>
-            <span class="flex items-center gap-2">${specIcon('area')} ${prop.m2} m²</span>
+            <span class="flex items-center gap-2">${specIcon('beds')} ${prop.bedrooms || '-'} <span class="sr-only">Hab.</span></span>
+            <span class="flex items-center gap-2">${specIcon('baths')} ${prop.bathrooms || '-'} <span class="sr-only">Baños</span></span>
+            <span class="flex items-center gap-2">${specIcon('area')} ${prop.m2 || '-'} m²</span>
           </div>
         </div>
       </a>`;
     return card;
   }
 
-  /* ── Render Properties Grid ─────────────────────────────────── */
-  function renderGrid(containerEl, properties, filter = 'all') {
-    containerEl.innerHTML = '';
-    const filtered = filter === 'all' ? properties : properties.filter(p => p.status === filter);
-    if (filtered.length === 0) {
-      const nr = document.getElementById('no-results');
-      if (nr) nr.style.display = 'block';
-      return;
-    }
-    const nr = document.getElementById('no-results');
-    if (nr) nr.style.display = 'none';
-
-    filtered.forEach(p => containerEl.appendChild(buildCard(p)));
-
-    // Re-trigger fade-up for newly added cards
-    if (window.IntersectionObserver) {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-      }, { threshold: 0.1 });
-      containerEl.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-    }
+  /* ── Animate grid cards ──────────────────────────────────────── */
+  function animateGrid(containerEl) {
+    if (!window.IntersectionObserver) return;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    containerEl.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
   }
 
-  /* ── Home Page Featured Properties ──────────────────────────── */
+  /* ── Homepage: show 3 most recent properties ─────────────────── */
   function initHomePage() {
-    const featuredGrid = document.getElementById('featured-props');
-    if (!featuredGrid) return;
+    const grid = document.getElementById('featured-props');
+    if (!grid) return;
 
-    // Take the 3 most recent properties
     const featured = allProperties.slice(0, 3);
     if (featured.length === 0) return;
 
-    // Clear static placeholders and inject dynamic cards
-    featuredGrid.innerHTML = '';
-    featured.forEach(p => featuredGrid.appendChild(buildCard(p)));
-
-    // Animate cards into view
-    if (window.IntersectionObserver) {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-        });
-      }, { threshold: 0.1 });
-      featuredGrid.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-    }
+    grid.innerHTML = '';
+    featured.forEach(p => grid.appendChild(buildCard(p)));
+    animateGrid(grid);
   }
 
-  /* ── Filter Buttons ─────────────────────────────────────────── */
+  /* ── Properties page: full grid with filters ─────────────────── */
+  function renderGrid(containerEl, properties, filter) {
+    containerEl.innerHTML = '';
+    const filtered = (filter === 'all') ? properties : properties.filter(p => p.status === filter);
+
+    const nr = document.getElementById('no-results');
+    if (filtered.length === 0) {
+      if (nr) nr.style.display = 'block';
+      return;
+    }
+    if (nr) nr.style.display = 'none';
+    filtered.forEach(p => containerEl.appendChild(buildCard(p)));
+    animateGrid(containerEl);
+  }
+
   function initFilters(containerEl, properties) {
     const btns = document.querySelectorAll('.filter-btn');
     if (!btns.length) return;
-    let currentFilter = 'all';
 
     btns.forEach(btn => {
       btn.addEventListener('click', () => {
         btns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        currentFilter = btn.getAttribute('data-filter') || 'all';
-        renderGrid(containerEl, properties, currentFilter);
+        const filter = btn.getAttribute('data-filter') || 'all';
+        renderGrid(containerEl, properties, filter);
       });
     });
   }
 
-  /* ── Property Detail Page ───────────────────────────────────── */
+  /* ── Property Detail Page ─────────────────────────────────────── */
   function initDetailPage() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
@@ -182,23 +160,20 @@
     const prop = allProperties.find(p => p.id === id);
     if (!prop) return;
 
-    const title     = prop.title || t(prop.title_key);
-    const loc       = prop.location || t(prop.location_key);
-    
-    // For new properties, the DB provides the description object
     const currentLang = localStorage.getItem('lorenzo_lang') || 'es';
+    const title = prop.title || '';
+    const loc   = prop.location || '';
+
+    // Get description from DB object or fallback translation
     let desc = '';
     if (prop.description && typeof prop.description === 'object') {
       desc = prop.description[currentLang] || prop.description['es'] || '';
-    } else {
-      const descKey   = id === 'fallback-1' ? 're-duran-desc' : id === 'fallback-2' ? 're-rod-desc' : id === 'fallback-3' ? 're-c1-desc' : id === 'fallback-4' ? 're-c2-desc' : 're-c3-desc';
-      desc = t(descKey);
+    } else if (typeof prop.description === 'string') {
+      desc = prop.description;
     }
 
-    // Page title
-    document.title = `${title} | Constructora Rodríguez Javier`;
+    document.title = title + ' | Constructora Rodríguez Javier';
 
-    // Populate elements if they exist
     const set = (sel, val, html = false) => {
       const el = document.querySelector(sel);
       if (el) { html ? el.innerHTML = val : el.textContent = val; }
@@ -208,41 +183,35 @@
     set('#detail-title-h1', title);
     set('#detail-location', loc);
     set('#detail-price', formatPrice(prop.price));
-    set('#detail-m2', prop.m2 + ' m²');
-    set('#detail-beds', prop.bedrooms);
-    set('#detail-baths', prop.bathrooms);
-    set('#detail-park', prop.parking);
+    set('#detail-m2', (prop.m2 || '-') + ' m²');
+    set('#detail-beds', prop.bedrooms || '-');
+    set('#detail-baths', prop.bathrooms || '-');
+    set('#detail-park', prop.parking || '-');
 
-    // Description (preserve newlines and style beautifully)
+    // Render description with rich formatting
     const descEl = document.querySelector('#detail-desc');
-    if (descEl) {
+    if (descEl && desc) {
       let html = '';
       let inList = false;
       desc.split('\n').forEach(line => {
-        let t = line.trim();
-        if (!t) return;
-        
-        if (t.startsWith('•') || t.startsWith('-')) {
+        const txt = line.trim();
+        if (!txt) return;
+        if (txt.startsWith('•') || txt.startsWith('-')) {
           if (!inList) { html += '<ul class="mb-8 space-y-3">'; inList = true; }
           html += `<li class="flex items-start gap-3">
                      <span class="text-gold mt-1 shrink-0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
-                     <span class="text-muted leading-relaxed text-[14px]">${t.substring(1).trim()}</span>
+                     <span class="text-muted leading-relaxed text-[14px]">${txt.substring(1).trim()}</span>
                    </li>`;
         } else {
           if (inList) { html += '</ul>'; inList = false; }
-          if (t.match(/^(✨|💳|📅)/)) {
-            html += `<h3 class="text-xl font-serif text-navy mt-10 mb-4 flex items-center gap-3 border-b border-mid/20 pb-3">${t}</h3>`;
-          } else if (t.startsWith('📍')) {
-            html += `<div class="mb-8">
-                       <p class="text-muted leading-relaxed mb-4 text-[14px] font-medium text-navy flex items-start gap-2">
-                         <span>${t}</span>
-                       </p>
-                       <iframe src="https://maps.google.com/maps?q=18.510239,-69.784874&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="300" style="border:0; border-radius: 0.5rem;" allowfullscreen="" loading="lazy"></iframe>
-                     </div>`;
-          } else if (t.startsWith('📲')) {
-            html += `<p class="text-navy font-medium leading-relaxed mb-6 text-[14px] bg-navy/5 p-4 rounded-lg border border-navy/10 flex items-start gap-2"><span>${t}</span></p>`;
+          if (txt.match(/^(✨|💳|📅)/)) {
+            html += `<h3 class="text-xl font-serif text-navy mt-10 mb-4 flex items-center gap-3 border-b border-mid/20 pb-3">${txt}</h3>`;
+          } else if (txt.startsWith('📍')) {
+            html += `<p class="text-muted leading-relaxed mb-4 text-[14px] font-medium text-navy flex items-start gap-2"><span>${txt}</span></p>`;
+          } else if (txt.startsWith('📲')) {
+            html += `<p class="text-navy font-medium leading-relaxed mb-6 text-[14px] bg-navy/5 p-4 rounded-lg border border-navy/10 flex items-start gap-2"><span>${txt}</span></p>`;
           } else {
-            html += `<p class="text-muted leading-relaxed mb-6 text-[14px]">${t}</p>`;
+            html += `<p class="text-muted leading-relaxed mb-6 text-[14px]">${txt}</p>`;
           }
         }
       });
@@ -252,20 +221,19 @@
 
     // Image carousel
     const carousel = document.getElementById('detail-carousel');
-    if (carousel && prop.image_urls) {
+    const thumbs   = document.getElementById('detail-thumbs');
+    if (carousel && prop.image_urls && prop.image_urls.length > 0) {
       carousel.innerHTML = '';
       prop.image_urls.forEach((url, i) => {
         const img = document.createElement('img');
         img.src = url;
-        img.alt = `${title} — imagen ${i + 1}`;
-        img.loading = i === 0 ? 'eager' : 'lazy';
-        img.style.cssText = `width:100%;height:100%;object-fit:cover;display:${i === 0 ? 'block' : 'none'};`;
-        img.setAttribute('data-index', i);
+        img.alt = title;
+        img.loading = 'lazy';
+        img.className = 'w-full h-full object-cover';
+        img.style.display = i === 0 ? 'block' : 'none';
+        img.style.transition = 'opacity 0.4s ease';
         carousel.appendChild(img);
       });
-
-      // Thumbnails
-      const thumbs = document.getElementById('detail-thumbs');
       if (thumbs) {
         thumbs.innerHTML = '';
         prop.image_urls.forEach((url, i) => {
@@ -277,9 +245,7 @@
               im.style.opacity = '0';
               setTimeout(() => {
                 im.style.display = idx === i ? 'block' : 'none';
-                if (idx === i) {
-                  requestAnimationFrame(() => { im.style.transition = 'opacity 0.4s ease'; im.style.opacity = '1'; });
-                }
+                if (idx === i) requestAnimationFrame(() => { im.style.opacity = '1'; });
               }, 150);
             });
             thumbs.querySelectorAll('button').forEach((b, idx) => {
@@ -291,7 +257,7 @@
       }
     }
 
-    // Status badge on detail page
+    // Status badge
     const badgeEl = document.getElementById('detail-badge');
     if (badgeEl) badgeEl.innerHTML = statusBadge(prop.status, false);
 
@@ -300,50 +266,35 @@
     if (backEl) backEl.href = '/properties';
   }
 
-  /* ── Homepage featured grid ─────────────────────────────────── */
-  function initHomePage() {
-    // Re-render featured cards with translated text
-    const grid = document.getElementById('featured-props');
-    if (!grid) return;
-    grid.innerHTML = '';
-    FALLBACK_PROPERTIES.slice(0, 3).forEach(p => grid.appendChild(buildCard(p)));
-    if (window.IntersectionObserver) {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-      }, { threshold: 0.1 });
-      grid.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
-    }
-  }
-
-  /* ── Supabase Loader ─────────────────────────────────────────── */
+  /* ── Supabase Loader (uses fetch — no SDK dependency) ────────── */
   async function loadFromSupabase() {
-    const url = 'https://kvxcnuckuxoemcfgkhau.supabase.co';
-    const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt2eGNudWNrdXhvZW1jZmdraGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MTA5NjksImV4cCI6MjA5OTM4Njk2OX0.tFmj4dTF7VaKCbGFtpt6AMMTYVoVDaj8y4emxtgrRhc';
-    const headers = { 'apikey': key, 'Authorization': 'Bearer ' + key };
-
+    const headers = { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY };
     try {
-      // Load properties via REST API (no SDK dependency)
-      const res = await fetch(url + '/rest/v1/properties?select=*&order=created_at.desc', { headers });
-      if (!res.ok) throw new Error('Supabase fetch failed: ' + res.status);
+      const res = await fetch(SUPA_URL + '/rest/v1/properties?select=*&order=created_at.desc', { headers });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
 
-      if (data && data.length > 0) {
-        const currentLang = localStorage.getItem('lorenzo_lang') || 'es';
+      if (Array.isArray(data) && data.length > 0) {
+        const lang = localStorage.getItem('lorenzo_lang') || 'es';
         allProperties = data.map(p => {
           p.id = p.slug;
-          if (typeof p.title === 'object' && p.title !== null) p.title = p.title[currentLang] || p.title['es'] || '';
-          if (typeof p.location === 'object' && p.location !== null) p.location = p.location[currentLang] || p.location['es'] || '';
+          if (typeof p.title === 'object' && p.title !== null)
+            p.title = p.title[lang] || p.title['es'] || '';
+          if (typeof p.location === 'object' && p.location !== null)
+            p.location = p.location[lang] || p.location['es'] || '';
           if (Array.isArray(p.image_urls)) {
-            p.image_urls = p.image_urls.map(img => {
-              if (img.startsWith('http') || img.startsWith('/assets')) return img;
-              return url + '/storage/v1/object/public/property-images/' + img;
-            });
+            p.image_urls = p.image_urls.map(img =>
+              (img.startsWith('http') || img.startsWith('/assets'))
+                ? img
+                : SUPA_URL + '/storage/v1/object/public/property-images/' + img
+            );
           }
           return p;
         });
       }
     } catch (e) {
       console.warn('Supabase load error:', e);
+      // allProperties stays as FALLBACK_PROPERTIES
     }
   }
 
@@ -351,13 +302,13 @@
   document.addEventListener('DOMContentLoaded', async () => {
     await loadFromSupabase();
 
-    const page = window.location.pathname.replace(/\/$/, '').split('/').pop() || 'index.html';
+    const page = window.location.pathname.replace(/\/$/, '').split('/').pop() || '';
 
-    if (page === 'index.html' || page === 'index' || page === '') {
+    if (page === '' || page === 'index' || page === 'index.html') {
       initHomePage();
     }
 
-    if (page === 'properties.html' || page === 'properties') {
+    if (page === 'properties' || page === 'properties.html') {
       const grid = document.getElementById('props-grid');
       if (grid) {
         renderGrid(grid, allProperties, 'all');
@@ -365,22 +316,22 @@
       }
     }
 
-    if (page === 'proyecto.html' || page === 'proyecto') {
+    if (page === 'proyecto' || page === 'proyecto.html') {
       initDetailPage();
     }
 
-    // Re-render on lang switch
+    // Re-render on language switch
     const origSwitch = window.switchLanguage;
     window.switchLanguage = function(lang) {
       if (typeof origSwitch === 'function') origSwitch(lang);
-      if (page === 'index.html' || page === 'index' || page === '') initHomePage();
-      if (page === 'properties.html' || page === 'properties') {
+      if (page === '' || page === 'index' || page === 'index.html') initHomePage();
+      if (page === 'properties' || page === 'properties.html') {
         const grid = document.getElementById('props-grid');
         const active = document.querySelector('.filter-btn.active');
         const filter = active ? (active.getAttribute('data-filter') || 'all') : 'all';
         if (grid) renderGrid(grid, allProperties, filter);
       }
-      if (page === 'proyecto.html' || page === 'proyecto') initDetailPage();
+      if (page === 'proyecto' || page === 'proyecto.html') initDetailPage();
     };
   });
 
