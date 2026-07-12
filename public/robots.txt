@@ -4,4 +4,4 @@ Allow: /
 User-agent: AdsBot-Google
 Allow: /
 
-Sitemap: https://constructora-rodriguez-javier.pages.dev/sitemap.xml
+Sitemap: https://www.tucasard.com/sitemap-index.xml

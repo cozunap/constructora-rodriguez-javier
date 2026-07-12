@@ -34,6 +34,37 @@ const {
     <meta property="og:image" content={image} />
     <meta property="og:url" content={url} />
     <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Canonical & Sitemap -->
+    <link rel="canonical" href={url} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-964SV8TL4D"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-964SV8TL4D');
+    </script>
+
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "Constructora Rodríguez Javier",
+      "url": "https://www.tucasard.com/",
+      "logo": "https://www.tucasard.com/assets/lorenzo-logo.webp",
+      "image": "https://www.tucasard.com/assets/images/hero/hero-bg.webp",
+      "description": "Constructora Rodríguez Javier - Desarrollos Inmobiliarios y Diseño de Interiores en Santo Domingo.",
+      "telephone": "+16468831869",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Santo Domingo",
+        "addressCountry": "DO"
+      }
+    })} />
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
