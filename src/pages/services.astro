@@ -1,8 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+
+const seoTitle = "Construcción, Ebanistería y Retorno de Inversión (ROI) en Bienes Raíces";
+const seoDesc = "Servicios integrales de arquitectura, construcción y gestión de propiedades en República Dominicana. Asegure un alto retorno de inversión (ROI) con nuestros desarrollos de lujo.";
 ---
 
-<Layout title="Constructora Rodríguez Javier | Servicios">
+<Layout title={seoTitle} description={seoDesc}>
   <!-- Nav injected -->
 
   <!-- ── Page Hero ─────────────────────────────── -->
@@ -11,9 +15,9 @@ import Layout from '../layouts/Layout.astro';
       <img src="/assets/images/projects/duran-1.webp" alt="Background" class="w-full h-full object-cover" fetchpriority="high">
     </div>
     <div class="w-full max-w-4xl mx-auto px-6 relative z-10">
-      <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="services-subtitle">Servicios Especializados</p>
-      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight" data-i18n="services-title">Soluciones Integrales de Construcción</h1>
-      <p class="text-lg text-white/80 mt-6 max-w-2xl mx-auto" data-i18n="services-desc">Manejamos desde el diseño conceptual en 3D hasta la entrega llave en mano, garantizando un proceso libre de estrés.</p>
+      <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="services-subtitle">Construcción & Inversión Inmobiliaria</p>
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight" data-i18n="services-title">Soluciones para Retorno de Inversión (ROI)</h1>
+      <p class="text-lg text-white/80 mt-6 max-w-2xl mx-auto" data-i18n="services-desc">Expertos en diseño, remodelación y construcción de propiedades de lujo preparadas para alquiler vacacional y venta de terrenos en la costa.</p>
     </div>
   </div>
 

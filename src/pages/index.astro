@@ -1,8 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PropertyCard from '../components/PropertyCard.astro';
+
+const seoTitle = "Inmobiliarias en República Dominicana | Villas de Lujo e Inversión en Bienes Raíces";
+const seoDesc = "Líderes en proyectos inmobiliarios en construcción en RD. Encuentra villas de lujo y opciones de inversión en bienes raíces con alto ROI en Santo Domingo y Punta Cana.";
 ---
 
-<Layout title="Constructora Rodríguez Javier | Inicio">
+<Layout title={seoTitle} description={seoDesc}>
   <!-- ═══════════════════════════════════════════════
        HERO
   ════════════════════════════════════════════════ -->
@@ -14,10 +18,10 @@ import Layout from '../layouts/Layout.astro';
     
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-12">
       <div class="lg:col-span-3 flex flex-col items-start justify-center text-left">
-        <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="hero-tag">Expertos en Remodelaciones &amp; Construcción</p>
-        <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-normal leading-[1.15] tracking-tight mb-8" data-i18n="hero-title">Transformamos Espacios, Construimos Sueños</h1>
-        <p class="text-base md:text-lg text-white/80 leading-relaxed max-w-lg mb-10" data-i18n="hero-desc">Diseños a la medida y remodelaciones de alto nivel en Santo Domingo con estándares europeos de calidad, puntualidad y acabados premium.</p>
-        <div class="flex flex-wrap items-center gap-4">
+        <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6 fade-up" data-i18n="hero-subtitle">Inmobiliaria de Lujo en República Dominicana</p>
+        <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-normal leading-[1.15] tracking-tight mb-8 fade-up" style="animation-delay: 100ms" data-i18n="hero-title">Inversión en Bienes Raíces & Villas de Lujo</h1>
+        <p class="text-base md:text-lg text-white/80 leading-relaxed max-w-lg mb-10 fade-up" style="animation-delay: 200ms" data-i18n="hero-desc">Descubra los mejores proyectos inmobiliarios en construcción. Alta rentabilidad, diseño exclusivo y ubicaciones prime en Santo Domingo y Zona Este.</p>
+        <div class="flex flex-wrap items-center gap-4 fade-up" style="animation-delay: 300ms">
           <a href="/properties" class="btn-gold" data-i18n="hero-cta-projects">Ver Propiedades</a>
           <a href="/contact" class="btn-outline-white" data-i18n="hero-cta-contact">Cotizar Gratis</a>
         </div>
@@ -238,9 +242,9 @@ import Layout from '../layouts/Layout.astro';
     <div class="absolute inset-0 z-0 opacity-20 bg-[url('/assets/images/projects/duran-1.webp')] bg-cover bg-center"></div>
     <div class="absolute inset-0 bg-navy/90 z-0"></div>
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10 text-center">
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="cta-overline">¿Listo para empezar?</p>
-      <h2 class="font-serif text-4xl md:text-5xl text-white mb-6" data-i18n="cta-title">Hablemos de tu Proyecto</h2>
-      <p class="text-lg text-white/80 max-w-2xl mx-auto mb-10" data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-6 fade-up" data-i18n="cta-overline">¿Listo para empezar?</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-white mb-6 fade-up" data-i18n="cta-title">Hablemos de tu Proyecto</h2>
+      <p class="text-lg text-white/80 max-w-2xl mx-auto mb-10 fade-up" data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <a href="/contact" class="btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
         <a href="/properties" class="btn-outline-white" data-i18n="hero-cta-projects">Ver Propiedades</a>

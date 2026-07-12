@@ -1,8 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+
+const seoTitle = "Inmobiliarias y Constructoras en República Dominicana | Sobre Nosotros";
+const seoDesc = "Su socio de confianza para comprar casas en RD para extranjeros, invertir en bienes raíces y desarrollar proyectos residenciales de lujo con total seguridad.";
 ---
 
-<Layout title="Constructora Rodríguez Javier | Nosotros">
+<Layout title={seoTitle} description={seoDesc}>
 
   <!-- ── Page Hero ─────────────────────────────── -->
   <div class="pt-32 pb-20 md:pt-40 md:pb-28 bg-navy text-center relative overflow-hidden">
@@ -10,9 +14,9 @@ import Layout from '../layouts/Layout.astro';
       <img src="/assets/images/projects/duran-1.webp" alt="Background" class="w-full h-full object-cover" fetchpriority="high">
     </div>
     <div class="w-full max-w-4xl mx-auto px-6 relative z-10">
-      <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="about-subtitle">Sobre Nosotros</p>
-      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight" data-i18n="about-title">Más de 15 Años de Excelencia en Santo Domingo</h1>
-      <p class="text-lg text-white/80 mt-6 max-w-2xl mx-auto" data-i18n="about-p1">En Constructora Rodríguez Javier nos enorgullece ofrecer servicios de remodelación y construcción que superan las expectativas de nuestros clientes.</p>
+      <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="about-subtitle">Inmobiliaria y Constructora</p>
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight" data-i18n="about-title">Su Socio en Bienes Raíces en RD</h1>
+      <p class="text-lg text-white/80 mt-6 max-w-2xl mx-auto" data-i18n="about-desc">Con más de 15 años de experiencia, facilitamos cómo comprar una casa en RD para extranjeros e inversionistas locales.</p>
     </div>
   </div>
 

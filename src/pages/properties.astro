@@ -1,8 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PropertyFilters from '../components/PropertyFilters.astro';
+
+const seoTitle = "Casas y Villas de Lujo en Venta en República Dominicana";
+const seoDesc = "Catálogo premium de propiedades, apartamentos en alquiler en Santo Domingo, villas en Punta Cana y opciones para Airbnb con ley de Confotur.";
 ---
 
-<Layout title="Constructora Rodríguez Javier | Propiedades">
+<Layout title={seoTitle} description={seoDesc}>
   <!-- Nav injected by components.js -->
 
   <!-- ── Page Hero ─────────────────────────────── -->
@@ -11,9 +15,9 @@ import Layout from '../layouts/Layout.astro';
       <img src="/assets/images/projects/duran-1.webp" alt="Background" class="w-full h-full object-cover" fetchpriority="high">
     </div>
     <div class="w-full max-w-4xl mx-auto px-6 relative z-10">
-      <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="re-subtitle">Luxury Real Estate</p>
-      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight" data-i18n="re-title">Propiedades &amp; Proyectos</h1>
-      <p class="text-lg text-white/80 mt-6 max-w-2xl mx-auto" data-i18n="re-desc">Descubre villas exclusivas, apartamentos de playa y proyectos residenciales premium en las mejores zonas de República Dominicana.</p>
+      <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="re-subtitle">Villas en Venta y Apartamentos</p>
+      <h1 class="font-serif text-4xl md:text-6xl text-white mb-6" data-i18n="re-title">Casas y Propiedades de Lujo en RD</h1>
+      <p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto" data-i18n="re-desc">Invierta en bienes raíces de alta rentabilidad. Penthouses en Santo Domingo, villas frente al mar y propiedades Airbnb friendly.</p>
     </div>
   </div>
 
