@@ -169,6 +169,12 @@ export function PropertiesManager() {
               </div>
 
               <div className="sm:col-span-6">
+                <label className="block text-sm font-medium text-navy">Descripción (Inglés)</label>
+                <textarea name="description.en" rows={5} value={editingProp.description?.en || ''} onChange={handleChange}
+                  className="mt-1 focus:ring-gold focus:border-gold block w-full shadow-sm sm:text-sm border-mid/30 rounded-md py-2 px-3 border" />
+              </div>
+
+              <div className="sm:col-span-6">
                 <label className="block text-sm font-medium text-navy">Imágenes</label>
                 <div className="mt-2 flex items-center gap-4 flex-wrap">
                   {editingProp.image_urls?.map((url, i) => (
