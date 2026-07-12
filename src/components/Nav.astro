@@ -1,34 +1,86 @@
 ---
 // Nav.astro
+export interface Props {
+  theme?: 'dark' | 'light';
+}
+const { theme = 'dark' } = Astro.props;
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/' || pathname === '/index.html';
-const darkClass = isHome ? 'nav-dark' : '';
+const themeClass = theme === 'light' ? 'nav-light' : 'nav-dark';
 ---
-<nav class={`site-nav ${darkClass}`} id="site-nav">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="Constructora Rodríguez Javier">
-      <img src="/assets/lorenzo-logo.webp" alt="Logo">
+<nav class={`site-nav fixed top-0 left-0 w-full z-50 h-20 flex items-center transition-all duration-300 ${themeClass}`} id="site-nav">
+  <div class="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex items-center justify-between">
+    <a href="/" class="z-[60]" aria-label="Constructora Rodríguez Javier">
+      <img src="/assets/lorenzo-logo.webp" alt="Logo" class="h-14 w-auto object-contain transition-all duration-300 logo-img">
     </a>
-    <div class="nav-links" id="nav-links">
-      <a href="/" class={isHome ? 'active' : ''} data-i18n="nav-home">Inicio</a>
-      <a href="/properties" class={pathname.includes('/properties') ? 'active' : ''} data-i18n="nav-properties">Propiedades</a>
-      <a href="/services" class={pathname.includes('/services') ? 'active' : ''} data-i18n="nav-services">Servicios</a>
-      <a href="/about" class={pathname.includes('/about') ? 'active' : ''} data-i18n="nav-about">Nosotros</a>
-      <a href="/contact" class={pathname.includes('/contact') ? 'active' : ''} data-i18n="nav-contact">Contacto</a>
-      <a href="/contact" class="btn btn-primary nav-cta" data-i18n="nav-cta">Cotizar</a>
+    <div class="nav-links fixed inset-0 bg-white md:bg-transparent md:static flex flex-col md:flex-row items-center justify-center md:justify-end gap-8 opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto transition-all duration-300 z-50 text-dark md:text-white" id="nav-links">
+      <a href="/" class={`text-lg md:text-sm font-medium tracking-wide transition-colors duration-200 hover:text-gold ${isHome ? 'text-gold' : ''}`} data-i18n="nav-home">Inicio</a>
+      <a href="/properties" class={`text-lg md:text-sm font-medium tracking-wide transition-colors duration-200 hover:text-gold ${pathname.includes('/properties') ? 'text-gold' : ''}`} data-i18n="nav-properties">Propiedades</a>
+      <a href="/services" class={`text-lg md:text-sm font-medium tracking-wide transition-colors duration-200 hover:text-gold ${pathname.includes('/services') ? 'text-gold' : ''}`} data-i18n="nav-services">Servicios</a>
+      <a href="/about" class={`text-lg md:text-sm font-medium tracking-wide transition-colors duration-200 hover:text-gold ${pathname.includes('/about') ? 'text-gold' : ''}`} data-i18n="nav-about">Nosotros</a>
+      <a href="/contact" class={`text-lg md:text-sm font-medium tracking-wide transition-colors duration-200 hover:text-gold ${pathname.includes('/contact') ? 'text-gold' : ''}`} data-i18n="nav-contact">Contacto</a>
+      <a href="/contact" class="btn-primary" data-i18n="nav-cta">Cotizar</a>
     </div>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <button class="nav-hamburger md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 z-[60] relative focus:outline-none" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
+      <span class="block w-6 h-0.5 bg-current transition-transform duration-300 origin-center"></span>
+      <span class="block w-6 h-0.5 bg-current transition-opacity duration-300"></span>
+      <span class="block w-6 h-0.5 bg-current transition-transform duration-300 origin-center"></span>
     </button>
   </div>
 </nav>
 
+<style>
+  @media (min-width: 768px) {
+    .nav-dark .nav-links a:not(.btn-primary) {
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+  .nav-dark .logo-img {
+    filter: brightness(0) invert(1);
+  }
+  @media (min-width: 768px) {
+    .nav-light .nav-links a:not(.btn-primary) {
+      color: #0d1f3c;
+    }
+  }
+  
+  .nav-scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  @media (min-width: 768px) {
+    .nav-scrolled .nav-links a:not(.btn-primary) {
+      color: #0d1f3c;
+    }
+  }
+  .nav-scrolled .logo-img, .nav-light .logo-img {
+    filter: none;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Hamburger Animation */
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+</style>
+
 <script>
-  // Navigation scripts (client side)
   document.addEventListener('DOMContentLoaded', () => {
     const nav = document.getElementById('site-nav');
     function onScroll() {
-      if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
+      if (nav) {
+        if (window.scrollY > 40) {
+          nav.classList.add('nav-scrolled');
+        } else {
+          nav.classList.remove('nav-scrolled');
+        }
+      }
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -40,7 +92,13 @@ const darkClass = isHome ? 'nav-dark' : '';
         const open = menu.classList.toggle('open');
         ham.classList.toggle('open', open);
         ham.setAttribute('aria-expanded', String(open));
-        document.body.classList.toggle('no-scroll', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        // If menu is opened, ensure hamburger icon is dark so it's visible on white background
+        if (open) {
+          ham.classList.add('text-dark');
+        } else {
+          ham.classList.remove('text-dark');
+        }
       });
     }
   });

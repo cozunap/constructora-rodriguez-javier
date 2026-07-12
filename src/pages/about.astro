@@ -3,127 +3,151 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Constructora Rodríguez Javier | Nosotros">
-<!-- Nav injected -->
 
   <!-- ── Page Hero ─────────────────────────────── -->
-  <div class="page-hero">
-    <div class="container">
-      <p class="overline" data-i18n="about-subtitle">Sobre Nosotros</p>
-      <h1 data-i18n="about-title">Más de 15 Años de Excelencia en Santo Domingo</h1>
-      <p data-i18n="about-p1">En Constructora Rodríguez Javier nos enorgullece ofrecer servicios de remodelación y construcción que superan las expectativas de nuestros clientes.</p>
+  <div class="pt-32 pb-20 md:pt-40 md:pb-28 bg-navy text-center relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-20 mix-blend-overlay">
+      <img src="/assets/images/projects/duran-1.webp" alt="Background" class="w-full h-full object-cover">
+    </div>
+    <div class="w-full max-w-4xl mx-auto px-6 relative z-10">
+      <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="about-subtitle">Sobre Nosotros</p>
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight" data-i18n="about-title">Más de 15 Años de Excelencia en Santo Domingo</h1>
+      <p class="text-lg text-white/80 mt-6 max-w-2xl mx-auto" data-i18n="about-p1">En Constructora Rodríguez Javier nos enorgullece ofrecer servicios de remodelación y construcción que superan las expectativas de nuestros clientes.</p>
     </div>
   </div>
 
   <!-- ── Mission ────────────────────────────────── -->
-  <section class="section" aria-label="Misión y visión">
-    <div class="container">
-      <div class="about-split">
-        <div class="about-split-img fade-up">
-          <img src="assets/images/projects/duran-2.webp" alt="Constructora Rodríguez Javier" loading="lazy">
-          <div class="stat-card">
-            <strong>2008</strong>
-            <span>Fundada</span>
+  <section class="py-24 md:py-32" aria-label="Misión y visión">
+    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="fade-up relative">
+          <img src="/assets/images/projects/duran-2.webp" alt="Constructora Rodríguez Javier" class="rounded-xl shadow-2xl" loading="lazy">
+          <div class="absolute -bottom-8 -right-8 bg-navy text-white p-8 rounded-xl shadow-xl hidden md:flex flex-col items-center text-center max-w-[200px]">
+            <strong class="font-serif text-5xl mb-2 text-gold">2008</strong>
+            <span class="text-sm font-semibold uppercase tracking-wider">Fundada</span>
           </div>
         </div>
-        <div class="about-split-text fade-up">
-          <p class="overline">Nuestra Historia</p>
-          <div class="gold-line"></div>
-          <h2 class="display-sm">Construimos con propósito desde 2008</h2>
-          <p class="lead" data-i18n="about-p1">En Constructora Rodríguez Javier nos enorgullece ofrecer servicios de remodelación y construcción residencial y comercial que superan las expectativas de nuestros clientes.</p>
-          <p class="lead mt-3" data-i18n="about-p2">Utilizamos materiales de la más alta calidad y trabajamos con un equipo de artesanos, diseñadores e ingenieros calificados para asegurar que cada detalle sea impecable.</p>
-          <div class="about-stats">
-            <div class="about-stat">
-              <strong>120+</strong>
-              <span data-i18n="stat-projects">Proyectos</span>
+        <div class="fade-up lg:pl-10">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4">Nuestra Historia</p>
+          <div class="w-12 h-0.5 bg-gold mb-6"></div>
+          <h2 class="font-serif text-3xl md:text-4xl text-navy mb-8">Construimos con propósito desde 2008</h2>
+          <p class="text-muted leading-relaxed mb-4 text-lg" data-i18n="about-p1">En Constructora Rodríguez Javier nos enorgullece ofrecer servicios de remodelación y construcción residencial y comercial que superan las expectativas de nuestros clientes.</p>
+          <p class="text-muted leading-relaxed mb-10 text-lg" data-i18n="about-p2">Utilizamos materiales de la más alta calidad y trabajamos con un equipo de artesanos, diseñadores e ingenieros calificados para asegurar que cada detalle sea impecable.</p>
+          
+          <div class="grid grid-cols-3 gap-6 border-t border-b border-mid/40 py-8">
+            <div>
+              <strong class="block font-serif text-3xl text-navy mb-1">120+</strong>
+              <span class="text-xs font-medium uppercase tracking-wider text-muted" data-i18n="stat-projects">Proyectos</span>
             </div>
-            <div class="about-stat">
-              <strong>15</strong>
-              <span data-i18n="stat-experience">Años</span>
+            <div>
+              <strong class="block font-serif text-3xl text-navy mb-1">15</strong>
+              <span class="text-xs font-medium uppercase tracking-wider text-muted" data-i18n="stat-experience">Años</span>
             </div>
-            <div class="about-stat">
-              <strong>98%</strong>
-              <span data-i18n="stat-satisfaction">Satisfacción</span>
+            <div>
+              <strong class="block font-serif text-3xl text-navy mb-1">98%</strong>
+              <span class="text-xs font-medium uppercase tracking-wider text-muted" data-i18n="stat-satisfaction">Satisfacción</span>
             </div>
           </div>
         </div>
       </div>
 
-      <blockquote class="big-quote fade-up">
-        "Nuestro compromiso no termina con la entrega de llaves. Construimos relaciones que duran toda la vida."
+      <blockquote class="fade-up mt-24 text-center max-w-4xl mx-auto">
+        <div class="text-gold text-6xl font-serif leading-none mb-4">"</div>
+        <p class="font-serif text-2xl md:text-4xl text-navy leading-relaxed">Nuestro compromiso no termina con la entrega de llaves. Construimos relaciones que duran toda la vida.</p>
       </blockquote>
     </div>
   </section>
 
   <!-- ── Values ─────────────────────────────────── -->
-  <section class="section section--light" aria-label="Valores">
-    <div class="container">
-      <div class="text-center fade-up" style="max-width:480px;margin-inline:auto;margin-bottom:1rem">
-        <p class="overline">Nuestros Valores</p>
-        <div class="gold-line" style="margin-inline:auto"></div>
-        <h2 class="display-sm">Lo que nos define</h2>
+  <section class="py-24 md:py-32 bg-off-white" aria-label="Valores">
+    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16">
+      <div class="text-center fade-up max-w-2xl mx-auto mb-20">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4">Nuestros Valores</p>
+        <div class="w-12 h-0.5 bg-gold mx-auto mb-6"></div>
+        <h2 class="font-serif text-3xl md:text-4xl text-navy">Lo que nos define</h2>
       </div>
-      <div class="values-grid">
-        <div class="value-card fade-up">
-          <span>🏆</span>
-          <h3>Excelencia</h3>
-          <p>Cada proyecto se ejecuta con los más altos estándares de calidad, materiales y mano de obra.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="fade-up bg-white p-10 rounded-xl shadow-lg shadow-navy/5 border border-mid/20 text-center group hover:-translate-y-2 transition-all duration-300">
+          <span class="block text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300">🏆</span>
+          <h3 class="font-serif text-xl text-navy mb-4">Excelencia</h3>
+          <p class="text-muted text-sm leading-relaxed">Cada proyecto se ejecuta con los más altos estándares de calidad, materiales y mano de obra.</p>
         </div>
-        <div class="value-card fade-up">
-          <span>🤝</span>
-          <h3>Transparencia</h3>
-          <p>Presupuestos fijos, cronogramas claros y comunicación constante en cada etapa del proyecto.</p>
+        <div class="fade-up bg-white p-10 rounded-xl shadow-lg shadow-navy/5 border border-mid/20 text-center group hover:-translate-y-2 transition-all duration-300" style="animation-delay: 100ms">
+          <span class="block text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300">🤝</span>
+          <h3 class="font-serif text-xl text-navy mb-4">Transparencia</h3>
+          <p class="text-muted text-sm leading-relaxed">Presupuestos fijos, cronogramas claros y comunicación constante en cada etapa del proyecto.</p>
         </div>
-        <div class="value-card fade-up">
-          <span>⏰</span>
-          <h3>Puntualidad</h3>
-          <p>Cumplimos con los tiempos acordados. Tu inversión merece un socio en quien confiar.</p>
+        <div class="fade-up bg-white p-10 rounded-xl shadow-lg shadow-navy/5 border border-mid/20 text-center group hover:-translate-y-2 transition-all duration-300" style="animation-delay: 200ms">
+          <span class="block text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300">⏰</span>
+          <h3 class="font-serif text-xl text-navy mb-4">Puntualidad</h3>
+          <p class="text-muted text-sm leading-relaxed">Cumplimos con los tiempos acordados. Tu inversión merece un socio en quien confiar.</p>
         </div>
-        <div class="value-card fade-up">
-          <span>🌐</span>
-          <h3>Innovación</h3>
-          <p>Coordinación digital completa para dominicanos en EE.UU. Diseños 3D antes de iniciar cualquier obra.</p>
+        <div class="fade-up bg-white p-10 rounded-xl shadow-lg shadow-navy/5 border border-mid/20 text-center group hover:-translate-y-2 transition-all duration-300" style="animation-delay: 300ms">
+          <span class="block text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-300">🌐</span>
+          <h3 class="font-serif text-xl text-navy mb-4">Innovación</h3>
+          <p class="text-muted text-sm leading-relaxed">Coordinación digital completa para dominicanos en EE.UU. Diseños 3D antes de iniciar cualquier obra.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── Coverage ───────────────────────────────── -->
-  <section class="section" aria-label="Cobertura">
-    <div class="container" style="max-width:860px">
-      <div class="text-center fade-up" style="margin-bottom:1rem">
-        <p class="overline">Cobertura</p>
-        <div class="gold-line" style="margin-inline:auto"></div>
-        <h2 class="display-sm">Operamos en Santo Domingo y más allá</h2>
-        <p class="lead" style="margin-inline:auto">Con base en Prado Oriental, Santo Domingo Este, ofrecemos cobertura completa en toda el área metropolitana.</p>
+  <section class="py-24 md:py-32" aria-label="Cobertura">
+    <div class="w-full max-w-4xl mx-auto px-6 text-center">
+      <div class="fade-up mb-16">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4">Cobertura</p>
+        <div class="w-12 h-0.5 bg-gold mx-auto mb-6"></div>
+        <h2 class="font-serif text-3xl md:text-4xl text-navy mb-6">Operamos en Santo Domingo y más allá</h2>
+        <p class="text-lg text-muted">Con base en Prado Oriental, Santo Domingo Este, ofrecemos cobertura completa en toda el área metropolitana y las principales provincias.</p>
       </div>
-      <div class="coverage-grid fade-up">
-        <div class="coverage-item"><div class="coverage-dot"></div>Santo Domingo Este</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Distrito Nacional</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Piantini &amp; Naco</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Bella Vista</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Arroyo Hondo</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Los Prados</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Casa de Campo, La Romana</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Cap Cana, Punta Cana</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Las Terrenas, Samaná</div>
-        <div class="coverage-item"><div class="coverage-dot"></div>Coordinación Remota (USA)</div>
+      <div class="fade-up flex flex-wrap justify-center gap-4">
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Santo Domingo Este
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Distrito Nacional
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Piantini &amp; Naco
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Bella Vista
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Arroyo Hondo
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Los Prados
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Casa de Campo, La Romana
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Cap Cana, Punta Cana
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-mid/30 flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-gold"></div> Las Terrenas, Samaná
+        </div>
+        <div class="bg-off-white text-navy px-6 py-3 rounded-full text-sm font-medium border border-gold flex items-center gap-2 shadow-sm shadow-gold/10">
+          <div class="w-2 h-2 rounded-full bg-gold animate-pulse"></div> Coordinación Remota (USA & EU)
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ── CTA ────────────────────────────────────── -->
-  <div class="cta-banner">
-    <div class="container">
-      <p class="overline" data-i18n="cta-overline">¿Listo para empezar?</p>
-      <h2 data-i18n="cta-title">Hablemos de tu Proyecto</h2>
-      <p data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
-      <div class="cta-banner-actions">
-        <a href="/contact" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
-        <a href="/properties" class="btn btn-outline-white" data-i18n="nav-properties">Ver Propiedades</a>
+  <div class="relative py-24 md:py-32 bg-navy overflow-hidden" aria-label="Llamada a la acción">
+    <div class="absolute inset-0 z-0 opacity-20 bg-[url('/assets/images/projects/duran-1.webp')] bg-cover bg-center"></div>
+    <div class="absolute inset-0 bg-navy/90 z-0"></div>
+    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10 text-center">
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="cta-overline">¿Listo para empezar?</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-white mb-6" data-i18n="cta-title">Hablemos de tu Proyecto</h2>
+      <p class="text-lg text-white/80 max-w-2xl mx-auto mb-10" data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="/contact" class="btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
+        <a href="/properties" class="btn-outline-white" data-i18n="nav-properties">Ver Propiedades</a>
       </div>
     </div>
   </div>
-
-  <!-- Footer injected -->
   
 </Layout>

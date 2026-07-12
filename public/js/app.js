@@ -15,14 +15,13 @@
       bedrooms: 3,
       bathrooms: 3.5,
       parking: 2,
-      status: 'en_desarrollo',
       image_urls: [
-        'assets/images/projects/duran-2.webp',
-        'assets/images/projects/duran-3.webp',
-        'assets/images/projects/duran-4.webp',
-        'assets/images/projects/duran-5.webp',
-        'assets/images/projects/rodriguez-ii-1.webp',
-        'assets/images/projects/rodriguez-ii-2.webp',
+        '/assets/images/projects/duran-2.webp',
+        '/assets/images/projects/duran-3.webp',
+        '/assets/images/projects/duran-4.webp',
+        '/assets/images/projects/duran-5.webp',
+        '/assets/images/projects/rodriguez-ii-1.webp',
+        '/assets/images/projects/rodriguez-ii-2.webp',
       ]
     },
     {
@@ -38,61 +37,10 @@
       parking: 2,
       status: 'en_desarrollo',
       image_urls: [
-        'assets/images/projects/rodriguez-ii-1.webp',
-        'assets/images/projects/rodriguez-ii-2.webp',
-        'assets/images/projects/duran-4.webp',
-        'assets/images/projects/duran-5.webp',
-      ]
-    },
-    {
-      id: 'fallback-3',
-      title_key: 're-c1-title',
-      location_key: 're-c1-loc',
-      title: 'Villa Marina & Golf',
-      location: 'Casa de Campo, La Romana',
-      price: 0,
-      m2: 800,
-      bedrooms: 6,
-      bathrooms: 7.5,
-      parking: 6,
-      status: 'disponible',
-      image_urls: [
-        'assets/images/projects/duran-3.webp',
-        'assets/images/projects/duran-2.webp',
-      ]
-    },
-    {
-      id: 'fallback-4',
-      title_key: 're-c2-title',
-      location_key: 're-c2-loc',
-      title: 'Cap Cana Oceanfront Villa',
-      location: 'Cap Cana, Punta Cana',
-      price: 0,
-      m2: 650,
-      bedrooms: 5,
-      bathrooms: 6.5,
-      parking: 4,
-      status: 'disponible',
-      image_urls: [
-        'assets/images/projects/rodriguez-ii-2.webp',
-        'assets/images/projects/rodriguez-ii-1.webp',
-      ]
-    },
-    {
-      id: 'fallback-5',
-      title_key: 're-c3-title',
-      location_key: 're-c3-loc',
-      title: 'Las Terrenas Beachside Penthouse',
-      location: 'Playa Las Ballenas, Las Terrenas',
-      price: 0,
-      m2: 200,
-      bedrooms: 3,
-      bathrooms: 3.5,
-      parking: 2,
-      status: 'disponible',
-      image_urls: [
-        'assets/images/projects/duran-5.webp',
-        'assets/images/projects/duran-4.webp',
+        '/assets/images/projects/rodriguez-ii-1.webp',
+        '/assets/images/projects/rodriguez-ii-2.webp',
+        '/assets/images/projects/duran-4.webp',
+        '/assets/images/projects/duran-5.webp',
       ]
     }
   ];
@@ -111,8 +59,8 @@
   }
 
   function statusBadge(status) {
-    if (status === 'en_desarrollo') return `<span class="prop-card-badge gold">${t('tag-dev')}</span>`;
-    return `<span class="prop-card-badge">${t('filter-sale') || 'En Venta'}</span>`;
+    if (status === 'en_desarrollo') return `<span class="absolute top-4 right-4 bg-gold text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('tag-dev')}</span>`;
+    return `<span class="absolute top-4 right-4 bg-navy text-white text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded shadow-md">${t('filter-sale') || 'En Venta'}</span>`;
   }
 
   function specIcon(type) {
@@ -128,26 +76,26 @@
   function buildCard(prop) {
     const title = t(prop.title_key) !== prop.title_key ? t(prop.title_key) : prop.title;
     const loc   = t(prop.location_key) !== prop.location_key ? t(prop.location_key) : prop.location;
-    const img   = prop.image_urls && prop.image_urls[0] ? prop.image_urls[0] : 'assets/images/projects/duran-2.webp';
+    const img   = prop.image_urls && prop.image_urls[0] ? prop.image_urls[0] : '/assets/images/projects/duran-2.webp';
 
     const card = document.createElement('article');
-    card.className = 'prop-card fade-up';
+    card.className = 'fade-up bg-white rounded-xl overflow-hidden shadow-lg shadow-navy/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 border border-mid/30 group';
     card.setAttribute('data-status', prop.status);
     card.setAttribute('data-id', prop.id);
     card.innerHTML = `
-      <a href="proyecto.html?id=${prop.id}" class="prop-detail-link" style="display:block;color:inherit">
-        <div class="prop-card-img">
-          <img src="${img}" alt="${title}" loading="lazy">
+      <a href="/proyecto?id=${prop.id}" style="display:block;color:inherit;text-decoration:none">
+        <div class="relative h-64 overflow-hidden">
+          <img src="${img}" alt="${title}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           ${statusBadge(prop.status)}
         </div>
-        <div class="prop-card-body">
-          <p class="prop-card-location">${loc}</p>
-          <h3 class="prop-card-title">${title}</h3>
-          <p class="prop-card-price">${formatPrice(prop.price)}</p>
-          <div class="prop-card-specs">
-            <span class="prop-card-spec">${specIcon('beds')} ${prop.bedrooms} ${t('spec-beds') || 'Hab.'}</span>
-            <span class="prop-card-spec">${specIcon('baths')} ${prop.bathrooms} ${t('spec-baths') || 'Baños'}</span>
-            <span class="prop-card-spec">${specIcon('area')} ${prop.m2} m²</span>
+        <div class="p-8">
+          <p class="text-sm text-gold font-medium tracking-wide mb-2">${loc}</p>
+          <h3 class="font-serif text-2xl text-navy mb-3">${title}</h3>
+          <p class="text-muted mb-6">${formatPrice(prop.price)}</p>
+          <div class="flex items-center justify-between pt-4 border-t border-mid/40 text-sm text-navy/80">
+            <span class="flex items-center gap-2">${specIcon('beds')} ${prop.bedrooms} <span class="sr-only">${t('spec-beds') || 'Hab.'}</span></span>
+            <span class="flex items-center gap-2">${specIcon('baths')} ${prop.bathrooms} <span class="sr-only">${t('spec-baths') || 'Baños'}</span></span>
+            <span class="flex items-center gap-2">${specIcon('area')} ${prop.m2} m²</span>
           </div>
         </div>
       </a>`;
@@ -270,7 +218,7 @@
 
     // Back link
     const backEl = document.querySelector('.detail-back');
-    if (backEl) backEl.href = 'properties.html';
+    if (backEl) backEl.href = '/properties';
   }
 
   /* ── Homepage featured grid ─────────────────────────────────── */
@@ -310,11 +258,11 @@
 
     const page = window.location.pathname.replace(/\/$/, '').split('/').pop() || 'index.html';
 
-    if (page === 'index.html' || page === '') {
+    if (page === 'index.html' || page === 'index' || page === '') {
       initHomePage();
     }
 
-    if (page === 'properties.html') {
+    if (page === 'properties.html' || page === 'properties') {
       const grid = document.getElementById('props-grid');
       if (grid) {
         renderGrid(grid, allProperties, 'all');
@@ -322,7 +270,7 @@
       }
     }
 
-    if (page === 'proyecto.html') {
+    if (page === 'proyecto.html' || page === 'proyecto') {
       initDetailPage();
     }
 
@@ -330,14 +278,14 @@
     const origSwitch = window.switchLanguage;
     window.switchLanguage = function(lang) {
       if (typeof origSwitch === 'function') origSwitch(lang);
-      if (page === 'index.html' || page === '') initHomePage();
-      if (page === 'properties.html') {
+      if (page === 'index.html' || page === 'index' || page === '') initHomePage();
+      if (page === 'properties.html' || page === 'properties') {
         const grid = document.getElementById('props-grid');
         const active = document.querySelector('.filter-btn.active');
         const filter = active ? (active.getAttribute('data-filter') || 'all') : 'all';
         if (grid) renderGrid(grid, allProperties, filter);
       }
-      if (page === 'proyecto.html') initDetailPage();
+      if (page === 'proyecto.html' || page === 'proyecto') initDetailPage();
     };
   });
 

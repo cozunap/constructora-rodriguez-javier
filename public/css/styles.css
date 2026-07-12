@@ -150,14 +150,15 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   transition: background var(--trans), box-shadow var(--trans);
   --nav-link-color: rgba(255,255,255,.85); /* Default to dark theme for ALL pages */
 }
-.site-nav.scrolled {
+.site-nav.scrolled,
+.site-nav.nav-light {
   background: rgba(255,255,255,.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--mid);
   --nav-link-color: var(--dark);
 }
-.site-nav:not(.scrolled) .nav-logo img {
+.site-nav:not(.scrolled):not(.nav-light) .nav-logo img {
   filter: brightness(0) invert(1);
 }
 .nav-inner {
@@ -175,7 +176,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   object-fit: contain;
   transition: filter var(--trans), height var(--trans);
 }
-.site-nav.scrolled .nav-logo img {
+.site-nav.scrolled .nav-logo img,
+.site-nav.nav-light .nav-logo img {
   filter: none;
 }
 .nav-links {

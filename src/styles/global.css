@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0d1f3c;
+  --color-navy-mid: #1a3261;
+  --color-gold: #b89a5a;
+  --color-gold-lt: #d4b87a;
+  --color-off-white: #f8f7f4;
+  --color-light: #f2f0eb;
+  --color-mid: #e0ddd7;
+  --color-muted: #8a8580;
+  --color-dark: #1c1a17;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "Playfair Display", Georgia, serif;
+
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  
+  --ease-custom: cubic-bezier(.4, 0, .2, 1);
+  --transition-custom: all 0.25s cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  body {
+    @apply font-sans text-dark bg-white leading-relaxed antialiased overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-7 py-3 bg-navy text-white hover:bg-navy-mid text-sm font-medium tracking-wide rounded-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl shadow-navy/20;
+  }
+  .btn-gold {
+    @apply inline-flex items-center gap-2 px-7 py-3 bg-gold text-white hover:bg-gold-lt text-sm font-medium tracking-wide rounded-sm transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-gold/20;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-7 py-3 border-2 border-navy text-navy hover:bg-navy hover:text-white text-sm font-medium tracking-wide rounded-sm transition-all duration-300;
+  }
+  .btn-outline-white {
+    @apply inline-flex items-center gap-2 px-7 py-3 border-2 border-white/55 text-white hover:bg-white hover:text-navy hover:border-white text-sm font-medium tracking-wide rounded-sm transition-all duration-300;
+  }
+
+  .nav-scrolled {
+    @apply bg-white/95 backdrop-blur-md shadow-sm;
+  }
+  
+  .fade-up {
+    @apply opacity-0;
+  }
+  .fade-up.visible {
+    animation: fade-up 0.8s cubic-bezier(.4,0,.2,1) forwards;
+  }
+}

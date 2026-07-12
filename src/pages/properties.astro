@@ -3,53 +3,56 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Constructora Rodríguez Javier | Propiedades">
-<!-- Nav injected by components.js -->
+  <!-- Nav injected by components.js -->
 
   <!-- ── Page Hero ─────────────────────────────── -->
-  <div class="page-hero">
-    <div class="container">
-      <p class="overline" data-i18n="re-subtitle">Luxury Real Estate</p>
-      <h1 data-i18n="re-title">Propiedades &amp; Proyectos</h1>
-      <p data-i18n="re-desc">Descubre villas exclusivas, apartamentos de playa y proyectos residenciales premium en las mejores zonas de República Dominicana.</p>
+  <div class="pt-32 pb-20 md:pt-40 md:pb-28 bg-navy text-center relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-20 mix-blend-overlay">
+      <img src="/assets/images/projects/duran-1.webp" alt="Background" class="w-full h-full object-cover">
+    </div>
+    <div class="w-full max-w-4xl mx-auto px-6 relative z-10">
+      <p class="text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="re-subtitle">Luxury Real Estate</p>
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight" data-i18n="re-title">Propiedades &amp; Proyectos</h1>
+      <p class="text-lg text-white/80 mt-6 max-w-2xl mx-auto" data-i18n="re-desc">Descubre villas exclusivas, apartamentos de playa y proyectos residenciales premium en las mejores zonas de República Dominicana.</p>
     </div>
   </div>
 
   <!-- ── Listings ───────────────────────────────── -->
-  <section class="section" aria-label="Listado de propiedades">
-    <div class="container">
+  <section class="py-24 md:py-32 bg-off-white" aria-label="Listado de propiedades">
+    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16">
 
       <!-- Filter bar -->
-      <div class="filter-bar" role="group" aria-label="Filtros">
-        <button class="filter-btn active" data-filter="all" data-i18n="filter-all">Todas</button>
-        <button class="filter-btn" data-filter="en_desarrollo" data-i18n="filter-dev">En Desarrollo</button>
-        <button class="filter-btn" data-filter="disponible" data-i18n="filter-sale">En Venta</button>
+      <div class="flex flex-wrap justify-center gap-4 mb-16" role="group" aria-label="Filtros">
+        <button class="filter-btn active px-6 py-2 rounded-full border border-gold bg-gold text-white font-medium text-sm transition-colors hover:bg-gold hover:text-white" data-filter="all" data-i18n="filter-all">Todas</button>
+        <button class="filter-btn px-6 py-2 rounded-full border border-mid/40 bg-transparent text-navy font-medium text-sm transition-colors hover:border-gold hover:text-gold" data-filter="en_desarrollo" data-i18n="filter-dev">En Desarrollo</button>
+        <button class="filter-btn px-6 py-2 rounded-full border border-mid/40 bg-transparent text-navy font-medium text-sm transition-colors hover:border-gold hover:text-gold" data-filter="disponible" data-i18n="filter-sale">En Venta</button>
       </div>
 
       <!-- Grid -->
-      <div class="prop-grid" id="props-grid">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="props-grid">
         <!-- Populated by app.js -->
       </div>
-      <div class="no-results" id="no-results" style="display:none">
-        <p data-i18n="no-results">No se encontraron propiedades con ese filtro.</p>
+      <div class="hidden text-center py-16" id="no-results">
+        <p class="text-lg text-muted" data-i18n="no-results">No se encontraron propiedades con ese filtro.</p>
       </div>
 
     </div>
   </section>
 
   <!-- ── CTA ────────────────────────────────────── -->
-  <div class="cta-banner">
-    <div class="container">
-      <p class="overline" data-i18n="cta-overline">¿Listo para empezar?</p>
-      <h2 data-i18n="cta-title">Hablemos de tu Proyecto</h2>
-      <p data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
-      <div class="cta-banner-actions">
-        <a href="/contact" class="btn btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
+  <div class="relative py-24 md:py-32 bg-navy overflow-hidden" aria-label="Llamada a la acción">
+    <div class="absolute inset-0 z-0 opacity-20 bg-[url('/assets/images/projects/duran-1.webp')] bg-cover bg-center"></div>
+    <div class="absolute inset-0 bg-navy/90 z-0"></div>
+    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10 text-center">
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-6" data-i18n="cta-overline">¿Listo para empezar?</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-white mb-6" data-i18n="cta-title">Hablemos de tu Proyecto</h2>
+      <p class="text-lg text-white/80 max-w-2xl mx-auto mb-10" data-i18n="cta-desc">Coordinamos contigo desde donde estés — Nueva York, Miami, Madrid o Santo Domingo.</p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="/contact" class="btn-gold" data-i18n="nav-cta">Cotizar Gratis</a>
       </div>
     </div>
   </div>
 
   <!-- Footer injected by components.js -->
-
-  
   
 </Layout>
