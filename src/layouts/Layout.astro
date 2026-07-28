@@ -16,10 +16,13 @@ const {
     title, 
     navTheme = 'dark',
     description = "Constructora Rodríguez Javier - Desarrollos Inmobiliarios y Diseño de Interiores en Santo Domingo.",
-    image = "https://e0a90387.constructora-rodriguez-javier.pages.dev/assets/images/hero/hero-bg.webp",
-    url = Astro.url.href,
+    image = "https://www.rodriguezjaviers.com/assets/images/hero/hero-bg.webp",
+    url = Astro.url.pathname,
     customSchema
 } = Astro.props;
+
+const cleanPath = url.endsWith('/') && url.length > 1 ? url.slice(0, -1) : url;
+const canonicalUrl = new URL(cleanPath, Astro.site || 'https://www.rodriguezjaviers.com').href;
 ---
 
 <!DOCTYPE html>
@@ -34,12 +37,12 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
-    <meta property="og:url" content={url} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Canonical & Sitemap -->
-    <link rel="canonical" href={url} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Google tag (gtag.js) -->
