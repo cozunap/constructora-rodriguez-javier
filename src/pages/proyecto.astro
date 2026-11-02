@@ -2,7 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Constructora Rodríguez Javier | Detalle de Propiedad" navTheme="light">
+<Layout title="Constructora Rodríguez Javier | Detalle de Propiedad" navTheme="light" url="/properties">
+  <script is:inline>
+    // If accessed without ID or as root /proyecto, gracefully redirect to properties catalog
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get('id') && !window.location.hash) {
+      window.location.replace('/properties');
+    }
+  </script>
 
   <main class="pt-24 pb-24 md:pt-32 md:pb-32 bg-off-white min-h-screen">
     <section aria-label="Detalle del proyecto">

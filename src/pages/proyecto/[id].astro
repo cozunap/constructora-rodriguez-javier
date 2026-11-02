@@ -15,7 +15,7 @@ export async function getStaticPaths() {
     const properties = await res.json();
     
     return properties.map((prop: any) => {
-      let image = "https://e0a90387.constructora-rodriguez-javier.pages.dev/assets/images/hero/hero-bg.webp";
+      let image = "https://www.rodriguezjaviers.com/assets/images/hero/hero-bg.webp";
       if (prop.image_urls && prop.image_urls.length > 0) {
         if (prop.image_urls[0].startsWith('http')) {
           image = prop.image_urls[0];
@@ -41,11 +41,16 @@ export async function getStaticPaths() {
 
       let customSchema: Record<string, any> = {
         "@context": "https://schema.org",
-        "@type": "Residence",
+        "@type": "SingleFamilyResidence",
         "name": titleStr,
         "description": description,
         "image": image,
-        "url": pageUrl
+        "url": pageUrl,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": prop.location || "Santo Domingo Este",
+          "addressCountry": "DO"
+        }
       };
 
       if (prop.price) {

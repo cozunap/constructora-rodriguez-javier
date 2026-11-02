@@ -41,9 +41,12 @@ const canonicalUrl = new URL(cleanPath, Astro.site || 'https://www.rodriguezjavi
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Canonical & Sitemap -->
+    <!-- Canonical, Sitemap & Hreflang -->
     <link rel="canonical" href={canonicalUrl} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" hreflang="es" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    <meta property="og:locale" content="es_DO" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C661M62200"></script>
@@ -103,7 +106,7 @@ const canonicalUrl = new URL(cleanPath, Astro.site || 'https://www.rodriguezjavi
       <script type="application/ld+json" set:html={JSON.stringify(customSchema)} />
     )}
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts with display=swap for zero layout shifts and high LCP score -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
