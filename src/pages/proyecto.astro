@@ -175,15 +175,28 @@ import Layout from '../layouts/Layout.astro';
 
             </div>
 
-            <!-- Google Maps embed placeholder -->
-            <div id="map-block" class="hidden bg-white rounded-2xl shadow-xl overflow-hidden border border-mid/10">
-              <div class="px-5 py-3 border-b border-mid/10">
-                <p class="text-xs font-semibold text-navy uppercase tracking-wider" data-i18n="map-title">📍 Ubicación</p>
+            <!-- Google Maps Real Interactive Map -->
+            <div id="map-block" class="bg-white rounded-2xl shadow-xl overflow-hidden border border-mid/10 mb-6 mt-6">
+              <div class="px-5 py-4 border-b border-mid/10 bg-white flex items-center justify-between">
+                <p class="text-sm font-bold text-navy uppercase tracking-wider flex items-center gap-2">
+                  <span class="text-red-600">📍</span>
+                  <span data-i18n="map-title">Ubicación</span>
+                </p>
+                <a id="map-link" href="https://www.google.com/maps/place/Calle+san+Jos%C3%A9/@18.510296,-69.785293,21z" target="_blank" rel="noopener noreferrer"
+                   class="text-xs text-gold font-semibold hover:underline flex items-center gap-1">
+                  <span data-i18n="map-btn">Abrir en Google Maps</span> &rarr;
+                </a>
               </div>
-              <a id="map-link" href="#" target="_blank" rel="noopener"
-                class="block h-40 bg-mid/10 relative overflow-hidden flex items-center justify-center group hover:bg-mid/20 transition-colors">
-                <span class="text-navy font-semibold text-sm" data-i18n="map-btn">Ver en Google Maps 📍</span>
-              </a>
+              <div class="relative w-full h-64 sm:h-72 bg-gray-100">
+                <iframe id="map-iframe"
+                  src="https://maps.google.com/maps?q=18.5102988,-69.7849973&hl=es&z=17&output=embed"
+                  class="w-full h-full border-0"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="Mapa de ubicación">
+                </iframe>
+              </div>
             </div>
 
             <!-- Back link -->

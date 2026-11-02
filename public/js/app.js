@@ -356,13 +356,26 @@
       set('#contact-phone', prop.whatsapp_number);
     }
 
-    // ── Google Maps link
+    // ── Google Maps link & Real Embed
     const mapLink = document.getElementById('map-link');
+    const mapIframe = document.getElementById('map-iframe');
     if (mapLink) {
-      if (prop.google_maps_url) {
-        mapLink.href = prop.google_maps_url;
-      } else if (loc) {
-        mapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(loc);
+      let gUrl = prop.google_maps_url;
+      if (!gUrl && loc) {
+        gUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(loc);
+      }
+      if (gUrl) {
+        mapLink.href = gUrl;
+      }
+      
+      if (mapIframe) {
+        // Extract coordinates if present in URL
+        const coordMatch = gUrl ? gUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/) : null;
+        if (coordMatch) {
+          mapIframe.src = `https://maps.google.com/maps?q=${coordMatch[1]},${coordMatch[2]}&hl=es&z=17&output=embed`;
+        } else if (loc) {
+          mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(loc + ', Santo Domingo, Republica Dominicana')}&hl=es&z=16&output=embed`;
+        }
       }
       show('map-block');
     }
