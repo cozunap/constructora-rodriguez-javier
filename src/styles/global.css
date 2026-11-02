@@ -85,4 +85,17 @@
   .premium-hover:hover {
     @apply -translate-y-2 shadow-2xl shadow-navy/20;
   }
+
+  /* Native App Mobile Feel */
+  @media (max-width: 767px) {
+    html {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      scroll-behavior: smooth;
+    }
+
+    button, a {
+      -webkit-touch-callout: none;
+    }
+  }
 }
