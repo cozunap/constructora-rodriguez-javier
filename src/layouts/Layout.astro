@@ -54,21 +54,49 @@ const canonicalUrl = new URL(cleanPath, Astro.site || 'https://www.rodriguezjavi
       gtag('config', 'G-C661M62200');
     </script>
 
-    <!-- JSON-LD Schema (Organization) -->
+    <!-- JSON-LD Schema (Organization & RealEstateAgent) -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "RealEstateAgent",
+      "@id": "https://www.rodriguezjaviers.com/#realestateagent",
       "name": "Constructora Rodríguez Javier",
+      "legalName": "Constructora Rodríguez Javier SRL",
       "url": "https://www.rodriguezjaviers.com/",
       "logo": "https://www.rodriguezjaviers.com/assets/lorenzo-logo.webp",
       "image": "https://www.rodriguezjaviers.com/assets/images/hero/hero-bg.webp",
-      "description": "Constructora Rodríguez Javier - Desarrollos Inmobiliarios y Diseño de Interiores en Santo Domingo.",
-      "telephone": "+16468831869",
+      "description": "Líder en bienes raíces, construcción de villas de lujo y proyectos residenciales en República Dominicana.",
+      "telephone": "+18299595350",
+      "priceRange": "$$$$",
+      "currenciesAccepted": "USD, DOP",
+      "paymentAccepted": "Cash, Credit Card, Bank Transfer, Financing",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Santo Domingo",
+        "streetAddress": "Prado Oriental",
+        "addressLocality": "Santo Domingo Este",
+        "addressRegion": "Santo Domingo",
+        "postalCode": "11500",
         "addressCountry": "DO"
-      }
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 18.4861,
+        "longitude": -69.9312
+      },
+      "areaServed": [
+        { "@type": "Country", "name": "Dominican Republic" },
+        { "@type": "City", "name": "Santo Domingo" },
+        { "@type": "City", "name": "Santo Domingo Este" },
+        { "@type": "City", "name": "Punta Cana" },
+        { "@type": "City", "name": "Las Terrenas" }
+      ],
+      "knowsAbout": [
+        "Bienes Raíces en República Dominicana",
+        "Villas de Lujo en Venta",
+        "Apartamentos en Santo Domingo",
+        "Inversión Inmobiliaria con Ley de Confotur",
+        "Construcción Sismorresistente",
+        "Comprar Casa en RD para Extranjeros"
+      ]
     })} />
 
     {customSchema && (

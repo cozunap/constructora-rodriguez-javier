@@ -1,7 +1,18 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
 
 User-agent: AdsBot-Google
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://www.rodriguezjaviers.com/sitemap-index.xml
