@@ -346,7 +346,7 @@
     // ── WhatsApp dynamic link
     const waLink = document.getElementById('wa-link');
     if (waLink) {
-      const waNumber = prop.whatsapp_number ? prop.whatsapp_number.replace(/\D/g, '') : '16468831869';
+      const waNumber = prop.whatsapp_number ? prop.whatsapp_number.replace(/\D/g, '') : '18299595350';
       const waMsg = encodeURIComponent('Hola, me interesa la propiedad: ' + title);
       waLink.href = `https://wa.me/${waNumber}?text=${waMsg}`;
     }
