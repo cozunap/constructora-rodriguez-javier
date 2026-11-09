@@ -1,0 +1,5 @@
+# Redirect obsolete static HTML pages to clean URLs (301 Permanent)
+/*.html /:splat 301
+
+# Redirect legacy/generic properties detail route to properties catalog
+/proyecto /properties 301
